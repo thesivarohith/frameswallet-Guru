@@ -7,7 +7,7 @@
   <title>frames.wallet — Every Frame, Crafted</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     /* ===== RESET & BASE ===== */
     *, *::before, *::after {
@@ -24,10 +24,16 @@
     body {
       background: #000000;
       color: #F5F0E8;
-      font-family: 'Playfair Display', Georgia, serif;
+      font-family: 'Inter', -apple-system, sans-serif;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
+
+    /* ===== CUSTOM SCROLLBAR ===== */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #000; }
+    ::-webkit-scrollbar-thumb { background: rgba(201, 146, 42, 0.3); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(201, 146, 42, 0.6); }
 
     /* ===== LOADING SCREEN ===== */
     #loading-screen {
@@ -42,7 +48,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      transition: opacity 0.8s ease, visibility 0.8s ease;
+      transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1), visibility 1s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     #loading-screen.hidden {
@@ -52,6 +58,7 @@
     }
 
     .loading-logo {
+      font-family: 'Playfair Display', Georgia, serif;
       font-size: clamp(2rem, 5vw, 3.5rem);
       font-weight: 700;
       letter-spacing: 0.02em;
@@ -91,20 +98,106 @@
     .progress-bar-fill {
       width: 0%;
       height: 100%;
-      background: #C9922A;
+      background: linear-gradient(90deg, #C9922A, #E8B94A);
       border-radius: 2px;
       transition: width 0.15s ease-out;
+      box-shadow: 0 0 12px rgba(201, 146, 42, 0.4);
     }
 
     .progress-text {
-      font-size: 0.75rem;
-      color: rgba(201, 146, 42, 0.6);
-      letter-spacing: 0.15em;
+      font-size: 0.7rem;
+      color: rgba(201, 146, 42, 0.5);
+      letter-spacing: 0.2em;
       text-transform: uppercase;
-      font-style: italic;
+      font-weight: 300;
     }
 
-    /* ===== STICKY SECTION (canvas + logo overlay) ===== */
+    /* ===== NAVIGATION ===== */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 100;
+      padding: 24px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none;
+    }
+
+    .nav.scrolled {
+      padding: 16px 48px;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(201, 146, 42, 0.08);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      pointer-events: all;
+      cursor: pointer;
+      transition: opacity 0.3s ease;
+    }
+
+    .nav-logo .frames-text { color: #F5F0E8; }
+    .nav-logo .dot-wallet { color: #C9922A; font-style: italic; font-weight: 400; }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+      pointer-events: all;
+    }
+
+    .nav-links a {
+      color: rgba(245, 240, 232, 0.5);
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: color 0.3s ease;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: #C9922A;
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: #C9922A;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* ===== SCROLL PROGRESS LINE ===== */
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background: linear-gradient(90deg, #C9922A, #E8B94A, #C9922A);
+      z-index: 1000;
+      transition: width 0.05s linear;
+    }
+
+    /* ===== STICKY SECTION (canvas + overlay) ===== */
     #sticky-section {
       position: relative;
       width: 100%;
@@ -119,7 +212,7 @@
       height: 100vh;
     }
 
-    /* ===== LOGO OVERLAY (on top of canvas) ===== */
+    /* ===== HERO OVERLAY (on top of canvas) ===== */
     .logo-overlay {
       position: fixed;
       top: 0;
@@ -132,15 +225,17 @@
       justify-content: center;
       z-index: 5;
       pointer-events: none;
-      transition: opacity 0.1s linear;
+      will-change: opacity, transform;
     }
 
     .hero-logo {
-      font-size: clamp(3rem, 8vw, 6rem);
-      font-weight: 700;
-      letter-spacing: 0.02em;
-      line-height: 1.1;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(3.5rem, 9vw, 7rem);
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      line-height: 1.05;
       text-align: center;
+      text-shadow: 0 4px 40px rgba(0, 0, 0, 0.6);
     }
 
     .hero-logo .frames-text {
@@ -150,103 +245,132 @@
     .hero-logo .dot-wallet {
       color: #C9922A;
       font-style: italic;
-      font-weight: 400;
+      font-weight: 500;
     }
 
     .hero-subtitle {
-      margin-top: 20px;
-      font-size: clamp(0.85rem, 1.5vw, 1.1rem);
-      color: rgba(245, 240, 232, 0.4);
-      font-style: italic;
-      font-weight: 400;
-      letter-spacing: 0.2em;
+      margin-top: 16px;
+      font-size: clamp(0.75rem, 1.2vw, 0.95rem);
+      color: rgba(245, 240, 232, 0.35);
+      font-weight: 300;
+      letter-spacing: 0.35em;
       text-transform: uppercase;
+    }
+
+    .hero-line {
+      width: 40px;
+      height: 1px;
+      background: #C9922A;
+      margin-top: 28px;
+      opacity: 0.5;
     }
 
     .scroll-indicator {
       position: absolute;
-      bottom: 40px;
+      bottom: 48px;
       left: 50%;
       transform: translateX(-50%);
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 8px;
-      opacity: 0.4;
-      animation: scrollPulse 2s ease-in-out infinite;
+      gap: 10px;
+      animation: scrollPulse 2.5s ease-in-out infinite;
     }
 
     .scroll-indicator span {
-      font-size: 0.65rem;
-      letter-spacing: 0.25em;
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
       text-transform: uppercase;
-      color: #F5F0E8;
+      color: rgba(245, 240, 232, 0.3);
+      font-weight: 300;
     }
 
     .scroll-arrow {
-      width: 20px;
-      height: 20px;
-      border-right: 1.5px solid #C9922A;
-      border-bottom: 1.5px solid #C9922A;
+      width: 16px;
+      height: 16px;
+      border-right: 1px solid rgba(201, 146, 42, 0.5);
+      border-bottom: 1px solid rgba(201, 146, 42, 0.5);
       transform: rotate(45deg);
     }
 
     @keyframes scrollPulse {
-      0%, 100% { opacity: 0.4; transform: translateX(-50%) translateY(0); }
-      50% { opacity: 0.7; transform: translateX(-50%) translateY(8px); }
+      0%, 100% { opacity: 0.5; transform: translateX(-50%) translateY(0); }
+      50% { opacity: 0.9; transform: translateX(-50%) translateY(10px); }
     }
 
-    /* ===== END / CTA SECTION ===== */
-    #end-section {
+    /* ===== FRAME COUNTER ===== */
+    .frame-counter {
+      position: fixed;
+      bottom: 32px;
+      right: 40px;
+      z-index: 50;
+      font-family: 'Inter', monospace;
+      font-size: 0.65rem;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      color: rgba(201, 146, 42, 0.3);
+      transition: opacity 0.4s ease;
+    }
+
+    /* ===== TAGLINE SECTION ===== */
+    #tagline-section {
       position: relative;
       width: 100%;
-      height: 100vh;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       background: #000000;
       z-index: 2;
+      padding: 80px 24px;
     }
 
-    .end-content {
+    .tagline-content {
       text-align: center;
-      opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 1s ease, transform 1s ease;
-    }
-
-    .end-content.visible {
-      opacity: 1;
-      transform: translateY(0);
+      max-width: 800px;
     }
 
     .tagline {
-      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
       font-weight: 700;
       color: #F5F0E8;
-      letter-spacing: 0.02em;
-      line-height: 1.2;
+      letter-spacing: -0.01em;
+      line-height: 1.15;
     }
 
     .tagline-accent {
       color: #C9922A;
+      font-style: italic;
+    }
+
+    .tagline-sub {
+      margin-top: 24px;
+      font-size: clamp(0.9rem, 1.3vw, 1.05rem);
+      color: rgba(245, 240, 232, 0.35);
+      font-weight: 300;
+      line-height: 1.8;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .cta-button {
       display: inline-block;
       margin-top: 48px;
-      padding: 18px 48px;
-      border: 1.5px solid #C9922A;
+      padding: 18px 52px;
+      border: 1px solid rgba(201, 146, 42, 0.6);
       color: #C9922A;
       background: transparent;
-      font-family: 'Playfair Display', Georgia, serif;
-      font-size: clamp(0.9rem, 1.2vw, 1.1rem);
-      letter-spacing: 0.15em;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
       text-decoration: none;
       cursor: pointer;
-      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       position: relative;
       overflow: hidden;
     }
@@ -258,29 +382,170 @@
       left: -100%;
       width: 100%;
       height: 100%;
-      background: #C9922A;
-      transition: left 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      background: linear-gradient(90deg, #C9922A, #D4A33B);
+      transition: left 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       z-index: -1;
     }
 
     .cta-button:hover {
       color: #000000;
+      border-color: #C9922A;
+      box-shadow: 0 8px 32px rgba(201, 146, 42, 0.2);
     }
 
     .cta-button:hover::before {
       left: 0;
     }
 
-    /* ===== FOOTER ===== */
-    .footer-line {
+    /* ===== SERVICES SECTION ===== */
+    #services-section {
+      position: relative;
+      width: 100%;
+      background: #000000;
+      z-index: 2;
+      padding: 120px 48px 140px;
+    }
+
+    .services-header {
+      text-align: center;
+      margin-bottom: 80px;
+    }
+
+    .section-label {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: #C9922A;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      color: #F5F0E8;
+      letter-spacing: -0.01em;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 32px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .service-card {
+      padding: 48px 36px;
+      border: 1px solid rgba(245, 240, 232, 0.06);
+      border-radius: 2px;
+      background: rgba(245, 240, 232, 0.02);
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::before {
+      content: '';
       position: absolute;
-      bottom: 40px;
-      left: 50%;
-      transform: translateX(-50%);
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #C9922A, transparent);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .service-card:hover {
+      border-color: rgba(201, 146, 42, 0.15);
+      background: rgba(201, 146, 42, 0.03);
+      transform: translateY(-4px);
+    }
+
+    .service-card:hover::before {
+      opacity: 1;
+    }
+
+    .service-number {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: rgba(201, 146, 42, 0.12);
+      line-height: 1;
+      margin-bottom: 24px;
+    }
+
+    .service-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #F5F0E8;
+      margin-bottom: 14px;
+    }
+
+    .service-desc {
+      font-size: 0.85rem;
+      color: rgba(245, 240, 232, 0.4);
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      width: 100%;
+      padding: 40px 48px;
+      background: #000;
+      border-top: 1px solid rgba(245, 240, 232, 0.05);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 2;
+      position: relative;
+    }
+
+    .footer-logo {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .footer-logo .frames-text { color: #F5F0E8; }
+    .footer-logo .dot-wallet { color: #C9922A; font-style: italic; font-weight: 400; }
+
+    .footer-copy {
       font-size: 0.7rem;
       color: rgba(245, 240, 232, 0.2);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-weight: 300;
+    }
+
+    /* ===== REVEAL ANIMATIONS ===== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1), transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-delay-1 { transition-delay: 0.15s; }
+    .reveal-delay-2 { transition-delay: 0.3s; }
+    .reveal-delay-3 { transition-delay: 0.45s; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .nav { padding: 16px 24px; }
+      .nav.scrolled { padding: 12px 24px; }
+      .nav-links { display: none; }
+      #services-section { padding: 80px 24px 100px; }
+      .footer { padding: 30px 24px; flex-direction: column; gap: 12px; }
+      .frame-counter { right: 20px; bottom: 20px; }
     }
   </style>
 </head>
@@ -299,7 +564,25 @@
     </div>
   </div>
 
-  <!-- SECTION 1: Pinned frame animation, 600vh tall -->
+  <!-- SCROLL PROGRESS LINE -->
+  <div class="scroll-progress" id="scroll-progress"></div>
+
+  <!-- NAVIGATION -->
+  <nav class="nav" id="nav">
+    <div class="nav-logo">
+      <span class="frames-text">frames</span><span class="dot-wallet">.wallet</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#sticky-section">Showreel</a></li>
+      <li><a href="#services-section">Services</a></li>
+      <li><a href="#tagline-section">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- FRAME COUNTER -->
+  <div class="frame-counter" id="frame-counter">001 / 233</div>
+
+  <!-- SECTION 1: Pinned frame animation -->
   <div id="sticky-section">
     <canvas id="frame-canvas"></canvas>
 
@@ -309,21 +592,55 @@
         <span class="frames-text">frames</span><span class="dot-wallet">.wallet</span>
       </h1>
       <p class="hero-subtitle">Video Editing Studio</p>
+      <div class="hero-line"></div>
       <div class="scroll-indicator" id="scroll-indicator">
-        <span>Scroll</span>
+        <span>Scroll to explore</span>
         <div class="scroll-arrow"></div>
       </div>
     </div>
   </div>
 
-  <!-- SECTION 2: Post-animation content -->
-  <section id="end-section">
-    <div class="end-content" id="end-content">
-      <h2 class="tagline">Every frame, <span class="tagline-accent">crafted.</span></h2>
-      <a href="#" class="cta-button" id="cta-see-work">See Our Work</a>
+  <!-- SECTION 2: Tagline -->
+  <section id="tagline-section">
+    <div class="tagline-content">
+      <h2 class="tagline reveal">Every frame, <span class="tagline-accent">crafted.</span></h2>
+      <p class="tagline-sub reveal reveal-delay-1">We blend cinematic artistry with technical precision to deliver visuals that move people.</p>
+      <a href="#" class="cta-button reveal reveal-delay-2">See Our Work</a>
     </div>
-    <div class="footer-line">&copy; 2026 frames.wallet</div>
   </section>
+
+  <!-- SECTION 3: Services -->
+  <section id="services-section">
+    <div class="services-header">
+      <span class="section-label reveal">What We Do</span>
+      <h2 class="section-title reveal reveal-delay-1">Our Expertise</h2>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-number">01</div>
+        <h3 class="service-title">Color Grading</h3>
+        <p class="service-desc">Cinematic color science that transforms raw footage into emotional visual narratives.</p>
+      </div>
+      <div class="service-card reveal reveal-delay-1">
+        <div class="service-number">02</div>
+        <h3 class="service-title">Motion Graphics</h3>
+        <p class="service-desc">Dynamic animations and visual effects crafted in After Effects for maximum impact.</p>
+      </div>
+      <div class="service-card reveal reveal-delay-2">
+        <div class="service-number">03</div>
+        <h3 class="service-title">Post Production</h3>
+        <p class="service-desc">End-to-end editing, sound design, and finishing that elevates every project.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-logo">
+      <span class="frames-text">frames</span><span class="dot-wallet">.wallet</span>
+    </div>
+    <div class="footer-copy">&copy; 2026 frames.wallet &mdash; All rights reserved</div>
+  </footer>
 
   <script>
     (() => {
@@ -339,15 +656,17 @@
       const progressFill = document.getElementById('progress-fill');
       const progressText = document.getElementById('progress-text');
       const logoOverlay = document.getElementById('logo-overlay');
-      const scrollIndicator = document.getElementById('scroll-indicator');
       const canvas = document.getElementById('frame-canvas');
       const ctx = canvas.getContext('2d');
       const stickySection = document.getElementById('sticky-section');
-      const endContent = document.getElementById('end-content');
+      const scrollProgressBar = document.getElementById('scroll-progress');
+      const nav = document.getElementById('nav');
+      const frameCounter = document.getElementById('frame-counter');
 
       /* ===== STATE ===== */
       const frames = [];
       let currentFrameIndex = -1;
+      let displayedFrame = -1;
       let loadedCount = 0;
       let isLoaded = false;
 
@@ -375,6 +694,7 @@
 
       /* ===== DRAWING ===== */
       function drawFrame(index) {
+        if (index < 0 || index >= TOTAL_FRAMES) return;
         if (!frames[index] || !frames[index].complete) return;
 
         const img = frames[index];
@@ -383,7 +703,6 @@
         const iw = img.naturalWidth;
         const ih = img.naturalHeight;
 
-        // Cover-fit calculation
         const scale = Math.max(cw / iw, ch / ih);
         const dw = iw * scale;
         const dh = ih * scale;
@@ -393,6 +712,32 @@
         ctx.fillStyle = '#000000';
         ctx.fillRect(0, 0, cw, ch);
         ctx.drawImage(img, dx, dy, dw, dh);
+        displayedFrame = index;
+      }
+
+      /* ===== SMOOTH FRAME INTERPOLATION ===== */
+      let targetFrame = 0;
+      let smoothFrame = 0;
+      const LERP_SPEED = 0.15;
+
+      function animate() {
+        if (isLoaded) {
+          // Smooth interpolation toward target frame
+          const diff = targetFrame - smoothFrame;
+          if (Math.abs(diff) > 0.3) {
+            smoothFrame += diff * LERP_SPEED;
+          } else {
+            smoothFrame = targetFrame;
+          }
+
+          const drawIndex = Math.round(smoothFrame);
+          if (drawIndex !== displayedFrame && drawIndex >= 0 && drawIndex < TOTAL_FRAMES) {
+            drawFrame(drawIndex);
+            currentFrameIndex = drawIndex;
+            frameCounter.textContent = padNumber(drawIndex + 1, 3) + ' / ' + padNumber(TOTAL_FRAMES, 3);
+          }
+        }
+        requestAnimationFrame(animate);
       }
 
       /* ===== PRELOAD FRAMES ===== */
@@ -433,40 +778,58 @@
       function onScroll() {
         if (!isLoaded) return;
 
-        // === Frame animation (exact logic from spec) ===
+        const scrollY = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+
+        // === Global scroll progress bar ===
+        const globalProgress = scrollY / docHeight;
+        scrollProgressBar.style.width = (globalProgress * 100) + '%';
+
+        // === Nav background on scroll ===
+        if (scrollY > 80) {
+          nav.classList.add('scrolled');
+        } else {
+          nav.classList.remove('scrolled');
+        }
+
+        // === Frame animation ===
         const sectionTop = stickySection.offsetTop;
         const sectionHeight = stickySection.offsetHeight - window.innerHeight;
-        const scrolled = Math.max(0, window.scrollY - sectionTop);
+        const scrolled = Math.max(0, scrollY - sectionTop);
         const progress = Math.min(1, scrolled / sectionHeight);
-        const frameIndex = Math.min(
+        targetFrame = Math.min(
           TOTAL_FRAMES - 1,
           Math.floor(progress * TOTAL_FRAMES)
         );
 
-        if (frameIndex !== currentFrameIndex) {
-          currentFrameIndex = frameIndex;
-          drawFrame(currentFrameIndex);
-        }
-
-        // === Logo overlay fade-out (fade during first ~10% of scroll) ===
-        if (progress < 0.1) {
-          const logoOpacity = 1 - (progress / 0.1);
+        // === Logo overlay fade-out (fade during first ~8% of scroll) ===
+        if (progress < 0.08) {
+          const logoOpacity = 1 - (progress / 0.08);
           logoOverlay.style.opacity = logoOpacity;
+          logoOverlay.style.transform = 'translateY(' + (-progress * 400) + 'px) scale(' + (1 + progress * 0.5) + ')';
           logoOverlay.style.display = '';
         } else {
           logoOverlay.style.opacity = '0';
           logoOverlay.style.display = 'none';
         }
 
-        // === End section reveal ===
-        const endSection = document.getElementById('end-section');
-        const endRect = endSection.getBoundingClientRect();
-        if (endRect.top < window.innerHeight * 0.75) {
-          endContent.classList.add('visible');
+        // === Frame counter visibility ===
+        if (progress > 0 && progress < 1) {
+          frameCounter.style.opacity = '1';
+        } else {
+          frameCounter.style.opacity = '0';
         }
+
+        // === Reveal animations for sections below ===
+        document.querySelectorAll('.reveal').forEach(el => {
+          const rect = el.getBoundingClientRect();
+          if (rect.top < window.innerHeight * 0.88) {
+            el.classList.add('visible');
+          }
+        });
       }
 
-      /* ===== OPTIMIZED SCROLL WITH RAF ===== */
+      /* ===== OPTIMIZED SCROLL ===== */
       let ticking = false;
       function requestScrollUpdate() {
         if (!ticking) {
@@ -488,7 +851,12 @@
 
         isLoaded = true;
         currentFrameIndex = 0;
+        smoothFrame = 0;
+        targetFrame = 0;
         drawFrame(0);
+
+        // Start smooth animation loop
+        requestAnimationFrame(animate);
 
         // Hide loading screen
         loadingScreen.classList.add('hidden');
@@ -497,7 +865,6 @@
         onScroll();
       }
 
-      // Start
       if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', init);
       } else {

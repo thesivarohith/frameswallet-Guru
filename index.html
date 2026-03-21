@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="frames.wallet — A premium video editing team. Every frame, crafted with precision and artistry.">
+  <title>frames.wallet — Every Frame, Crafted</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <style>
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: auto;
+      overflow-x: hidden;
+    }
+
+    body {
+      background: #000000;
+      color: #F5F0E8;
+      font-family: 'Playfair Display', Georgia, serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ===== LOADING SCREEN ===== */
+    #loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000000;
+      z-index: 10000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+
+    #loading-screen.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .loading-logo {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      margin-bottom: 60px;
+    }
+
+    .loading-logo .dot-wallet {
+      color: #C9922A;
+      font-style: italic;
+      font-weight: 400;
+    }
+
+    .loading-logo .frames-text {
+      color: #F5F0E8;
+    }
+
+    .progress-container {
+      position: absolute;
+      bottom: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(320px, 60vw);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .progress-bar-track {
+      width: 100%;
+      height: 2px;
+      background: rgba(201, 146, 42, 0.15);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      width: 0%;
+      height: 100%;
+      background: #C9922A;
+      border-radius: 2px;
+      transition: width 0.15s ease-out;
+    }
+
+    .progress-text {
+      font-size: 0.75rem;
+      color: rgba(201, 146, 42, 0.6);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      font-style: italic;
+    }
+
+    /* ===== STICKY SECTION (canvas + logo overlay) ===== */
+    #sticky-section {
+      position: relative;
+      width: 100%;
+      height: 600vh;
+    }
+
+    #frame-canvas {
+      position: sticky;
+      top: 0;
+      display: block;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    /* ===== LOGO OVERLAY (on top of canvas) ===== */
+    .logo-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 5;
+      pointer-events: none;
+      transition: opacity 0.1s linear;
+    }
+
+    .hero-logo {
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      line-height: 1.1;
+      text-align: center;
+    }
+
+    .hero-logo .frames-text {
+      color: #F5F0E8;
+    }
+
+    .hero-logo .dot-wallet {
+      color: #C9922A;
+      font-style: italic;
+      font-weight: 400;
+    }
+
+    .hero-subtitle {
+      margin-top: 20px;
+      font-size: clamp(0.85rem, 1.5vw, 1.1rem);
+      color: rgba(245, 240, 232, 0.4);
+      font-style: italic;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      opacity: 0.4;
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+
+    .scroll-indicator span {
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #F5F0E8;
+    }
+
+    .scroll-arrow {
+      width: 20px;
+      height: 20px;
+      border-right: 1.5px solid #C9922A;
+      border-bottom: 1.5px solid #C9922A;
+      transform: rotate(45deg);
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.4; transform: translateX(-50%) translateY(0); }
+      50% { opacity: 0.7; transform: translateX(-50%) translateY(8px); }
+    }
+
+    /* ===== END / CTA SECTION ===== */
+    #end-section {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #000000;
+      z-index: 2;
+    }
+
+    .end-content {
+      text-align: center;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+
+    .end-content.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .tagline {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      color: #F5F0E8;
+      letter-spacing: 0.02em;
+      line-height: 1.2;
+    }
+
+    .tagline-accent {
+      color: #C9922A;
+    }
+
+    .cta-button {
+      display: inline-block;
+      margin-top: 48px;
+      padding: 18px 48px;
+      border: 1.5px solid #C9922A;
+      color: #C9922A;
+      background: transparent;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(0.9rem, 1.2vw, 1.1rem);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: #C9922A;
+      transition: left 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      z-index: -1;
+    }
+
+    .cta-button:hover {
+      color: #000000;
+    }
+
+    .cta-button:hover::before {
+      left: 0;
+    }
+
+    /* ===== FOOTER ===== */
+    .footer-line {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.7rem;
+      color: rgba(245, 240, 232, 0.2);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LOADING SCREEN -->
+  <div id="loading-screen">
+    <div class="loading-logo">
+      <span class="frames-text">frames</span><span class="dot-wallet">.wallet</span>
+    </div>
+    <div class="progress-container">
+      <div class="progress-bar-track">
+        <div class="progress-bar-fill" id="progress-fill"></div>
+      </div>
+      <div class="progress-text" id="progress-text">Loading frames...</div>
+    </div>
+  </div>
+
+  <!-- SECTION 1: Pinned frame animation, 600vh tall -->
+  <div id="sticky-section">
+    <canvas id="frame-canvas"></canvas>
+
+    <!-- Logo overlay on top of canvas -->
+    <div class="logo-overlay" id="logo-overlay">
+      <h1 class="hero-logo">
+        <span class="frames-text">frames</span><span class="dot-wallet">.wallet</span>
+      </h1>
+      <p class="hero-subtitle">Video Editing Studio</p>
+      <div class="scroll-indicator" id="scroll-indicator">
+        <span>Scroll</span>
+        <div class="scroll-arrow"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 2: Post-animation content -->
+  <section id="end-section">
+    <div class="end-content" id="end-content">
+      <h2 class="tagline">Every frame, <span class="tagline-accent">crafted.</span></h2>
+      <a href="#" class="cta-button" id="cta-see-work">See Our Work</a>
+    </div>
+    <div class="footer-line">&copy; 2026 frames.wallet</div>
+  </section>
+
+  <script>
+    (() => {
+      'use strict';
+
+      /* ===== CONFIGURATION ===== */
+      const TOTAL_FRAMES = 233;
+      const FRAME_DIR = './animated/';
+      const FRAME_EXT = '.png';
+
+      /* ===== DOM REFS ===== */
+      const loadingScreen = document.getElementById('loading-screen');
+      const progressFill = document.getElementById('progress-fill');
+      const progressText = document.getElementById('progress-text');
+      const logoOverlay = document.getElementById('logo-overlay');
+      const scrollIndicator = document.getElementById('scroll-indicator');
+      const canvas = document.getElementById('frame-canvas');
+      const ctx = canvas.getContext('2d');
+      const stickySection = document.getElementById('sticky-section');
+      const endContent = document.getElementById('end-content');
+
+      /* ===== STATE ===== */
+      const frames = [];
+      let currentFrameIndex = -1;
+      let loadedCount = 0;
+      let isLoaded = false;
+
+      /* ===== HELPERS ===== */
+      function padNumber(n, width) {
+        return String(n).padStart(width, '0');
+      }
+
+      function getFramePath(index) {
+        return FRAME_DIR + padNumber(index + 1, 5) + FRAME_EXT;
+      }
+
+      /* ===== CANVAS SIZING ===== */
+      function resizeCanvas() {
+        const dpr = window.devicePixelRatio || 1;
+        const w = window.innerWidth;
+        const h = window.innerHeight;
+        canvas.width = w * dpr;
+        canvas.height = h * dpr;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        if (currentFrameIndex >= 0) {
+          drawFrame(currentFrameIndex);
+        }
+      }
+
+      /* ===== DRAWING ===== */
+      function drawFrame(index) {
+        if (!frames[index] || !frames[index].complete) return;
+
+        const img = frames[index];
+        const cw = window.innerWidth;
+        const ch = window.innerHeight;
+        const iw = img.naturalWidth;
+        const ih = img.naturalHeight;
+
+        // Cover-fit calculation
+        const scale = Math.max(cw / iw, ch / ih);
+        const dw = iw * scale;
+        const dh = ih * scale;
+        const dx = (cw - dw) / 2;
+        const dy = (ch - dh) / 2;
+
+        ctx.fillStyle = '#000000';
+        ctx.fillRect(0, 0, cw, ch);
+        ctx.drawImage(img, dx, dy, dw, dh);
+      }
+
+      /* ===== PRELOAD FRAMES ===== */
+      function preloadFrames() {
+        return new Promise((resolve) => {
+          for (let i = 0; i < TOTAL_FRAMES; i++) {
+            const img = new Image();
+            img.src = getFramePath(i);
+
+            img.onload = () => {
+              loadedCount++;
+              const pct = Math.round((loadedCount / TOTAL_FRAMES) * 100);
+              progressFill.style.width = pct + '%';
+              progressText.textContent = pct + '%';
+
+              if (loadedCount === TOTAL_FRAMES) {
+                resolve();
+              }
+            };
+
+            img.onerror = () => {
+              loadedCount++;
+              const pct = Math.round((loadedCount / TOTAL_FRAMES) * 100);
+              progressFill.style.width = pct + '%';
+              progressText.textContent = pct + '%';
+
+              if (loadedCount === TOTAL_FRAMES) {
+                resolve();
+              }
+            };
+
+            frames[i] = img;
+          }
+        });
+      }
+
+      /* ===== SCROLL HANDLER ===== */
+      function onScroll() {
+        if (!isLoaded) return;
+
+        // === Frame animation (exact logic from spec) ===
+        const sectionTop = stickySection.offsetTop;
+        const sectionHeight = stickySection.offsetHeight - window.innerHeight;
+        const scrolled = Math.max(0, window.scrollY - sectionTop);
+        const progress = Math.min(1, scrolled / sectionHeight);
+        const frameIndex = Math.min(
+          TOTAL_FRAMES - 1,
+          Math.floor(progress * TOTAL_FRAMES)
+        );
+
+        if (frameIndex !== currentFrameIndex) {
+          currentFrameIndex = frameIndex;
+          drawFrame(currentFrameIndex);
+        }
+
+        // === Logo overlay fade-out (fade during first ~10% of scroll) ===
+        if (progress < 0.1) {
+          const logoOpacity = 1 - (progress / 0.1);
+          logoOverlay.style.opacity = logoOpacity;
+          logoOverlay.style.display = '';
+        } else {
+          logoOverlay.style.opacity = '0';
+          logoOverlay.style.display = 'none';
+        }
+
+        // === End section reveal ===
+        const endSection = document.getElementById('end-section');
+        const endRect = endSection.getBoundingClientRect();
+        if (endRect.top < window.innerHeight * 0.75) {
+          endContent.classList.add('visible');
+        }
+      }
+
+      /* ===== OPTIMIZED SCROLL WITH RAF ===== */
+      let ticking = false;
+      function requestScrollUpdate() {
+        if (!ticking) {
+          ticking = true;
+          requestAnimationFrame(() => {
+            onScroll();
+            ticking = false;
+          });
+        }
+      }
+
+      /* ===== INIT ===== */
+      async function init() {
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+        window.addEventListener('scroll', requestScrollUpdate, { passive: true });
+
+        await preloadFrames();
+
+        isLoaded = true;
+        currentFrameIndex = 0;
+        drawFrame(0);
+
+        // Hide loading screen
+        loadingScreen.classList.add('hidden');
+
+        // Trigger initial scroll state
+        onScroll();
+      }
+
+      // Start
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+    })();
+  </script>
+</body>
+</html>

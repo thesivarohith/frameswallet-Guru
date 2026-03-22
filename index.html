@@ -1263,6 +1263,15 @@
       let smoothFrame = 0;
       const LERP_SPEED = 0.15;
 
+      /* ===== SMOOTH THEATER LERP ===== */
+      let targetTheaterProgress = 0;
+      let smoothTheaterProgress = 0;
+      const THEATER_LERP_SPEED = 0.08;
+
+      const theaterSection = document.getElementById('theater-section');
+      const theaterScene = document.getElementById('theater-scene');
+      const theaterHeading = document.getElementById('theater-heading');
+
       function animate() {
         if (isLoaded) {
           // Smooth interpolation toward target frame
@@ -1278,6 +1287,23 @@
             drawFrame(drawIndex);
             currentFrameIndex = drawIndex;
             frameCounter.textContent = padNumber(drawIndex + 1, 3) + ' / ' + padNumber(TOTAL_FRAMES, 3);
+          }
+
+          // Smooth interpolation for theater scroll
+          if (theaterSection && theaterScene) {
+            const theaterDiff = targetTheaterProgress - smoothTheaterProgress;
+            if (Math.abs(theaterDiff) > 0.0001) {
+              smoothTheaterProgress += theaterDiff * THEATER_LERP_SPEED;
+            } else {
+              smoothTheaterProgress = targetTheaterProgress;
+            }
+
+            const zDepth = smoothTheaterProgress * 2600;
+            theaterScene.style.transform = `translate(-50%, -50%) translateZ(${zDepth}px)`;
+
+            if (theaterHeading) {
+              theaterHeading.style.opacity = Math.max(0, 1 - smoothTheaterProgress * 12.5);
+            }
           }
         }
         requestAnimationFrame(animate);
@@ -1432,23 +1458,12 @@
       });
 
       /* ===== 3D THEATER SCROLL ===== */
-      const theaterSection = document.getElementById('theater-section');
-      const theaterScene = document.getElementById('theater-scene');
-      const theaterHeading = document.getElementById('theater-heading');
-
       function updateTheater() {
-        if (!theaterSection || !theaterScene) return;
+        if (!theaterSection) return;
         const sectionTop = theaterSection.offsetTop;
         const sectionHeight = theaterSection.offsetHeight - window.innerHeight;
         const scrolled = Math.max(0, window.scrollY - sectionTop);
-        const progress = Math.min(1, scrolled / sectionHeight);
-        const zDepth = progress * 2600;
-        theaterScene.style.transform = `translate(-50%, -50%) translateZ(${zDepth}px)`;
-
-        // Fade heading
-        if (theaterHeading) {
-          theaterHeading.style.opacity = Math.max(0, 1 - progress * 12.5);
-        }
+        targetTheaterProgress = Math.min(1, scrolled / sectionHeight);
       }
 
       // Video hover play/pause (on .theater-frame so it works at any scroll)

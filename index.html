@@ -737,7 +737,7 @@
 
     #stat-number {
       font-family: 'Playfair Display', Georgia, serif;
-      font-size: 160px;
+      font-size: clamp(120px, 18vw, 220px);
       font-weight: bold;
       color: #F5F0E8;
       line-height: 1;
@@ -753,30 +753,6 @@
       color: #C9922A;
       text-align: center;
       margin-top: 16px;
-    }
-
-    #stat-dots {
-      position: absolute;
-      bottom: 40px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 8px;
-    }
-
-    .stat-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: rgba(201, 146, 42, 0.25);
-      transition: all 0.3s ease;
-    }
-
-    .stat-dot.active {
-      width: 20px;
-      height: 6px;
-      border-radius: 3px;
-      background: #C9922A;
     }
 
     /* ===== PROJECTS GRID SECTION ===== */
@@ -1068,14 +1044,6 @@
       <div id="stat-number">₹50L+</div>
       <div id="stat-label">Revenue</div>
       <div style="width:60px; height:1px; background:rgba(201,146,42,0.3); margin:32px auto 0;"></div>
-    </div>
-    
-    <div id="stat-dots">
-      <div class="stat-dot active"></div>
-      <div class="stat-dot"></div>
-      <div class="stat-dot"></div>
-      <div class="stat-dot"></div>
-    </div>
   </section>
 
   <!-- SECTION 5: Projects Grid -->
@@ -1267,7 +1235,6 @@
       const statContainer = document.getElementById('stat-container');
       const statNumber = document.getElementById('stat-number');
       const statLabel = document.getElementById('stat-label');
-      const statDots = document.querySelectorAll('.stat-dot');
 
       function nextRevolvingStat() {
         if (!statContainer || !statNumber || !statLabel) return;
@@ -1281,11 +1248,6 @@
           
           statNumber.textContent = revolvingStats[currentStat].number;
           statLabel.textContent = revolvingStats[currentStat].label;
-
-          statDots.forEach((dot, index) => {
-            if (index === currentStat) dot.classList.add('active');
-            else dot.classList.remove('active');
-          });
 
           statContainer.style.transition = 'none';
           statContainer.style.transform = 'translateY(80px)';

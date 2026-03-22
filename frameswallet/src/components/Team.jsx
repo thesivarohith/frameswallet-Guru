@@ -98,53 +98,59 @@ const StatRow = ({ stat, rowIndex, triggered }) => {
         {stat.index}
       </div>
 
-      {/* LEFT SIDE: 60% */}
+      {/* LEFT SIDE: 50% */}
       <div style={{
-        width: '60%',
-        display: 'flex',
-        alignItems: 'baseline',
-        gap: '8px',
-        fontFamily: "'Playfair Display', serif",
-        fontSize: 'clamp(48px, 7vw, 96px)',
-        fontWeight: 700,
-        color: '#F5F0E8',
-        lineHeight: 1,
-        textShadow: `
-          0 0 80px rgba(201,146,42,0.15),
-          0 0 160px rgba(201,146,42,0.08)
-        `
-      }}>
-        {value.toLocaleString()}
-        <span style={{
-          fontSize: '0.4em',
-          color: '#C9922A',
-          fontStyle: 'italic',
-          fontFamily: "'Playfair Display', serif"
-        }}>
-          {stat.suffix}
-        </span>
-      </div>
-
-      {/* RIGHT SIDE: 40% */}
-      <div style={{
-        width: '40%',
-        paddingLeft: '40px',
-        borderLeft: '1px solid rgba(201,146,42,0.3)',
+        width: '50%',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center'
       }}>
         <div style={{
           fontFamily: "'Inter', sans-serif",
-          fontSize: '13px',
-          letterSpacing: '4px',
+          fontSize: '11px',
+          letterSpacing: '5px',
           textTransform: 'uppercase',
-          color: 'rgba(201,146,42,1)',
+          color: '#C9922A',
           marginBottom: '12px'
         }}>
           {stat.label}
         </div>
         
+        <div style={{
+          display: 'flex',
+          alignItems: 'baseline',
+          gap: '8px',
+          fontFamily: "'Playfair Display', serif",
+          fontSize: 'clamp(48px, 7vw, 96px)',
+          fontWeight: 700,
+          color: '#F5F0E8',
+          lineHeight: 1,
+          textShadow: `
+            0 0 80px rgba(201,146,42,0.15),
+            0 0 160px rgba(201,146,42,0.08)
+          `
+        }}>
+          {value.toLocaleString()}
+          <span style={{
+            fontSize: '0.4em',
+            color: '#C9922A',
+            fontStyle: 'italic',
+            fontFamily: "'Playfair Display', serif"
+          }}>
+            {stat.suffix}
+          </span>
+        </div>
+      </div>
+
+      {/* RIGHT SIDE: 50% */}
+      <div style={{
+        width: '50%',
+        paddingLeft: '40px',
+        borderLeft: '1px solid rgba(201,146,42,0.3)',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center'
+      }}>
         <div style={{
           fontFamily: "'Playfair Display', serif",
           fontStyle: 'italic',

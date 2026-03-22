@@ -779,19 +779,9 @@
       position: absolute;
       width: 1200px;
       height: 3000px;
-      background: linear-gradient(to bottom, #111008, #0a0a0a);
+      background: #000000;
       transform: rotateX(90deg) translateZ(-350px);
       transform-origin: top center;
-    }
-
-    .theater-floor-line {
-      position: absolute;
-      width: 2px;
-      height: 100%;
-      left: 50%;
-      top: 0;
-      transform: translateX(-50%);
-      background: rgba(201, 146, 42, 0.15);
     }
 
     .theater-ceiling {
@@ -827,7 +817,7 @@
       position: absolute;
       width: 1200px;
       height: 700px;
-      background: #060606;
+      background: transparent;
       transform: translateZ(-3000px);
     }
 
@@ -899,11 +889,15 @@
     }
     .frame-left-2 {
       top: 180px; left: 0;
-      transform: translate3d(-600px, 0, -1200px) rotateY(35deg);
+      transform: translate3d(-600px, 0, -1000px) rotateY(35deg);
     }
     .frame-left-3 {
       top: 180px; left: 0;
-      transform: translate3d(-600px, 0, -2000px) rotateY(35deg);
+      transform: translate3d(-600px, 0, -1600px) rotateY(35deg);
+    }
+    .frame-left-4 {
+      top: 180px; left: 0;
+      transform: translate3d(-600px, 0, -2200px) rotateY(35deg);
     }
 
     /* Right wall frames — tilted inward toward viewer */
@@ -913,11 +907,15 @@
     }
     .frame-right-2 {
       top: 180px; right: 0;
-      transform: translate3d(600px, 0, -1200px) rotateY(-35deg);
+      transform: translate3d(600px, 0, -1000px) rotateY(-35deg);
     }
     .frame-right-3 {
       top: 180px; right: 0;
-      transform: translate3d(600px, 0, -2000px) rotateY(-35deg);
+      transform: translate3d(600px, 0, -1600px) rotateY(-35deg);
+    }
+    .frame-right-4 {
+      top: 180px; right: 0;
+      transform: translate3d(600px, 0, -2200px) rotateY(-35deg);
     }
 
     /* Back wall frames — facing the viewer */
@@ -1093,15 +1091,13 @@
       <div class="theater-viewport">
         <div class="theater-scene" id="theater-scene">
           <!-- Room Structure -->
-          <div class="theater-floor">
-            <div class="theater-floor-line"></div>
-          </div>
+          <div class="theater-floor"></div>
           <div class="theater-ceiling"></div>
           <div class="theater-left-wall"></div>
           <div class="theater-right-wall"></div>
           <div class="theater-back-wall"></div>
 
-          <!-- Left Wall Frames (facing inward) -->
+          <!-- Left Wall Frames -->
           <div class="theater-frame frame-left-1 depth-near">
             <div class="theater-spotlight"></div>
             <div class="theater-frame-inner">
@@ -1123,8 +1119,15 @@
             </div>
             <div class="theater-label">REEL 003</div>
           </div>
+          <div class="theater-frame frame-left-4 depth-far">
+            <div class="theater-spotlight"></div>
+            <div class="theater-frame-inner">
+              <video src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop playsinline preload="metadata"></video>
+            </div>
+            <div class="theater-label">REEL 007</div>
+          </div>
 
-          <!-- Right Wall Frames (facing inward) -->
+          <!-- Right Wall Frames -->
           <div class="theater-frame frame-right-1 depth-near">
             <div class="theater-spotlight"></div>
             <div class="theater-frame-inner">
@@ -1146,6 +1149,13 @@
             </div>
             <div class="theater-label">REEL 006</div>
           </div>
+          <div class="theater-frame frame-right-4 depth-far">
+            <div class="theater-spotlight"></div>
+            <div class="theater-frame-inner">
+              <video src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop playsinline preload="metadata"></video>
+            </div>
+            <div class="theater-label">REEL 008</div>
+          </div>
 
           <!-- Back Wall Frames -->
           <div class="theater-frame frame-back-1 depth-back">
@@ -1153,14 +1163,14 @@
             <div class="theater-frame-inner">
               <video src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop playsinline preload="metadata"></video>
             </div>
-            <div class="theater-label">REEL 007</div>
+            <div class="theater-label">REEL 009</div>
           </div>
           <div class="theater-frame frame-back-2 depth-back">
             <div class="theater-spotlight"></div>
             <div class="theater-frame-inner">
               <video src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop playsinline preload="metadata"></video>
             </div>
-            <div class="theater-label">REEL 008</div>
+            <div class="theater-label">REEL 010</div>
           </div>
         </div>
       </div>
@@ -1441,12 +1451,12 @@
         }
       }
 
-      // Video hover play/pause
-      document.querySelectorAll('.theater-frame-inner').forEach(frame => {
+      // Video hover play/pause (on .theater-frame so it works at any scroll)
+      document.querySelectorAll('.theater-frame').forEach(frame => {
         const video = frame.querySelector('video');
         if (!video) return;
         frame.addEventListener('mouseenter', () => { video.play(); });
-        frame.addEventListener('mouseleave', () => { video.pause(); video.currentTime = 0; });
+        frame.addEventListener('mouseleave', () => { video.pause(); });
       });
 
       /* ===== INIT ===== */

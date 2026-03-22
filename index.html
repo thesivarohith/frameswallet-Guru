@@ -789,44 +789,54 @@
 
     .theater-floor {
       position: absolute;
+      left: 0;
+      bottom: 0;
       width: 1200px;
       height: 3000px;
       background: #000000;
-      transform: rotateX(90deg) translateZ(-351px);
-      transform-origin: top center;
+      transform: rotateX(90deg);
+      transform-origin: bottom center;
     }
 
     .theater-ceiling {
       position: absolute;
+      left: 0;
+      top: 0;
       width: 1200px;
       height: 3000px;
       background: #050505;
-      transform: rotateX(-90deg) translateZ(-351px);
-      transform-origin: bottom center;
+      transform: rotateX(-90deg);
+      transform-origin: top center;
     }
 
     .theater-left-wall {
       position: absolute;
+      left: 0;
+      top: 0;
       width: 3000px;
       height: 700px;
       background: #080808;
-      transform: rotateY(90deg) translateZ(-601px);
-      transform-origin: right center;
+      transform: rotateY(90deg);
+      transform-origin: left center;
       border-top: 1px solid rgba(201, 146, 42, 0.2);
     }
 
     .theater-right-wall {
       position: absolute;
+      right: 0;
+      top: 0;
       width: 3000px;
       height: 700px;
       background: #080808;
-      transform: rotateY(-90deg) translateZ(-601px);
-      transform-origin: left center;
+      transform: rotateY(-90deg);
+      transform-origin: right center;
       border-top: 1px solid rgba(201, 146, 42, 0.2);
     }
 
     .theater-back-wall {
       position: absolute;
+      left: 0;
+      top: 0;
       width: 1200px;
       height: 700px;
       background: transparent;
@@ -895,40 +905,16 @@
     .depth-back { opacity: 0.5; filter: blur(1px); }
 
     /* Left wall frames — tilted inward toward viewer */
-    .frame-left-1 {
-      top: 180px; left: 0;
-      transform: translate3d(-600px, 0, -400px) rotateY(35deg);
-    }
-    .frame-left-2 {
-      top: 180px; left: 0;
-      transform: translate3d(-600px, 0, -1000px) rotateY(35deg);
-    }
-    .frame-left-3 {
-      top: 180px; left: 0;
-      transform: translate3d(-600px, 0, -1600px) rotateY(35deg);
-    }
-    .frame-left-4 {
-      top: 180px; left: 0;
-      transform: translate3d(-600px, 0, -2200px) rotateY(35deg);
-    }
+    .frame-left-1 { top: 180px; left: 0; transform: translate3d(40px, 0, -400px) rotateY(35deg); }
+    .frame-left-2 { top: 180px; left: 0; transform: translate3d(40px, 0, -1000px) rotateY(35deg); }
+    .frame-left-3 { top: 180px; left: 0; transform: translate3d(40px, 0, -1600px) rotateY(35deg); }
+    .frame-left-4 { top: 180px; left: 0; transform: translate3d(40px, 0, -2200px) rotateY(35deg); }
 
     /* Right wall frames — tilted inward toward viewer */
-    .frame-right-1 {
-      top: 180px; right: 0;
-      transform: translate3d(600px, 0, -400px) rotateY(-35deg);
-    }
-    .frame-right-2 {
-      top: 180px; right: 0;
-      transform: translate3d(600px, 0, -1000px) rotateY(-35deg);
-    }
-    .frame-right-3 {
-      top: 180px; right: 0;
-      transform: translate3d(600px, 0, -1600px) rotateY(-35deg);
-    }
-    .frame-right-4 {
-      top: 180px; right: 0;
-      transform: translate3d(600px, 0, -2200px) rotateY(-35deg);
-    }
+    .frame-right-1 { top: 180px; right: 0; transform: translate3d(-40px, 0, -400px) rotateY(-35deg); }
+    .frame-right-2 { top: 180px; right: 0; transform: translate3d(-40px, 0, -1000px) rotateY(-35deg); }
+    .frame-right-3 { top: 180px; right: 0; transform: translate3d(-40px, 0, -1600px) rotateY(-35deg); }
+    .frame-right-4 { top: 180px; right: 0; transform: translate3d(-40px, 0, -2200px) rotateY(-35deg); }
 
     /* Back wall frames — facing the viewer */
     .frame-back-1 {

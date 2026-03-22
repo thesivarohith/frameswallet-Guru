@@ -782,6 +782,9 @@
     .theater-right-wall,
     .theater-back-wall {
       pointer-events: none;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      overflow: hidden;
     }
 
     .theater-floor {

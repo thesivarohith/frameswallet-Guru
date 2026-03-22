@@ -905,27 +905,27 @@
     .depth-back { opacity: 0.5; filter: blur(1px); }
 
     /* Left wall frames — tilted inward toward viewer */
-    .frame-left-1 { top: 180px; left: 0; transform: translate3d(40px, 0, -400px) rotateY(35deg); }
-    .frame-left-2 { top: 180px; left: 0; transform: translate3d(40px, 0, -1000px) rotateY(35deg); }
-    .frame-left-3 { top: 180px; left: 0; transform: translate3d(40px, 0, -1600px) rotateY(35deg); }
-    .frame-left-4 { top: 180px; left: 0; transform: translate3d(40px, 0, -2200px) rotateY(35deg); }
+    .frame-left-1 { top: 180px; left: 0; transform: translate3d(20px, 0, -500px) rotateY(25deg); }
+    .frame-left-2 { top: 180px; left: 0; transform: translate3d(20px, 0, -1000px) rotateY(25deg); }
+    .frame-left-3 { top: 180px; left: 0; transform: translate3d(20px, 0, -1500px) rotateY(25deg); }
+    .frame-left-4 { top: 180px; left: 0; transform: translate3d(20px, 0, -2000px) rotateY(25deg); }
 
     /* Right wall frames — tilted inward toward viewer */
-    .frame-right-1 { top: 180px; right: 0; transform: translate3d(-40px, 0, -400px) rotateY(-35deg); }
-    .frame-right-2 { top: 180px; right: 0; transform: translate3d(-40px, 0, -1000px) rotateY(-35deg); }
-    .frame-right-3 { top: 180px; right: 0; transform: translate3d(-40px, 0, -1600px) rotateY(-35deg); }
-    .frame-right-4 { top: 180px; right: 0; transform: translate3d(-40px, 0, -2200px) rotateY(-35deg); }
+    .frame-right-1 { top: 180px; right: 0; transform: translate3d(-20px, 0, -500px) rotateY(-25deg); }
+    .frame-right-2 { top: 180px; right: 0; transform: translate3d(-20px, 0, -1000px) rotateY(-25deg); }
+    .frame-right-3 { top: 180px; right: 0; transform: translate3d(-20px, 0, -1500px) rotateY(-25deg); }
+    .frame-right-4 { top: 180px; right: 0; transform: translate3d(-20px, 0, -2000px) rotateY(-25deg); }
 
     /* Back wall frames — facing the viewer */
     .frame-back-1 {
       top: 180px;
       left: 50%;
-      transform: translate3d(-420px, 0, -2980px);
+      transform: translate3d(-420px, 0, -2600px);
     }
     .frame-back-2 {
       top: 180px;
       left: 50%;
-      transform: translate3d(40px, 0, -2980px);
+      transform: translate3d(40px, 0, -2600px);
     }
 
     /* ===== RESPONSIVE ===== */
@@ -1262,9 +1262,9 @@
       const LERP_SPEED = 0.06;
 
       /* ===== SMOOTH THEATER LERP ===== */
-      let targetTheaterProgress = 0;
-      let smoothTheaterProgress = 0;
-      const THEATER_LERP_SPEED = 0.05;
+      let targetZ = 0;
+      let currentZ = 0;
+      const theaterLerpFactor = 0.07;
 
       const theaterSection = document.getElementById('theater-section');
       const theaterScene = document.getElementById('theater-scene');
@@ -1289,18 +1289,13 @@
 
           // Smooth interpolation for theater scroll
           if (theaterSection && theaterScene) {
-            const theaterDiff = targetTheaterProgress - smoothTheaterProgress;
-            if (Math.abs(theaterDiff) > 0.0001) {
-              smoothTheaterProgress += theaterDiff * THEATER_LERP_SPEED;
-            } else {
-              smoothTheaterProgress = targetTheaterProgress;
-            }
+            currentZ = currentZ + (targetZ - currentZ) * theaterLerpFactor;
+            theaterScene.style.transform = `translate(-50%, -50%) translateZ(${currentZ}px)`;
 
-            const zDepth = smoothTheaterProgress * 2600;
-            theaterScene.style.transform = `translate(-50%, -50%) translateZ(${zDepth}px)`;
-
+            // Fade heading based on progress (reverse calculating progress roughly from targetZ)
             if (theaterHeading) {
-              theaterHeading.style.opacity = Math.max(0, 1 - smoothTheaterProgress * 12.5);
+              const approxProgress = targetZ / 2600;
+              theaterHeading.style.opacity = Math.max(0, 1 - approxProgress * 12.5);
             }
           }
         }
@@ -1461,7 +1456,8 @@
         const sectionTop = theaterSection.offsetTop;
         const sectionHeight = theaterSection.offsetHeight - window.innerHeight;
         const scrolled = Math.max(0, window.scrollY - sectionTop);
-        targetTheaterProgress = Math.min(1, scrolled / sectionHeight);
+        const progress = Math.min(1, scrolled / sectionHeight);
+        targetZ = progress * 2600;
       }
 
       // Video hover play/pause (on .theater-frame so it works at any scroll)

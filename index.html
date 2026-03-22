@@ -719,72 +719,86 @@
       background: #000000;
       height: 100vh;
       overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 0px;
-      position: relative;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       border-top: 1px solid rgba(201, 146, 42, 0.15);
       border-bottom: 1px solid rgba(201, 146, 42, 0.15);
+      gap: 0px;
+      position: relative;
       z-index: 2;
     }
 
-    .marquee-row {
+    .marquee-col {
+      overflow: hidden;
+      height: 100vh;
+      position: relative;
+    }
+
+    .marquee-inner {
       display: flex;
+      flex-direction: column;
+      align-items: center;
       white-space: nowrap;
-      width: max-content;
+      padding: 0 40px;
       will-change: transform;
     }
 
-    .marquee-row:hover {
+    .marquee-inner:hover {
       animation-play-state: paused;
+    }
+
+    .marquee-item {
+      opacity: 0.85;
+      transition: opacity 0.3s ease;
       cursor: default;
     }
-
-    .marquee-half {
-      display: flex;
-      align-items: center;
+    
+    .marquee-item:hover {
+      opacity: 1;
     }
 
-    .row-1 {
+    .col-1 {
+      border-right: 1px solid rgba(201, 146, 42, 0.1);
+    }
+
+    .col-1 .marquee-inner {
       font-family: 'Playfair Display', Georgia, serif;
-      font-size: 140px;
+      font-size: 96px;
       font-style: italic;
       color: #C9922A;
-      animation: scroll-left 18s linear infinite;
+      animation: scroll-up 12s linear infinite;
     }
-    .row-1 .dot {
-      color: rgba(201, 146, 42, 0.4);
-      font-size: 40px;
-      vertical-align: middle;
-      margin: 0 40px;
-      font-style: normal;
+    
+    .col-1 .separator {
+      width: 60px;
+      height: 1px;
+      background: rgba(201, 146, 42, 0.3);
+      margin: 24px auto;
     }
 
-    .row-2 {
+    .col-2 .marquee-inner {
       font-family: 'Playfair Display', Georgia, serif;
-      font-size: 140px;
+      font-size: 96px;
       font-style: normal;
       font-weight: bold;
       color: #F5F0E8;
-      animation: scroll-right 22s linear infinite;
-    }
-    .row-2 .dot {
-      color: rgba(245, 240, 232, 0.3);
-      font-size: 40px;
-      vertical-align: middle;
-      margin: 0 40px;
-      font-style: normal;
-      font-weight: normal;
+      animation: scroll-down 15s linear infinite;
     }
 
-    @keyframes scroll-left {
-      from { transform: translateX(0); }
-      to { transform: translateX(-50%); }
+    .col-2 .separator {
+      width: 60px;
+      height: 1px;
+      background: rgba(245, 240, 232, 0.2);
+      margin: 24px auto;
     }
-    @keyframes scroll-right {
-      from { transform: translateX(-50%); }
-      to { transform: translateX(0); }
+
+    @keyframes scroll-up {
+      from { transform: translateY(0); }
+      to { transform: translateY(-50%); }
+    }
+    @keyframes scroll-down {
+      from { transform: translateY(-50%); }
+      to { transform: translateY(0); }
     }
 
     /* ===== PROJECTS GRID SECTION ===== */
@@ -927,8 +941,8 @@
       #testimonials-section { padding: 80px 24px; }
       .testimonials-container { grid-template-columns: 1fr; gap: 60px; }
       .testimonials-right { padding-left: 20px; }
-      .row-1, .row-2 { font-size: 60px; }
-      .row-1 .dot, .row-2 .dot { font-size: 20px; margin: 0 20px; }
+      .col-1 .marquee-inner, .col-2 .marquee-inner { font-size: 40px; padding: 0 10px; }
+      .col-1 .separator, .col-2 .separator { width: 30px; margin: 12px auto; }
       #projects-section { padding: 80px 24px; }
       .projects-grid { grid-template-columns: 1fr; gap: 16px; }
       .footer { padding: 30px 24px; flex-direction: column; gap: 12px; }
@@ -1069,34 +1083,55 @@
     </div>
   </section>
 
-  <!-- SECTION 4.5: Stats Marquee -->
+  <!-- SECTION 4.5: Stats Marquee (Vertical Revolving) -->
   <section id="stats-marquee-section">
-    <div class="marquee-row row-1">
-      <div class="marquee-half">
-        <span>120+ Projects</span><span class="dot">◆</span><span>frames.wallet</span><span class="dot">◆</span><span>4 Years</span><span class="dot">◆</span>
-        <span>120+ Projects</span><span class="dot">◆</span><span>frames.wallet</span><span class="dot">◆</span><span>4 Years</span><span class="dot">◆</span>
-        <span>120+ Projects</span><span class="dot">◆</span><span>frames.wallet</span><span class="dot">◆</span><span>4 Years</span><span class="dot">◆</span>
-        <span>120+ Projects</span><span class="dot">◆</span><span>frames.wallet</span><span class="dot">◆</span><span>4 Years</span><span class="dot">◆</span>
-      </div>
-      <div class="marquee-half">
-        <span>120+ Projects</span><span class="dot">◆</span><span>frames.wallet</span><span class="dot">◆</span><span>4 Years</span><span class="dot">◆</span>
-        <span>120+ Projects</span><span class="dot">◆</span><span>frames.wallet</span><span class="dot">◆</span><span>4 Years</span><span class="dot">◆</span>
-        <span>120+ Projects</span><span class="dot">◆</span><span>frames.wallet</span><span class="dot">◆</span><span>4 Years</span><span class="dot">◆</span>
-        <span>120+ Projects</span><span class="dot">◆</span><span>frames.wallet</span><span class="dot">◆</span><span>4 Years</span><span class="dot">◆</span>
+    <!-- Column 1: Scrolls UP -->
+    <div class="marquee-col col-1">
+      <div class="marquee-inner">
+        <div class="marquee-item">120+ Projects</div><div class="separator"></div>
+        <div class="marquee-item">4 Years</div><div class="separator"></div>
+        <div class="marquee-item">frames.wallet</div><div class="separator"></div>
+        <div class="marquee-item">Expert Editors</div><div class="separator"></div>
+        
+        <div class="marquee-item">120+ Projects</div><div class="separator"></div>
+        <div class="marquee-item">4 Years</div><div class="separator"></div>
+        <div class="marquee-item">frames.wallet</div><div class="separator"></div>
+        <div class="marquee-item">Expert Editors</div><div class="separator"></div>
+        
+        <div class="marquee-item">120+ Projects</div><div class="separator"></div>
+        <div class="marquee-item">4 Years</div><div class="separator"></div>
+        <div class="marquee-item">frames.wallet</div><div class="separator"></div>
+        <div class="marquee-item">Expert Editors</div><div class="separator"></div>
+        
+        <div class="marquee-item">120+ Projects</div><div class="separator"></div>
+        <div class="marquee-item">4 Years</div><div class="separator"></div>
+        <div class="marquee-item">frames.wallet</div><div class="separator"></div>
+        <div class="marquee-item">Expert Editors</div><div class="separator"></div>
       </div>
     </div>
-    <div class="marquee-row row-2">
-      <div class="marquee-half">
-        <span>₹50L+ Revenue</span><span class="dot">◆</span><span>frames.wallet</span><span class="dot">◆</span><span>15+ Team</span><span class="dot">◆</span>
-        <span>₹50L+ Revenue</span><span class="dot">◆</span><span>frames.wallet</span><span class="dot">◆</span><span>15+ Team</span><span class="dot">◆</span>
-        <span>₹50L+ Revenue</span><span class="dot">◆</span><span>frames.wallet</span><span class="dot">◆</span><span>15+ Team</span><span class="dot">◆</span>
-        <span>₹50L+ Revenue</span><span class="dot">◆</span><span>frames.wallet</span><span class="dot">◆</span><span>15+ Team</span><span class="dot">◆</span>
-      </div>
-      <div class="marquee-half">
-        <span>₹50L+ Revenue</span><span class="dot">◆</span><span>frames.wallet</span><span class="dot">◆</span><span>15+ Team</span><span class="dot">◆</span>
-        <span>₹50L+ Revenue</span><span class="dot">◆</span><span>frames.wallet</span><span class="dot">◆</span><span>15+ Team</span><span class="dot">◆</span>
-        <span>₹50L+ Revenue</span><span class="dot">◆</span><span>frames.wallet</span><span class="dot">◆</span><span>15+ Team</span><span class="dot">◆</span>
-        <span>₹50L+ Revenue</span><span class="dot">◆</span><span>frames.wallet</span><span class="dot">◆</span><span>15+ Team</span><span class="dot">◆</span>
+
+    <!-- Column 2: Scrolls DOWN -->
+    <div class="marquee-col col-2">
+      <div class="marquee-inner">
+        <div class="marquee-item">₹50L+ Revenue</div><div class="separator"></div>
+        <div class="marquee-item">15+ Team</div><div class="separator"></div>
+        <div class="marquee-item">frames.wallet</div><div class="separator"></div>
+        <div class="marquee-item">100% Crafted</div><div class="separator"></div>
+        
+        <div class="marquee-item">₹50L+ Revenue</div><div class="separator"></div>
+        <div class="marquee-item">15+ Team</div><div class="separator"></div>
+        <div class="marquee-item">frames.wallet</div><div class="separator"></div>
+        <div class="marquee-item">100% Crafted</div><div class="separator"></div>
+
+        <div class="marquee-item">₹50L+ Revenue</div><div class="separator"></div>
+        <div class="marquee-item">15+ Team</div><div class="separator"></div>
+        <div class="marquee-item">frames.wallet</div><div class="separator"></div>
+        <div class="marquee-item">100% Crafted</div><div class="separator"></div>
+
+        <div class="marquee-item">₹50L+ Revenue</div><div class="separator"></div>
+        <div class="marquee-item">15+ Team</div><div class="separator"></div>
+        <div class="marquee-item">frames.wallet</div><div class="separator"></div>
+        <div class="marquee-item">100% Crafted</div><div class="separator"></div>
       </div>
     </div>
   </section>

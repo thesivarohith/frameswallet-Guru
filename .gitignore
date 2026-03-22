@@ -1,3 +1,9 @@
 animated/
 node_modules/
+**/node_modules/
 public/frames/
+frameswallet/public/frames/
+.env
+.DS_Store
+dist/
+build/

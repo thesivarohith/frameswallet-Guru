@@ -714,218 +714,134 @@
       transition: opacity 0.3s ease;
     }
 
-    /* ===== 3D CINEMA THEATER ===== */
-    #theater-section {
+    /* ===== PROJECTS GRID SECTION ===== */
+    #projects-section {
+      background: #000000;
+      padding: 120px 80px;
       position: relative;
-      height: 500vh;
-      background: #000;
       z-index: 2;
     }
 
-    .theater-sticky {
-      position: sticky;
-      top: 0;
-      height: 100vh;
-      overflow: hidden;
+    .projects-heading {
+      margin-bottom: 64px;
     }
 
-    .theater-heading {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      text-align: center;
-      z-index: 10;
-      pointer-events: none;
-      transition: opacity 0.4s ease;
-    }
-
-    .theater-heading h2 {
+    .projects-heading h2 {
       font-family: 'Playfair Display', Georgia, serif;
       font-size: 48px;
       color: #F5F0E8;
+      text-align: center;
       margin: 0;
     }
 
-    .theater-heading p {
+    .projects-heading p {
       font-family: 'Inter', sans-serif;
       font-style: italic;
       font-size: 16px;
       color: #C9922A;
+      text-align: center;
       margin-top: 12px;
+      margin-bottom: 0;
     }
 
-    .theater-viewport {
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .reel-card-wrapper {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      will-change: opacity, transform;
+    }
+
+    .reel-card-wrapper.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reel-card {
+      position: relative;
+      background: #0a0a0a;
+      border: 1px solid rgba(201, 146, 42, 0.25);
+      border-radius: 10px;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      transform: perspective(800px) rotateX(0deg) rotateY(0deg) translateZ(0px) scale(1);
+      transition: transform 0.45s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.45s ease, border-color 0.45s ease;
+      cursor: pointer;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.6);
       width: 100%;
       height: 100%;
-      perspective: 1400px;
-      perspective-origin: 50% 40%;
-      overflow: hidden;
     }
 
-    .theater-scene {
-      position: absolute;
-      width: 2400px;
-      height: 700px;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%) translateZ(0px);
-      transform-style: preserve-3d;
-      isolation: auto;
-      transition: transform 0.1s linear;
-    }
-
-    /* Room Surfaces */
-    .theater-floor,
-    .theater-ceiling,
-    .theater-left-wall,
-    .theater-right-wall,
-    .theater-back-wall {
-      pointer-events: none;
-      backface-visibility: hidden;
-      -webkit-backface-visibility: hidden;
-      overflow: hidden;
-    }
-
-    .theater-floor {
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 2400px;
-      height: 3000px;
-      background: #000000;
-      transform: rotateX(90deg);
-      transform-origin: bottom center;
-    }
-
-    .theater-ceiling {
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 2400px;
-      height: 3000px;
-      background: #050505;
-      transform: rotateX(-90deg);
-      transform-origin: top center;
-    }
-
-    .theater-left-wall {
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 3000px;
-      height: 700px;
-      background: #080808;
-      transform: rotateY(90deg);
-      transform-origin: left center;
-      border-top: 1px solid rgba(201, 146, 42, 0.2);
-    }
-
-    .theater-right-wall {
-      position: absolute;
-      right: 0;
-      top: 0;
-      width: 3000px;
-      height: 700px;
-      background: #080808;
-      transform: rotateY(-90deg);
-      transform-origin: right center;
-      border-top: 1px solid rgba(201, 146, 42, 0.2);
-    }
-
-    .theater-back-wall {
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 2400px;
-      height: 700px;
-      background: transparent;
-      transform: translateZ(-3000px);
-    }
-
-    /* Video Frame */
-    .theater-frame {
-      position: absolute;
-      transform-style: preserve-3d;
-    }
-
-    .theater-frame-inner {
-      position: relative;
-      width: 380px;
-      height: 220px;
-      border: 3px solid #C9922A;
-      border-radius: 6px;
-      background: #000;
+    .reel-card:hover {
+      border-color: rgba(201, 146, 42, 0.9);
       box-shadow:
-        0 0 30px rgba(201, 146, 42, 0.25),
-        0 0 60px rgba(0, 0, 0, 0.9);
-      overflow: hidden;
-      transition: transform 0.4s ease;
-      cursor: pointer;
+        0 20px 60px rgba(0, 0, 0, 0.8),
+        0 0 30px rgba(201, 146, 42, 0.15),
+        0 0 60px rgba(201, 146, 42, 0.08);
+      z-index: 10;
     }
 
-    .theater-frame video {
+    .reel-video {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
     }
 
-    /* Spotlight above frame */
-    .theater-spotlight {
+    .reel-overlay {
       position: absolute;
-      top: -180px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 280px;
-      height: 180px;
-      background: radial-gradient(
-        ellipse at 50% 100%,
-        rgba(201, 146, 42, 0.12) 0%,
-        transparent 65%
-      );
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+      transition: opacity 0.4s ease;
       pointer-events: none;
     }
 
-    /* Label below frame */
-    .theater-label {
+    .reel-card:hover .reel-overlay {
+      opacity: 0;
+    }
+
+    .reel-label {
+      position: absolute;
+      bottom: 14px;
+      left: 16px;
       font-family: 'Inter', sans-serif;
       font-size: 10px;
       letter-spacing: 3px;
-      color: rgba(201, 146, 42, 0.6);
+      color: rgba(201, 146, 42, 0.8);
       text-transform: uppercase;
-      text-align: center;
-      margin-top: 10px;
+      z-index: 2;
+      transition: color 0.3s ease;
+      pointer-events: none;
     }
 
-    /* Depth fog tiers */
-    .depth-near { opacity: 1; }
-    .depth-mid { opacity: 0.85; filter: blur(0.3px); }
-    .depth-far { opacity: 0.65; filter: blur(0.8px); }
-    .depth-back { opacity: 0.5; filter: blur(1px); }
-
-    /* Left wall frames — tilted inward toward viewer */
-    .frame-left-1 { top: 180px; left: 50%; transform: translate3d(-650px, 0, -500px) rotateY(30deg); }
-    .frame-left-2 { top: 180px; left: 50%; transform: translate3d(-650px, 0, -1000px) rotateY(30deg); }
-    .frame-left-3 { top: 180px; left: 50%; transform: translate3d(-650px, 0, -1500px) rotateY(30deg); }
-    .frame-left-4 { top: 180px; left: 50%; transform: translate3d(-650px, 0, -2000px) rotateY(30deg); }
-
-    /* Right wall frames — tilted inward toward viewer */
-    .frame-right-1 { top: 180px; left: 50%; transform: translate3d(650px, 0, -500px) rotateY(-30deg); }
-    .frame-right-2 { top: 180px; left: 50%; transform: translate3d(650px, 0, -1000px) rotateY(-30deg); }
-    .frame-right-3 { top: 180px; left: 50%; transform: translate3d(650px, 0, -1500px) rotateY(-30deg); }
-    .frame-right-4 { top: 180px; left: 50%; transform: translate3d(650px, 0, -2000px) rotateY(-30deg); }
-
-    /* Back wall frames — facing the viewer */
-    .frame-back-1 {
-      top: 180px;
-      left: 50%;
-      transform: translate3d(-420px, 0, -2600px);
+    .reel-card:hover .reel-label {
+      color: rgba(201, 146, 42, 1);
     }
-    .frame-back-2 {
-      top: 180px;
-      left: 50%;
-      transform: translate3d(40px, 0, -2600px);
+
+    .reel-accent {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 24px;
+      height: 24px;
+      border-top: 2px solid #C9922A;
+      border-left: 2px solid #C9922A;
+      border-radius: 10px 0 0 0;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .reel-card:hover .reel-accent {
+      opacity: 1;
     }
 
     /* ===== RESPONSIVE ===== */
@@ -938,7 +854,8 @@
       #testimonials-section { padding: 80px 24px; }
       .testimonials-container { grid-template-columns: 1fr; gap: 60px; }
       .testimonials-right { padding-left: 20px; }
-      #theater-section { display: none; }
+      #projects-section { padding: 80px 24px; }
+      .projects-grid { grid-template-columns: 1fr; gap: 16px; }
       .footer { padding: 30px 24px; flex-direction: column; gap: 12px; }
       .frame-counter { right: 20px; bottom: 20px; }
     }
@@ -1077,99 +994,92 @@
     </div>
   </section>
 
-  <!-- SECTION 5: 3D Cinema Theater -->
-  <section id="theater-section">
-    <div class="theater-sticky">
-      <!-- Heading (fades on scroll) -->
-      <div class="theater-heading" id="theater-heading">
-        <h2>Our Work</h2>
-        <p>Step inside the studio</p>
+  <!-- SECTION 5: Projects Grid -->
+  <section id="projects-section">
+    <div class="projects-heading">
+      <h2>Our Work</h2>
+      <p>Every frame, crafted with intention</p>
+    </div>
+    <div class="projects-grid">
+      <!-- Card 1 -->
+      <div class="reel-card-wrapper">
+        <div class="reel-card">
+          <div class="reel-accent"></div>
+          <video class="reel-video" src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop playsinline preload="none"></video>
+          <div class="reel-overlay"></div>
+          <div class="reel-label">REEL 001</div>
+        </div>
       </div>
-
-      <div class="theater-viewport">
-        <div class="theater-scene" id="theater-scene">
-          <!-- Room Structure -->
-          <div class="theater-floor"></div>
-          <div class="theater-ceiling"></div>
-          <div class="theater-left-wall"></div>
-          <div class="theater-right-wall"></div>
-          <div class="theater-back-wall"></div>
-
-          <!-- Left Wall Frames -->
-          <div class="theater-frame frame-left-1 depth-near">
-            <div class="theater-spotlight"></div>
-            <div class="theater-frame-inner">
-              <video src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop playsinline preload="metadata"></video>
-            </div>
-            <div class="theater-label">REEL 001</div>
-          </div>
-          <div class="theater-frame frame-left-2 depth-mid">
-            <div class="theater-spotlight"></div>
-            <div class="theater-frame-inner">
-              <video src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop playsinline preload="metadata"></video>
-            </div>
-            <div class="theater-label">REEL 002</div>
-          </div>
-          <div class="theater-frame frame-left-3 depth-far">
-            <div class="theater-spotlight"></div>
-            <div class="theater-frame-inner">
-              <video src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop playsinline preload="metadata"></video>
-            </div>
-            <div class="theater-label">REEL 003</div>
-          </div>
-          <div class="theater-frame frame-left-4 depth-far">
-            <div class="theater-spotlight"></div>
-            <div class="theater-frame-inner">
-              <video src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop playsinline preload="metadata"></video>
-            </div>
-            <div class="theater-label">REEL 007</div>
-          </div>
-
-          <!-- Right Wall Frames -->
-          <div class="theater-frame frame-right-1 depth-near">
-            <div class="theater-spotlight"></div>
-            <div class="theater-frame-inner">
-              <video src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop playsinline preload="metadata"></video>
-            </div>
-            <div class="theater-label">REEL 004</div>
-          </div>
-          <div class="theater-frame frame-right-2 depth-mid">
-            <div class="theater-spotlight"></div>
-            <div class="theater-frame-inner">
-              <video src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop playsinline preload="metadata"></video>
-            </div>
-            <div class="theater-label">REEL 005</div>
-          </div>
-          <div class="theater-frame frame-right-3 depth-far">
-            <div class="theater-spotlight"></div>
-            <div class="theater-frame-inner">
-              <video src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop playsinline preload="metadata"></video>
-            </div>
-            <div class="theater-label">REEL 006</div>
-          </div>
-          <div class="theater-frame frame-right-4 depth-far">
-            <div class="theater-spotlight"></div>
-            <div class="theater-frame-inner">
-              <video src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop playsinline preload="metadata"></video>
-            </div>
-            <div class="theater-label">REEL 008</div>
-          </div>
-
-          <!-- Back Wall Frames -->
-          <div class="theater-frame frame-back-1 depth-back">
-            <div class="theater-spotlight"></div>
-            <div class="theater-frame-inner">
-              <video src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop playsinline preload="metadata"></video>
-            </div>
-            <div class="theater-label">REEL 009</div>
-          </div>
-          <div class="theater-frame frame-back-2 depth-back">
-            <div class="theater-spotlight"></div>
-            <div class="theater-frame-inner">
-              <video src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop playsinline preload="metadata"></video>
-            </div>
-            <div class="theater-label">REEL 010</div>
-          </div>
+      <!-- Card 2 -->
+      <div class="reel-card-wrapper">
+        <div class="reel-card">
+          <div class="reel-accent"></div>
+          <video class="reel-video" src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop playsinline preload="none"></video>
+          <div class="reel-overlay"></div>
+          <div class="reel-label">REEL 002</div>
+        </div>
+      </div>
+      <!-- Card 3 -->
+      <div class="reel-card-wrapper">
+        <div class="reel-card">
+          <div class="reel-accent"></div>
+          <video class="reel-video" src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop playsinline preload="none"></video>
+          <div class="reel-overlay"></div>
+          <div class="reel-label">REEL 003</div>
+        </div>
+      </div>
+      <!-- Card 4 -->
+      <div class="reel-card-wrapper">
+        <div class="reel-card">
+          <div class="reel-accent"></div>
+          <video class="reel-video" src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop playsinline preload="none"></video>
+          <div class="reel-overlay"></div>
+          <div class="reel-label">REEL 004</div>
+        </div>
+      </div>
+      <!-- Card 5 -->
+      <div class="reel-card-wrapper">
+        <div class="reel-card">
+          <div class="reel-accent"></div>
+          <video class="reel-video" src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop playsinline preload="none"></video>
+          <div class="reel-overlay"></div>
+          <div class="reel-label">REEL 005</div>
+        </div>
+      </div>
+      <!-- Card 6 -->
+      <div class="reel-card-wrapper">
+        <div class="reel-card">
+          <div class="reel-accent"></div>
+          <video class="reel-video" src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop playsinline preload="none"></video>
+          <div class="reel-overlay"></div>
+          <div class="reel-label">REEL 006</div>
+        </div>
+      </div>
+      <!-- Card 7 -->
+      <div class="reel-card-wrapper">
+        <div class="reel-card">
+          <div class="reel-accent"></div>
+          <video class="reel-video" src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop playsinline preload="none"></video>
+          <div class="reel-overlay"></div>
+          <div class="reel-label">REEL 007</div>
+        </div>
+      </div>
+      <!-- Card 8 -->
+      <div class="reel-card-wrapper">
+        <div class="reel-card">
+          <div class="reel-accent"></div>
+          <video class="reel-video" src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop playsinline preload="none"></video>
+          <div class="reel-overlay"></div>
+          <div class="reel-label">REEL 008</div>
+        </div>
+      </div>
+      <!-- Card 9 -->
+      <div class="reel-card-wrapper">
+        <div class="reel-card">
+          <div class="reel-accent"></div>
+          <video class="reel-video" src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop playsinline preload="none"></video>
+          <div class="reel-overlay"></div>
+          <div class="reel-label">REEL 009</div>
         </div>
       </div>
     </div>
@@ -1261,14 +1171,23 @@
       let smoothFrame = 0;
       const LERP_SPEED = 0.06;
 
-      /* ===== SMOOTH THEATER LERP ===== */
-      let targetZ = 0;
-      let currentZ = 0;
-      const theaterLerpFactor = 0.06;
+      /* ===== PROJECTS SCROLL REVEAL ===== */
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const delay = parseFloat(entry.target.getAttribute('data-delay')) || 0;
+            setTimeout(() => {
+              entry.target.classList.add('revealed');
+            }, delay);
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
 
-      const theaterSection = document.getElementById('theater-section');
-      const theaterScene = document.getElementById('theater-scene');
-      const theaterHeading = document.getElementById('theater-heading');
+      document.querySelectorAll('.reel-card-wrapper').forEach((el, index) => {
+        el.setAttribute('data-delay', index * 60);
+        observer.observe(el);
+      });
 
       function animate() {
         if (isLoaded) {
@@ -1287,17 +1206,7 @@
             frameCounter.textContent = padNumber(drawIndex + 1, 3) + ' / ' + padNumber(TOTAL_FRAMES, 3);
           }
 
-          // Smooth interpolation for theater scroll
-          if (theaterSection && theaterScene) {
-            currentZ = currentZ + (targetZ - currentZ) * theaterLerpFactor;
-            theaterScene.style.transform = `translate(-50%, -50%) translateZ(${currentZ}px)`;
 
-            // Fade heading based on progress (reverse calculating progress roughly from targetZ)
-            if (theaterHeading) {
-              const approxProgress = targetZ / 2600;
-              theaterHeading.style.opacity = Math.max(0, 1 - approxProgress * 12.5);
-            }
-          }
         }
         requestAnimationFrame(animate);
       }
@@ -1390,8 +1299,6 @@
           }
         });
 
-        // === 3D Theater camera ===
-        updateTheater();
       }
 
       /* ===== OPTIMIZED SCROLL ===== */
@@ -1450,22 +1357,29 @@
         });
       });
 
-      /* ===== 3D THEATER SCROLL ===== */
-      function updateTheater() {
-        if (!theaterSection) return;
-        const sectionTop = theaterSection.offsetTop;
-        const sectionHeight = theaterSection.offsetHeight - window.innerHeight;
-        const scrolled = Math.max(0, window.scrollY - sectionTop);
-        const progress = Math.min(1, scrolled / sectionHeight);
-        targetZ = progress * 2600;
-      }
+      /* ===== 3D HOVER TILT ===== */
+      document.querySelectorAll('.reel-card').forEach(card => {
+        const video = card.querySelector('video');
 
-      // Video hover play/pause (on .theater-frame so it works at any scroll)
-      document.querySelectorAll('.theater-frame').forEach(frame => {
-        const video = frame.querySelector('video');
-        if (!video) return;
-        frame.addEventListener('mouseenter', () => { video.play(); });
-        frame.addEventListener('mouseleave', () => { video.pause(); });
+        card.addEventListener('mouseenter', () => {
+          video.play();
+        });
+
+        card.addEventListener('mouseleave', () => {
+          video.pause();
+          card.style.transform = 
+            'perspective(800px) rotateX(0deg) rotateY(0deg) translateZ(0px) scale(1)';
+        });
+
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = (e.clientX - rect.left) / rect.width;
+          const y = (e.clientY - rect.top) / rect.height;
+          const rotateY = (x - 0.5) * 16;
+          const rotateX = (0.5 - y) * 10;
+          card.style.transform = 
+            `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(40px) scale(1.04)`;
+        });
       });
 
       /* ===== INIT ===== */

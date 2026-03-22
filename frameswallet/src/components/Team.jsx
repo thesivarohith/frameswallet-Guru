@@ -75,7 +75,7 @@ const StatRow = ({ stat, rowIndex, triggered }) => {
         display: 'flex',
         alignItems: 'center',
         padding: '48px 80px',
-        borderBottom: '1px solid rgba(201,146,42,0.08)',
+        borderBottom: '1px solid rgba(201,146,42,0.15)',
         position: 'relative',
         overflow: 'hidden',
         background: hovered ? 'rgba(201,146,42,0.02)' : 'transparent',
@@ -92,7 +92,7 @@ const StatRow = ({ stat, rowIndex, triggered }) => {
         right: '80px',
         fontFamily: "'Inter', sans-serif",
         fontSize: '11px',
-        color: 'rgba(201,146,42,0.2)',
+        color: 'rgba(201,146,42,0.45)',
         letterSpacing: '3px'
       }}>
         {stat.index}
@@ -129,17 +129,17 @@ const StatRow = ({ stat, rowIndex, triggered }) => {
       <div style={{
         width: '40%',
         paddingLeft: '40px',
-        borderLeft: '1px solid rgba(201,146,42,0.12)',
+        borderLeft: '1px solid rgba(201,146,42,0.3)',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center'
       }}>
         <div style={{
           fontFamily: "'Inter', sans-serif",
-          fontSize: '11px',
-          letterSpacing: '5px',
+          fontSize: '13px',
+          letterSpacing: '4px',
           textTransform: 'uppercase',
-          color: 'rgba(201,146,42,0.7)',
+          color: 'rgba(201,146,42,1)',
           marginBottom: '12px'
         }}>
           {stat.label}
@@ -148,17 +148,18 @@ const StatRow = ({ stat, rowIndex, triggered }) => {
         <div style={{
           fontFamily: "'Playfair Display', serif",
           fontStyle: 'italic',
-          fontSize: '24px',
-          color: 'rgba(245,240,232,0.85)',
-          lineHeight: 1.4
+          fontSize: '26px',
+          color: 'rgba(245,240,232,1)',
+          lineHeight: 1.4,
+          textShadow: '0 0 40px rgba(245,240,232,0.1)'
         }}>
           {stat.description}
         </div>
 
         <div style={{
           fontFamily: "'Inter', sans-serif",
-          fontSize: '13px',
-          color: 'rgba(245,240,232,0.3)',
+          fontSize: '14px',
+          color: 'rgba(245,240,232,0.6)',
           marginTop: '8px',
           letterSpacing: '1px'
         }}>

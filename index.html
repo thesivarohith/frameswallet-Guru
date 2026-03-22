@@ -840,20 +840,16 @@
     .theater-frame-inner {
       position: relative;
       width: 380px;
-      height: 215px;
+      height: 220px;
       border: 3px solid #C9922A;
       border-radius: 6px;
       background: #000;
       box-shadow:
-        0 0 30px rgba(201, 146, 42, 0.2),
+        0 0 30px rgba(201, 146, 42, 0.25),
         0 0 60px rgba(0, 0, 0, 0.9);
       overflow: hidden;
+      transition: transform 0.4s ease;
       cursor: pointer;
-      transition: transform 0.35s ease;
-    }
-
-    .theater-frame-inner.hovered {
-      transform: translateZ(30px);
     }
 
     .theater-frame video {
@@ -866,14 +862,14 @@
     /* Spotlight above frame */
     .theater-spotlight {
       position: absolute;
-      top: -160px;
+      top: -180px;
       left: 50%;
       transform: translateX(-50%);
-      width: 300px;
-      height: 160px;
+      width: 280px;
+      height: 180px;
       background: radial-gradient(
         ellipse at 50% 100%,
-        rgba(201, 146, 42, 0.1) 0%,
+        rgba(201, 146, 42, 0.12) 0%,
         transparent 65%
       );
       pointer-events: none;
@@ -881,16 +877,59 @@
 
     /* Label below frame */
     .theater-label {
-      position: absolute;
-      bottom: -28px;
-      left: 50%;
-      transform: translateX(-50%);
       font-family: 'Inter', sans-serif;
       font-size: 10px;
       letter-spacing: 3px;
       color: rgba(201, 146, 42, 0.6);
       text-transform: uppercase;
-      white-space: nowrap;
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    /* Depth fog tiers */
+    .depth-near { opacity: 1; }
+    .depth-mid { opacity: 0.85; filter: blur(0.3px); }
+    .depth-far { opacity: 0.65; filter: blur(0.8px); }
+    .depth-back { opacity: 0.5; filter: blur(1px); }
+
+    /* Left wall frames — tilted inward toward viewer */
+    .frame-left-1 {
+      top: 180px; left: 0;
+      transform: translate3d(-600px, 0, -400px) rotateY(35deg);
+    }
+    .frame-left-2 {
+      top: 180px; left: 0;
+      transform: translate3d(-600px, 0, -1200px) rotateY(35deg);
+    }
+    .frame-left-3 {
+      top: 180px; left: 0;
+      transform: translate3d(-600px, 0, -2000px) rotateY(35deg);
+    }
+
+    /* Right wall frames — tilted inward toward viewer */
+    .frame-right-1 {
+      top: 180px; right: 0;
+      transform: translate3d(600px, 0, -400px) rotateY(-35deg);
+    }
+    .frame-right-2 {
+      top: 180px; right: 0;
+      transform: translate3d(600px, 0, -1200px) rotateY(-35deg);
+    }
+    .frame-right-3 {
+      top: 180px; right: 0;
+      transform: translate3d(600px, 0, -2000px) rotateY(-35deg);
+    }
+
+    /* Back wall frames — facing the viewer */
+    .frame-back-1 {
+      top: 180px;
+      left: 50%;
+      transform: translate3d(-420px, 0, -2980px);
+    }
+    .frame-back-2 {
+      top: 180px;
+      left: 50%;
+      transform: translate3d(40px, 0, -2980px);
     }
 
     /* ===== RESPONSIVE ===== */
@@ -1062,22 +1101,22 @@
           <div class="theater-right-wall"></div>
           <div class="theater-back-wall"></div>
 
-          <!-- Left Wall Frames -->
-          <div class="theater-frame" data-side="left" data-frame-z="-400" style="opacity:1; top:180px; left:50%; transform: translateX(-280px) translateZ(-400px) rotateY(60deg); transition: transform 0.3s ease;">
+          <!-- Left Wall Frames (facing inward) -->
+          <div class="theater-frame frame-left-1 depth-near">
             <div class="theater-spotlight"></div>
             <div class="theater-frame-inner">
               <video src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop playsinline preload="metadata"></video>
             </div>
             <div class="theater-label">REEL 001</div>
           </div>
-          <div class="theater-frame" data-side="left" data-frame-z="-900" style="opacity:0.8; top:180px; left:50%; transform: translateX(-280px) translateZ(-900px) rotateY(60deg); transition: transform 0.3s ease;">
+          <div class="theater-frame frame-left-2 depth-mid">
             <div class="theater-spotlight"></div>
             <div class="theater-frame-inner">
               <video src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop playsinline preload="metadata"></video>
             </div>
             <div class="theater-label">REEL 002</div>
           </div>
-          <div class="theater-frame" data-side="left" data-frame-z="-1400" style="opacity:0.6; top:180px; left:50%; transform: translateX(-280px) translateZ(-1400px) rotateY(60deg); transition: transform 0.3s ease;">
+          <div class="theater-frame frame-left-3 depth-far">
             <div class="theater-spotlight"></div>
             <div class="theater-frame-inner">
               <video src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop playsinline preload="metadata"></video>
@@ -1085,22 +1124,22 @@
             <div class="theater-label">REEL 003</div>
           </div>
 
-          <!-- Right Wall Frames -->
-          <div class="theater-frame" data-side="right" data-frame-z="-400" style="opacity:1; top:180px; left:50%; transform: translateX(280px) translateZ(-400px) rotateY(-60deg); transition: transform 0.3s ease;">
+          <!-- Right Wall Frames (facing inward) -->
+          <div class="theater-frame frame-right-1 depth-near">
             <div class="theater-spotlight"></div>
             <div class="theater-frame-inner">
               <video src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop playsinline preload="metadata"></video>
             </div>
             <div class="theater-label">REEL 004</div>
           </div>
-          <div class="theater-frame" data-side="right" data-frame-z="-900" style="opacity:0.8; top:180px; left:50%; transform: translateX(280px) translateZ(-900px) rotateY(-60deg); transition: transform 0.3s ease;">
+          <div class="theater-frame frame-right-2 depth-mid">
             <div class="theater-spotlight"></div>
             <div class="theater-frame-inner">
               <video src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop playsinline preload="metadata"></video>
             </div>
             <div class="theater-label">REEL 005</div>
           </div>
-          <div class="theater-frame" data-side="right" data-frame-z="-1400" style="opacity:0.6; top:180px; left:50%; transform: translateX(280px) translateZ(-1400px) rotateY(-60deg); transition: transform 0.3s ease;">
+          <div class="theater-frame frame-right-3 depth-far">
             <div class="theater-spotlight"></div>
             <div class="theater-frame-inner">
               <video src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop playsinline preload="metadata"></video>
@@ -1109,14 +1148,14 @@
           </div>
 
           <!-- Back Wall Frames -->
-          <div class="theater-frame" data-side="back" data-frame-z="-2000" style="opacity:0.45; top:180px; left:50%; transform: translateX(-200px) translateZ(-2000px) rotateY(0deg); transition: transform 0.3s ease;">
+          <div class="theater-frame frame-back-1 depth-back">
             <div class="theater-spotlight"></div>
             <div class="theater-frame-inner">
               <video src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop playsinline preload="metadata"></video>
             </div>
             <div class="theater-label">REEL 007</div>
           </div>
-          <div class="theater-frame" data-side="back" data-frame-z="-2000" style="opacity:0.45; top:180px; left:50%; transform: translateX(200px) translateZ(-2000px) rotateY(0deg); transition: transform 0.3s ease;">
+          <div class="theater-frame frame-back-2 depth-back">
             <div class="theater-spotlight"></div>
             <div class="theater-frame-inner">
               <video src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop playsinline preload="metadata"></video>
@@ -1386,30 +1425,6 @@
       const theaterSection = document.getElementById('theater-section');
       const theaterScene = document.getElementById('theater-scene');
       const theaterHeading = document.getElementById('theater-heading');
-      const theaterFrames = document.querySelectorAll('.theater-frame');
-
-      function updateFrameTilts(cameraZ) {
-        theaterFrames.forEach(frame => {
-          const frameZ = parseFloat(frame.dataset.frameZ);
-          const side = frame.dataset.side;
-          if (side === 'back') return;
-
-          const distance = Math.abs(cameraZ - Math.abs(frameZ));
-          const triggerRange = 600;
-          const proximity = Math.max(0, Math.min(1, 1 - (distance / triggerRange)));
-
-          if (side === 'left') {
-            const angle = 60 - (proximity * 45);
-            frame.style.transform =
-              `translateX(-280px) translateZ(${frameZ}px) rotateY(${angle}deg)`;
-          }
-          if (side === 'right') {
-            const angle = -60 + (proximity * 45);
-            frame.style.transform =
-              `translateX(280px) translateZ(${frameZ}px) rotateY(${angle}deg)`;
-          }
-        });
-      }
 
       function updateTheater() {
         if (!theaterSection || !theaterScene) return;
@@ -1417,31 +1432,21 @@
         const sectionHeight = theaterSection.offsetHeight - window.innerHeight;
         const scrolled = Math.max(0, window.scrollY - sectionTop);
         const progress = Math.min(1, scrolled / sectionHeight);
-        const cameraZ = progress * 2000;
-        theaterScene.style.transform = `translate(-50%, -50%) translateZ(${cameraZ}px)`;
+        const zDepth = progress * 2600;
+        theaterScene.style.transform = `translate(-50%, -50%) translateZ(${zDepth}px)`;
 
         // Fade heading
         if (theaterHeading) {
           theaterHeading.style.opacity = Math.max(0, 1 - progress * 12.5);
         }
-
-        // Dynamic tilt
-        updateFrameTilts(cameraZ);
       }
 
-      // Video hover play/pause (adds translateZ without fighting tilt)
-      document.querySelectorAll('.theater-frame-inner').forEach(inner => {
-        const video = inner.querySelector('video');
+      // Video hover play/pause
+      document.querySelectorAll('.theater-frame-inner').forEach(frame => {
+        const video = frame.querySelector('video');
         if (!video) return;
-        inner.addEventListener('mouseenter', () => {
-          inner.classList.add('hovered');
-          video.play();
-        });
-        inner.addEventListener('mouseleave', () => {
-          inner.classList.remove('hovered');
-          video.pause();
-          video.currentTime = 0;
-        });
+        frame.addEventListener('mouseenter', () => { video.play(); });
+        frame.addEventListener('mouseleave', () => { video.pause(); video.currentTime = 0; });
       });
 
       /* ===== INIT ===== */

@@ -714,91 +714,69 @@
       transition: opacity 0.3s ease;
     }
 
-    /* ===== STATS MARQUEE SECTION ===== */
-    #stats-marquee-section {
+    /* ===== REVOLVING STATS SECTION ===== */
+    #stats-section {
       background: #000000;
       height: 100vh;
-      overflow: hidden;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      border-top: 1px solid rgba(201, 146, 42, 0.15);
-      border-bottom: 1px solid rgba(201, 146, 42, 0.15);
-      gap: 0px;
-      position: relative;
-      z-index: 2;
-    }
-
-    .marquee-col {
-      overflow: hidden;
-      height: 100vh;
-      position: relative;
-    }
-
-    .marquee-inner {
       display: flex;
       flex-direction: column;
       align-items: center;
-      white-space: nowrap;
-      padding: 0 40px;
-      will-change: transform;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+      border-top: 1px solid rgba(201, 146, 42, 0.12);
+      border-bottom: 1px solid rgba(201, 146, 42, 0.12);
+      z-index: 2;
     }
 
-    .marquee-inner:hover {
-      animation-play-state: paused;
+    #stat-container {
+      text-align: center;
+      transition: transform 0.6s cubic-bezier(0,0,0.2,1), opacity 0.5s ease;
+      will-change: transform, opacity;
     }
 
-    .marquee-item {
-      opacity: 0.85;
-      transition: opacity 0.3s ease;
-      cursor: default;
-    }
-    
-    .marquee-item:hover {
-      opacity: 1;
-    }
-
-    .col-1 {
-      border-right: 1px solid rgba(201, 146, 42, 0.1);
-    }
-
-    .col-1 .marquee-inner {
+    #stat-number {
       font-family: 'Playfair Display', Georgia, serif;
-      font-size: 96px;
-      font-style: italic;
-      color: #C9922A;
-      animation: scroll-up 12s linear infinite;
-    }
-    
-    .col-1 .separator {
-      width: 60px;
-      height: 1px;
-      background: rgba(201, 146, 42, 0.3);
-      margin: 24px auto;
-    }
-
-    .col-2 .marquee-inner {
-      font-family: 'Playfair Display', Georgia, serif;
-      font-size: 96px;
-      font-style: normal;
+      font-size: 160px;
       font-weight: bold;
       color: #F5F0E8;
-      animation: scroll-down 15s linear infinite;
+      line-height: 1;
+      text-align: center;
     }
 
-    .col-2 .separator {
-      width: 60px;
-      height: 1px;
-      background: rgba(245, 240, 232, 0.2);
-      margin: 24px auto;
+    #stat-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      color: #C9922A;
+      text-align: center;
+      margin-top: 16px;
     }
 
-    @keyframes scroll-up {
-      from { transform: translateY(0); }
-      to { transform: translateY(-50%); }
+    #stat-dots {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
     }
-    @keyframes scroll-down {
-      from { transform: translateY(-50%); }
-      to { transform: translateY(0); }
+
+    .stat-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(201, 146, 42, 0.25);
+      transition: all 0.3s ease;
+    }
+
+    .stat-dot.active {
+      width: 20px;
+      height: 6px;
+      border-radius: 3px;
+      background: #C9922A;
     }
 
     /* ===== PROJECTS GRID SECTION ===== */
@@ -941,8 +919,8 @@
       #testimonials-section { padding: 80px 24px; }
       .testimonials-container { grid-template-columns: 1fr; gap: 60px; }
       .testimonials-right { padding-left: 20px; }
-      .col-1 .marquee-inner, .col-2 .marquee-inner { font-size: 40px; padding: 0 10px; }
-      .col-1 .separator, .col-2 .separator { width: 30px; margin: 12px auto; }
+      #stat-number { font-size: 80px; }
+      #stat-label { font-size: 11px; letter-spacing: 4px; }
       #projects-section { padding: 80px 24px; }
       .projects-grid { grid-template-columns: 1fr; gap: 16px; }
       .footer { padding: 30px 24px; flex-direction: column; gap: 12px; }
@@ -1083,56 +1061,20 @@
     </div>
   </section>
 
-  <!-- SECTION 4.5: Stats Marquee (Vertical Revolving) -->
-  <section id="stats-marquee-section">
-    <!-- Column 1: Scrolls UP -->
-    <div class="marquee-col col-1">
-      <div class="marquee-inner">
-        <div class="marquee-item">120+ Projects</div><div class="separator"></div>
-        <div class="marquee-item">4 Years</div><div class="separator"></div>
-        <div class="marquee-item">frames.wallet</div><div class="separator"></div>
-        <div class="marquee-item">Expert Editors</div><div class="separator"></div>
-        
-        <div class="marquee-item">120+ Projects</div><div class="separator"></div>
-        <div class="marquee-item">4 Years</div><div class="separator"></div>
-        <div class="marquee-item">frames.wallet</div><div class="separator"></div>
-        <div class="marquee-item">Expert Editors</div><div class="separator"></div>
-        
-        <div class="marquee-item">120+ Projects</div><div class="separator"></div>
-        <div class="marquee-item">4 Years</div><div class="separator"></div>
-        <div class="marquee-item">frames.wallet</div><div class="separator"></div>
-        <div class="marquee-item">Expert Editors</div><div class="separator"></div>
-        
-        <div class="marquee-item">120+ Projects</div><div class="separator"></div>
-        <div class="marquee-item">4 Years</div><div class="separator"></div>
-        <div class="marquee-item">frames.wallet</div><div class="separator"></div>
-        <div class="marquee-item">Expert Editors</div><div class="separator"></div>
-      </div>
+  <!-- SECTION 4.5: Revolving Stats -->
+  <section id="stats-section">
+    <div id="stat-container">
+      <div style="width:60px; height:1px; background:rgba(201,146,42,0.3); margin:0 auto 32px;"></div>
+      <div id="stat-number">₹50L+</div>
+      <div id="stat-label">Revenue</div>
+      <div style="width:60px; height:1px; background:rgba(201,146,42,0.3); margin:32px auto 0;"></div>
     </div>
-
-    <!-- Column 2: Scrolls DOWN -->
-    <div class="marquee-col col-2">
-      <div class="marquee-inner">
-        <div class="marquee-item">₹50L+ Revenue</div><div class="separator"></div>
-        <div class="marquee-item">15+ Team</div><div class="separator"></div>
-        <div class="marquee-item">frames.wallet</div><div class="separator"></div>
-        <div class="marquee-item">100% Crafted</div><div class="separator"></div>
-        
-        <div class="marquee-item">₹50L+ Revenue</div><div class="separator"></div>
-        <div class="marquee-item">15+ Team</div><div class="separator"></div>
-        <div class="marquee-item">frames.wallet</div><div class="separator"></div>
-        <div class="marquee-item">100% Crafted</div><div class="separator"></div>
-
-        <div class="marquee-item">₹50L+ Revenue</div><div class="separator"></div>
-        <div class="marquee-item">15+ Team</div><div class="separator"></div>
-        <div class="marquee-item">frames.wallet</div><div class="separator"></div>
-        <div class="marquee-item">100% Crafted</div><div class="separator"></div>
-
-        <div class="marquee-item">₹50L+ Revenue</div><div class="separator"></div>
-        <div class="marquee-item">15+ Team</div><div class="separator"></div>
-        <div class="marquee-item">frames.wallet</div><div class="separator"></div>
-        <div class="marquee-item">100% Crafted</div><div class="separator"></div>
-      </div>
+    
+    <div id="stat-dots">
+      <div class="stat-dot active"></div>
+      <div class="stat-dot"></div>
+      <div class="stat-dot"></div>
+      <div class="stat-dot"></div>
     </div>
   </section>
 
@@ -1312,6 +1254,52 @@
       let targetFrame = 0;
       let smoothFrame = 0;
       const LERP_SPEED = 0.06;
+
+      /* ===== REVOLVING STATS ===== */
+      const revolvingStats = [
+        { number: "₹50L+", label: "Revenue" },
+        { number: "15+", label: "Team Members" },
+        { number: "2 Years", label: "Experience" },
+        { number: "120+", label: "Projects" }
+      ];
+
+      let currentStat = 0;
+      const statContainer = document.getElementById('stat-container');
+      const statNumber = document.getElementById('stat-number');
+      const statLabel = document.getElementById('stat-label');
+      const statDots = document.querySelectorAll('.stat-dot');
+
+      function nextRevolvingStat() {
+        if (!statContainer || !statNumber || !statLabel) return;
+        
+        statContainer.style.transition = 'transform 0.5s cubic-bezier(0.4,0,1,1), opacity 0.4s ease';
+        statContainer.style.transform = 'translateY(-80px)';
+        statContainer.style.opacity = '0';
+
+        setTimeout(() => {
+          currentStat = (currentStat + 1) % revolvingStats.length;
+          
+          statNumber.textContent = revolvingStats[currentStat].number;
+          statLabel.textContent = revolvingStats[currentStat].label;
+
+          statDots.forEach((dot, index) => {
+            if (index === currentStat) dot.classList.add('active');
+            else dot.classList.remove('active');
+          });
+
+          statContainer.style.transition = 'none';
+          statContainer.style.transform = 'translateY(80px)';
+          statContainer.style.opacity = '0';
+
+          statContainer.offsetHeight;
+
+          statContainer.style.transition = 'transform 0.6s cubic-bezier(0,0,0.2,1), opacity 0.5s ease';
+          statContainer.style.transform = 'translateY(0)';
+          statContainer.style.opacity = '1';
+        }, 500);
+      }
+
+      setInterval(nextRevolvingStat, 2800);
 
       /* ===== PROJECTS SCROLL REVEAL ===== */
       const observer = new IntersectionObserver((entries) => {

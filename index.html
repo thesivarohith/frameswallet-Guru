@@ -112,77 +112,99 @@
       font-weight: 300;
     }
 
-    /* ===== NAVIGATION ===== */
+    /* ===== NAVIGATION (GLASSMORPHISM PILL) ===== */
     .nav {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 100;
-      padding: 24px 48px;
+      top: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 48px);
+      max-width: 1200px;
+      z-index: 1000;
+      padding: 14px 24px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-      pointer-events: none;
+      
+      background: rgba(10, 10, 10, 0.25);
+      background-image: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.04) 0%,
+        rgba(255, 255, 255, 0.00) 50%,
+        rgba(255, 255, 255, 0.02) 100%
+      );
+      backdrop-filter: blur(40px) saturate(200%) brightness(0.9);
+      -webkit-backdrop-filter: blur(40px) saturate(200%) brightness(0.9);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-top: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 20px;
+      box-shadow: 
+        0 8px 48px rgba(0, 0, 0, 0.5),
+        0 1px 0 rgba(255, 255, 255, 0.08) inset,
+        0 -1px 0 rgba(255, 255, 255, 0.04) inset;
+                  
+      transition: background 0.4s ease;
     }
 
     .nav.scrolled {
-      padding: 16px 48px;
-      background: rgba(0, 0, 0, 0.85);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(201, 146, 42, 0.08);
+      background: rgba(10, 10, 10, 0.45);
     }
 
     .nav-logo {
       font-family: 'Playfair Display', Georgia, serif;
-      font-size: 1.3rem;
-      font-weight: 700;
-      letter-spacing: 0.02em;
+      font-style: italic;
+      font-size: 22px;
+      color: #C9922A;
+      letter-spacing: 0.5px;
+      text-decoration: none;
       pointer-events: all;
-      cursor: pointer;
-      transition: opacity 0.3s ease;
     }
-
-    .nav-logo .frames-text { color: #F5F0E8; }
-    .nav-logo .dot-wallet { color: #C9922A; font-style: italic; font-weight: 400; }
 
     .nav-links {
       display: flex;
-      gap: 36px;
+      align-items: center;
+      gap: 40px;
       list-style: none;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
       pointer-events: all;
     }
 
     .nav-links a {
-      color: rgba(245, 240, 232, 0.5);
-      text-decoration: none;
-      font-size: 0.8rem;
-      font-weight: 400;
-      letter-spacing: 0.12em;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      color: rgba(255, 255, 255, 0.75);
       text-transform: uppercase;
-      transition: color 0.3s ease;
-      position: relative;
-    }
-
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 0;
-      height: 1px;
-      background: #C9922A;
-      transition: width 0.3s ease;
+      text-decoration: none;
+      transition: color 0.2s ease;
     }
 
     .nav-links a:hover {
-      color: #C9922A;
+      color: #ffffff;
     }
 
-    .nav-links a:hover::after {
-      width: 100%;
+    .nav-cta {
+      background: #C9922A;
+      color: #000000;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 50px;
+      padding: 10px 24px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s ease;
+      pointer-events: all;
+    }
+
+    .nav-cta:hover {
+      background: #e0a830;
     }
 
     /* ===== SCROLL PROGRESS LINE ===== */
@@ -538,12 +560,410 @@
     .reveal-delay-2 { transition-delay: 0.3s; }
     .reveal-delay-3 { transition-delay: 0.45s; }
 
+    /* ===== TESTIMONIALS SECTION ===== */
+    #testimonials-section {
+      background: #000000;
+      padding: 120px 80px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .testimonials-heading {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 32px;
+      color: #F5F0E8;
+      margin-bottom: 16px;
+      position: relative;
+    }
+
+    .testimonials-heading::before {
+      content: '';
+      width: 40px;
+      height: 3px;
+      background: #C9922A;
+      position: absolute;
+      top: -16px;
+      left: 0;
+    }
+
+    .testimonials-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 80px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Left Panel */
+    .testimonials-left {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      padding-left: 20px;
+    }
+
+    .timeline-line {
+      position: absolute;
+      left: -5px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .client-item {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      cursor: pointer;
+      z-index: 1;
+      opacity: 0.45;
+      transform: scale(0.9);
+      transform-origin: left center;
+      transition: all 0.5s ease;
+    }
+
+    .client-item.active {
+      opacity: 1;
+      transform: scale(1.1);
+    }
+
+    .client-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      filter: grayscale(100%);
+      transition: all 0.5s ease;
+    }
+
+    .client-item.active .client-avatar {
+      width: 68px;
+      height: 68px;
+      border: 2px solid #C9922A;
+      filter: grayscale(0%);
+    }
+
+    .client-info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .client-name {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      color: rgba(245, 240, 232, 0.35);
+      font-weight: 600;
+      transition: all 0.5s ease;
+    }
+
+    .client-item.active .client-name {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 22px;
+      color: #F5F0E8;
+    }
+
+    .client-meta {
+      font-size: 11px;
+      color: rgba(201, 146, 42, 0.35);
+      letter-spacing: 0.05em;
+      transition: all 0.5s ease;
+    }
+
+    .client-item.active .client-meta {
+      font-size: 12px;
+      color: #C9922A;
+    }
+
+    .client-star {
+      color: inherit;
+    }
+
+    /* Right Panel */
+    .testimonials-right {
+      position: relative;
+      padding-left: 40px;
+    }
+
+    .quote-mark {
+      font-family: Georgia, serif;
+      font-size: 100px;
+      color: #C9922A;
+      opacity: 0.35;
+      position: absolute;
+      top: 0;
+      left: 0;
+      line-height: 0.5;
+      display: block;
+      margin-bottom: -20px;
+    }
+
+    .quote-text {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-style: italic;
+      font-size: 20px;
+      line-height: 2.0;
+      color: rgba(245, 240, 232, 0.85);
+      max-width: 520px;
+      position: relative;
+      z-index: 1;
+      transition: opacity 0.3s ease;
+    }
+
+    /* ===== 3D CINEMA THEATER ===== */
+    #theater-section {
+      position: relative;
+      height: 500vh;
+      background: #000;
+      z-index: 2;
+    }
+
+    .theater-sticky {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .theater-heading {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      z-index: 10;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    .theater-heading h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 48px;
+      color: #F5F0E8;
+      margin: 0;
+    }
+
+    .theater-heading p {
+      font-family: 'Inter', sans-serif;
+      font-style: italic;
+      font-size: 16px;
+      color: #C9922A;
+      margin-top: 12px;
+    }
+
+    .theater-viewport {
+      width: 100%;
+      height: 100%;
+      perspective: 1200px;
+      perspective-origin: 50% 50%;
+      overflow: hidden;
+    }
+
+    .theater-scene {
+      position: relative;
+      width: 1400px;
+      height: 900px;
+      transform-style: preserve-3d;
+      transform: translateZ(0px);
+      margin: auto;
+      top: 50%;
+      left: 50%;
+      margin-left: -700px;
+      margin-top: -450px;
+      transition: transform 0.08s linear;
+    }
+
+    /* Walls */
+    .theater-floor {
+      position: absolute;
+      width: 1400px;
+      height: 3000px;
+      background: linear-gradient(to bottom, #0a0a0a, #14120e);
+      transform: rotateX(-90deg) translateZ(-450px);
+      transform-origin: top center;
+    }
+
+    .theater-ceiling {
+      position: absolute;
+      width: 1400px;
+      height: 3000px;
+      background: #050505;
+      transform: rotateX(90deg) translateZ(-450px);
+      transform-origin: bottom center;
+      border-bottom: 1px solid rgba(201, 146, 42, 0.15);
+    }
+
+    .theater-left-wall {
+      position: absolute;
+      width: 3000px;
+      height: 900px;
+      background: #080808;
+      transform: rotateY(90deg) translateZ(-700px);
+      transform-origin: left center;
+    }
+
+    .theater-right-wall {
+      position: absolute;
+      width: 3000px;
+      height: 900px;
+      background: #080808;
+      transform: rotateY(-90deg) translateZ(-700px);
+      transform-origin: right center;
+    }
+
+    .theater-back-wall {
+      position: absolute;
+      width: 1400px;
+      height: 900px;
+      background: #080808;
+      transform: translateZ(-3000px);
+    }
+
+    /* Video Frame */
+    .theater-frame {
+      position: absolute;
+      transform-style: preserve-3d;
+    }
+
+    .theater-frame-inner {
+      position: relative;
+      width: 420px;
+      height: 240px;
+      border: 3px solid #C9922A;
+      border-radius: 6px;
+      background: #000;
+      box-shadow:
+        0 0 40px rgba(201, 146, 42, 0.2),
+        0 0 80px rgba(0, 0, 0, 0.8);
+      overflow: hidden;
+      transition: transform 0.4s ease;
+      cursor: pointer;
+    }
+
+    .theater-frame:hover .theater-frame-inner {
+      transform: translateZ(40px);
+    }
+
+    .theater-frame video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Spotlight above frame */
+    .theater-spotlight {
+      position: absolute;
+      top: -200px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 300px;
+      height: 200px;
+      background: radial-gradient(
+        ellipse at 50% 100%,
+        rgba(201, 146, 42, 0.08) 0%,
+        transparent 70%
+      );
+      pointer-events: none;
+    }
+
+    /* Label below frame */
+    .theater-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      letter-spacing: 3px;
+      color: rgba(201, 146, 42, 0.7);
+      text-transform: uppercase;
+      text-align: center;
+      margin-top: 12px;
+    }
+
+    /* Floor reflection */
+    .theater-reflection {
+      position: absolute;
+      top: 246px;
+      left: 0;
+      width: 420px;
+      height: 240px;
+      border: 3px solid rgba(201, 146, 42, 0.08);
+      border-radius: 6px;
+      overflow: hidden;
+      transform: scaleY(-1);
+      opacity: 0.12;
+      -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.3), transparent);
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,0.3), transparent);
+      pointer-events: none;
+    }
+
+    .theater-reflection video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Left wall frames */
+    .frame-left-1 {
+      left: 0; top: 250px;
+      transform: rotateY(90deg) translateZ(-700px) translateX(-500px);
+      transform-origin: left center;
+    }
+    .frame-left-2 {
+      left: 0; top: 250px;
+      transform: rotateY(90deg) translateZ(-700px) translateX(-1300px);
+      transform-origin: left center;
+    }
+    .frame-left-3 {
+      left: 0; top: 250px;
+      transform: rotateY(90deg) translateZ(-700px) translateX(-2100px);
+      transform-origin: left center;
+    }
+
+    /* Right wall frames */
+    .frame-right-1 {
+      right: 0; top: 250px;
+      transform: rotateY(-90deg) translateZ(-700px) translateX(500px);
+      transform-origin: right center;
+    }
+    .frame-right-2 {
+      right: 0; top: 250px;
+      transform: rotateY(-90deg) translateZ(-700px) translateX(1300px);
+      transform-origin: right center;
+    }
+    .frame-right-3 {
+      right: 0; top: 250px;
+      transform: rotateY(-90deg) translateZ(-700px) translateX(2100px);
+      transform-origin: right center;
+    }
+
+    /* Back wall frames */
+    .frame-back-1 {
+      top: 250px; left: 120px;
+      transform: translateZ(-2980px);
+    }
+    .frame-back-2 {
+      top: 250px; right: 120px;
+      transform: translateZ(-2980px);
+    }
+
     /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
       .nav { padding: 16px 24px; }
       .nav.scrolled { padding: 12px 24px; }
       .nav-links { display: none; }
+      .nav-cta { display: none; }
       #services-section { padding: 80px 24px 100px; }
+      #testimonials-section { padding: 80px 24px; }
+      .testimonials-container { grid-template-columns: 1fr; gap: 60px; }
+      .testimonials-right { padding-left: 20px; }
+      #theater-section { display: none; }
       .footer { padding: 30px 24px; flex-direction: column; gap: 12px; }
       .frame-counter { right: 20px; bottom: 20px; }
     }
@@ -569,14 +989,14 @@
 
   <!-- NAVIGATION -->
   <nav class="nav" id="nav">
-    <div class="nav-logo">
-      <span class="frames-text">frames</span><span class="dot-wallet">.wallet</span>
-    </div>
+    <a href="#" class="nav-logo">frames.wallet</a>
     <ul class="nav-links">
-      <li><a href="#sticky-section">Showreel</a></li>
-      <li><a href="#services-section">Services</a></li>
-      <li><a href="#tagline-section">Contact</a></li>
+      <li><a href="#projects">PROJECTS</a></li>
+      <li><a href="#team">TEAM</a></li>
+      <li><a href="#revenue">REVENUE</a></li>
+      <li><a href="#testimonials">TESTIMONIALS</a></li>
     </ul>
+    <a href="#contact" class="nav-cta">CONNECT</a>
   </nav>
 
   <!-- FRAME COUNTER -->
@@ -630,6 +1050,146 @@
         <div class="service-number">03</div>
         <h3 class="service-title">Post Production</h3>
         <p class="service-desc">End-to-end editing, sound design, and finishing that elevates every project.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4: Testimonials -->
+  <section id="testimonials-section">
+    <div style="max-width: 1200px; margin: 0 auto;">
+      <h2 class="testimonials-heading reveal">Client Reviews</h2>
+    </div>
+    <div class="testimonials-container">
+      <!-- Left Panel: Timeline & Clients -->
+      <div class="testimonials-left reveal">
+        <!-- Curved SVG Connector -->
+        <svg class="timeline-line" width="60" height="260" viewBox="0 0 60 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M 40 20 C -5 80, -5 180, 40 240" stroke="rgba(201, 146, 42, 0.35)" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+
+        <div class="client-item active" data-id="0">
+          <img src="https://i.pravatar.cc/150?img=1" alt="Alex Morgan" class="client-avatar">
+          <div class="client-info">
+            <div class="client-name">Alex Morgan</div>
+            <div class="client-meta"><span class="client-star">★</span> 5.0 • 12 Jan, 2025</div>
+          </div>
+        </div>
+
+        <div class="client-item" data-id="1">
+          <img src="https://i.pravatar.cc/150?img=5" alt="Diana Johnston" class="client-avatar">
+          <div class="client-info">
+            <div class="client-name">Diana Johnston</div>
+            <div class="client-meta"><span class="client-star">★</span> 4.9 • 29 Aug, 2024</div>
+          </div>
+        </div>
+
+        <div class="client-item" data-id="2">
+          <img src="https://i.pravatar.cc/150?img=9" alt="Lauren Contreras" class="client-avatar">
+          <div class="client-info">
+            <div class="client-name">Lauren Contreras</div>
+            <div class="client-meta"><span class="client-star">★</span> 4.9 • 14 Mar, 2025</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Panel: Quote -->
+      <div class="testimonials-right reveal reveal-delay-1">
+        <div class="quote-mark">"</div>
+        <div class="quote-text" id="quote-text">
+          Absolutely cinematic work. frames.wallet transformed our raw footage into something we could not have imagined. Every cut, every transition felt intentional and powerful.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 5: 3D Cinema Theater -->
+  <section id="theater-section">
+    <div class="theater-sticky">
+      <!-- Heading (fades on scroll) -->
+      <div class="theater-heading" id="theater-heading">
+        <h2>Our Work</h2>
+        <p>Step inside the studio</p>
+      </div>
+
+      <div class="theater-viewport">
+        <div class="theater-scene" id="theater-scene">
+          <!-- Room Structure -->
+          <div class="theater-floor"></div>
+          <div class="theater-ceiling"></div>
+          <div class="theater-left-wall"></div>
+          <div class="theater-right-wall"></div>
+          <div class="theater-back-wall"></div>
+
+          <!-- Left Wall Frames -->
+          <div class="theater-frame frame-left-1">
+            <div class="theater-spotlight"></div>
+            <div class="theater-frame-inner">
+              <video src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop playsinline preload="metadata"></video>
+            </div>
+            <div class="theater-label">REEL 001</div>
+            <div class="theater-reflection"><video src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop playsinline></video></div>
+          </div>
+          <div class="theater-frame frame-left-2">
+            <div class="theater-spotlight"></div>
+            <div class="theater-frame-inner">
+              <video src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop playsinline preload="metadata"></video>
+            </div>
+            <div class="theater-label">REEL 002</div>
+            <div class="theater-reflection"><video src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop playsinline></video></div>
+          </div>
+          <div class="theater-frame frame-left-3">
+            <div class="theater-spotlight"></div>
+            <div class="theater-frame-inner">
+              <video src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop playsinline preload="metadata"></video>
+            </div>
+            <div class="theater-label">REEL 003</div>
+            <div class="theater-reflection"><video src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop playsinline></video></div>
+          </div>
+
+          <!-- Right Wall Frames -->
+          <div class="theater-frame frame-right-1">
+            <div class="theater-spotlight"></div>
+            <div class="theater-frame-inner">
+              <video src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop playsinline preload="metadata"></video>
+            </div>
+            <div class="theater-label">REEL 004</div>
+            <div class="theater-reflection"><video src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop playsinline></video></div>
+          </div>
+          <div class="theater-frame frame-right-2">
+            <div class="theater-spotlight"></div>
+            <div class="theater-frame-inner">
+              <video src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop playsinline preload="metadata"></video>
+            </div>
+            <div class="theater-label">REEL 005</div>
+            <div class="theater-reflection"><video src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop playsinline></video></div>
+          </div>
+          <div class="theater-frame frame-right-3">
+            <div class="theater-spotlight"></div>
+            <div class="theater-frame-inner">
+              <video src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop playsinline preload="metadata"></video>
+            </div>
+            <div class="theater-label">REEL 006</div>
+            <div class="theater-reflection"><video src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop playsinline></video></div>
+          </div>
+
+          <!-- Back Wall Frames -->
+          <div class="theater-frame frame-back-1">
+            <div class="theater-spotlight"></div>
+            <div class="theater-frame-inner">
+              <video src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop playsinline preload="metadata"></video>
+            </div>
+            <div class="theater-label">REEL 007</div>
+            <div class="theater-reflection"><video src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop playsinline></video></div>
+          </div>
+          <div class="theater-frame frame-back-2">
+            <div class="theater-spotlight"></div>
+            <div class="theater-frame-inner">
+              <video src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop playsinline preload="metadata"></video>
+            </div>
+            <div class="theater-label">REEL 008</div>
+            <div class="theater-reflection"><video src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop playsinline></video></div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -827,6 +1387,9 @@
             el.classList.add('visible');
           }
         });
+
+        // === 3D Theater camera ===
+        updateTheater();
       }
 
       /* ===== OPTIMIZED SCROLL ===== */
@@ -840,6 +1403,78 @@
           });
         }
       }
+
+      /* ===== TESTIMONIALS LOGIC ===== */
+      const clients = document.querySelectorAll('.client-item');
+      const quoteText = document.getElementById('quote-text');
+      const quotes = [
+        "Absolutely cinematic work. frames.wallet transformed our raw footage into something we could not have imagined. Every cut, every transition felt intentional and powerful.",
+        "Overall a pleasurable experience. Pay a little first and a little as milestones are achieved — which made me feel very confident throughout. Seamless and easy process from start to finish.",
+        "The team at frames.wallet has an eye for storytelling that very few editors possess. Our brand video got 10x the engagement we expected. Worth every penny."
+      ];
+      
+      let activeClientIndex = 0;
+      let testimonialInterval;
+
+      function updateTestimonial(index) {
+        if (index === activeClientIndex) return;
+        
+        clients[activeClientIndex].classList.remove('active');
+        activeClientIndex = index;
+        clients[activeClientIndex].classList.add('active');
+
+        quoteText.style.transition = 'opacity 0.2s ease';
+        quoteText.style.opacity = '0';
+        
+        setTimeout(() => {
+          quoteText.textContent = quotes[activeClientIndex];
+          quoteText.style.transition = 'opacity 0.3s ease';
+          quoteText.style.opacity = '1';
+        }, 200);
+      }
+
+      function startTestimonialCycle() {
+        clearInterval(testimonialInterval);
+        testimonialInterval = setInterval(() => {
+          let nextIndex = (activeClientIndex + 1) % clients.length;
+          updateTestimonial(nextIndex);
+        }, 3000);
+      }
+
+      clients.forEach((client, index) => {
+        client.addEventListener('click', () => {
+          updateTestimonial(index);
+          startTestimonialCycle(); // Reset timer on manual click
+        });
+      });
+
+      /* ===== 3D THEATER SCROLL ===== */
+      const theaterSection = document.getElementById('theater-section');
+      const theaterScene = document.getElementById('theater-scene');
+      const theaterHeading = document.getElementById('theater-heading');
+
+      function updateTheater() {
+        if (!theaterSection || !theaterScene) return;
+        const sectionTop = theaterSection.offsetTop;
+        const sectionHeight = theaterSection.offsetHeight - window.innerHeight;
+        const scrolled = Math.max(0, window.scrollY - sectionTop);
+        const progress = Math.min(1, scrolled / sectionHeight);
+        const zDepth = progress * 2400;
+        theaterScene.style.transform = `translateZ(${zDepth}px)`;
+
+        // Fade heading
+        if (theaterHeading) {
+          theaterHeading.style.opacity = Math.max(0, 1 - progress * 20);
+        }
+      }
+
+      // Video hover play/pause
+      document.querySelectorAll('.theater-frame-inner').forEach(frame => {
+        const video = frame.querySelector('video');
+        if (!video) return;
+        frame.addEventListener('mouseenter', () => { video.play(); });
+        frame.addEventListener('mouseleave', () => { video.pause(); video.currentTime = 0; });
+      });
 
       /* ===== INIT ===== */
       async function init() {
@@ -863,6 +1498,9 @@
 
         // Trigger initial scroll state
         onScroll();
+
+        // Start testimonials auto-cycle
+        startTestimonialCycle();
       }
 
       if (document.readyState === 'loading') {

@@ -14,6 +14,12 @@ dist-ssr/
 
 # Media
 public/frames/
+*.avif
+*.webp
+*.png
+*.jpg
+*.jpeg
+*.gif
 
 # Editor directories and files
 .vscode/*

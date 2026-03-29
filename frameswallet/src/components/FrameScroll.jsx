@@ -142,7 +142,7 @@ export default function FrameScroll() {
 
   return (
     <>
-      <div ref={sectionRef} style={{ height: `calc(100vh + ${totalFrames * 4}px)`, position: 'relative', background: '#000', scrollSnapAlign: 'start', scrollSnapStop: 'always' }}>
+      <div ref={sectionRef} style={{ height: `calc(100vh + ${totalFrames * 12}px)`, position: 'relative', background: '#000', scrollSnapAlign: 'start', scrollSnapStop: 'always' }}>
       
         <div style={{ position: 'sticky', top: 0, height: '100vh', overflow: 'hidden' }}>
           <canvas

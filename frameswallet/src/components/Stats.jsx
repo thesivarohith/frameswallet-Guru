@@ -1,114 +1,193 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 const stats = [
-  { number: "₹50L+", label: "Revenue" },
-  { number: "15+", label: "Team Members" },
-  { number: "2 Years", label: "Experience" },
-  { number: "100+", label: "Projects" }
+  { number: '₹50L+', label: 'Revenue', index: '01' },
+  { number: '15+', label: 'Team Members', index: '02' },
+  { number: '2 Yrs', label: 'Experience', index: '03' },
+  { number: '100+', label: 'Projects', index: '04' },
 ];
 
 export default function Stats() {
   const sectionRef = useRef(null);
-  const [current, setCurrent] = useState(0);
-  const [animState, setAnimState] = useState('entering'); // 'entering' | 'centered' | 'exiting'
+  const [active, setActive] = useState(0);
+  const [displayIndex, setDisplayIndex] = useState(0);
+  const [animating, setAnimating] = useState(false);
 
+  // Scroll-position-based stat selection
   useEffect(() => {
-    // Phase 1: enter -> center
-    const tCenter = setTimeout(() => {
-      setAnimState('centered');
-    }, 50); // tiny delay to allow CSS to snap 'entering' position before animating to 'centered'
+    const section = sectionRef.current;
+    if (!section) return;
 
-    // Phase 2: center -> exiting
-    const tExit = setTimeout(() => {
-      setAnimState('exiting');
-    }, 1600 - 350); // wait majority of cycle, then exit
+    const handleScroll = () => {
+      const sectionTop = section.offsetTop;
+      const scrolled = window.scrollY - sectionTop;
 
-    // Phase 3: exiting -> increment -> enter
-    const tNext = setTimeout(() => {
-      setCurrent((c) => (c + 1) % stats.length);
-      setAnimState('entering');
-    }, 1600);
+      if (scrolled < 0) {
+        setActive(0);
+        return;
+      }
 
-    return () => {
-      clearTimeout(tCenter);
-      clearTimeout(tExit);
-      clearTimeout(tNext);
+      const sectionHeight = section.offsetHeight - window.innerHeight;
+
+      if (scrolled > sectionHeight) {
+        setActive(3);
+        return;
+      }
+
+      const progress = scrolled / sectionHeight;
+      const index = Math.min(3, Math.floor(progress * 4));
+      setActive(index);
     };
-  }, [current]);
 
-  const getStyles = () => {
-    if (animState === 'entering') {
-      return {
-        transform: 'translateY(60px)',
-        opacity: 0,
-        transition: 'none' // instant snap to bottom
-      };
-    }
-    if (animState === 'centered') {
-      return {
-        transform: 'translateY(0)',
-        opacity: 1,
-        transition: 'transform 0.45s cubic-bezier(0,0,0.2,1), opacity 0.3s ease'
-      };
-    }
-    // exiting
-    return {
-      transform: 'translateY(-60px)',
-      opacity: 0,
-      transition: 'transform 0.35s cubic-bezier(0.4,0,1,1), opacity 0.25s ease'
-    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Animate stat transitions
+  useEffect(() => {
+    if (active === displayIndex) return;
+    setAnimating(true);
+
+    const t = setTimeout(() => {
+      setDisplayIndex(active);
+      setAnimating(false);
+    }, 300);
+
+    return () => clearTimeout(t);
+  }, [active]);
+
+  const contentStyle = {
+    opacity: animating ? 0 : 1,
+    transform: animating ? 'translateY(-40px)' : 'translateY(0)',
+    transition: 'opacity 0.3s ease, transform 0.3s ease',
+    textAlign: 'center',
   };
 
   return (
-    <div 
-      ref={sectionRef} 
-      style={{ 
-        position: 'relative', 
-        overflow: 'hidden', 
-        background: 'transparent', zIndex: 1, 
-        scrollSnapAlign: 'start', 
-        scrollSnapStop: 'always' 
+    <div
+      ref={sectionRef}
+      style={{
+        height: '400vh',
+        position: 'relative',
       }}
     >
-      
-        <section style={{
-          background: 'transparent',
-          minHeight: '100vh',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          position: 'relative',
-          borderTop: '1px solid rgba(57,255,20,0.12)',
-          borderBottom: '1px solid rgba(57,255,20,0.12)'
-        }}>
-          <div style={{ textAlign: 'center', ...getStyles() }}>
-          <div style={{ width: '60px', height: '1px', background: '#39FF14', margin: '0 auto 32px' }}></div>
-          
+      {/* Sticky inner container */}
+      <div style={{
+        position: 'sticky',
+        top: 0,
+        height: '100vh',
+        overflow: 'hidden',
+        background: '#000',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderTop: '1px solid rgba(57,255,20,0.12)',
+        borderBottom: '1px solid rgba(57,255,20,0.12)',
+      }}>
+        {/* Stat content */}
+        <div style={contentStyle}>
+          <div style={{
+            width: '40px',
+            height: '1px',
+            background: '#39FF14',
+            margin: '0 auto 24px',
+          }} />
+
           <div style={{
             fontFamily: "'Playfair Display', serif",
             fontSize: 'clamp(120px, 18vw, 220px)',
-            fontWeight: 'bold',
+            fontWeight: 700,
             color: '#F5F0E8',
-            lineHeight: 1
+            lineHeight: 1,
           }}>
-            {stats[current].number}
+            {stats[displayIndex].number}
           </div>
-          
+
           <div style={{
             fontFamily: "'Inter', sans-serif",
             fontSize: '14px',
-            fontWeight: '500',
+            fontWeight: 500,
             letterSpacing: '6px',
             textTransform: 'uppercase',
             color: '#39FF14',
-            marginTop: '16px'
+            marginTop: '16px',
           }}>
-            {stats[current].label}
+            {stats[displayIndex].label}
           </div>
-          
-          <div style={{ width: '60px', height: '1px', background: '#39FF14', margin: '32px auto 0' }}></div>
+
+          <div style={{
+            width: '40px',
+            height: '1px',
+            background: '#39FF14',
+            margin: '24px auto 0',
+          }} />
         </div>
-        </section>
+
+        {/* Progress dots */}
+        <div style={{
+          position: 'absolute',
+          bottom: '32px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          display: 'flex',
+          gap: '8px',
+          alignItems: 'center',
+        }}>
+          {stats.map((_, i) => (
+            <div
+              key={i}
+              style={{
+                width: i === displayIndex ? '20px' : '4px',
+                height: '4px',
+                borderRadius: i === displayIndex ? '2px' : '50%',
+                background: i === displayIndex ? '#39FF14' : 'rgba(57,255,20,0.2)',
+                transition: 'all 0.3s ease',
+              }}
+            />
+          ))}
+        </div>
+
+        {/* Scroll indicator — first stat only */}
+        <div style={{
+          position: 'absolute',
+          bottom: '80px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '6px',
+          opacity: active === 0 ? 1 : 0,
+          transition: 'opacity 0.4s ease',
+          pointerEvents: 'none',
+        }}>
+          <span style={{
+            fontSize: '10px',
+            letterSpacing: '4px',
+            color: 'rgba(57,255,20,0.4)',
+            textTransform: 'uppercase',
+            fontFamily: "'Inter', sans-serif",
+          }}>
+            Scroll
+          </span>
+          <span style={{
+            display: 'inline-block',
+            color: 'rgba(57,255,20,0.4)',
+            fontSize: '12px',
+            animation: 'statChevronBounce 1.5s ease-in-out infinite',
+          }}>
+            ▼
+          </span>
+        </div>
+
+        <style>{`
+          @keyframes statChevronBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(6px); }
+          }
+        `}</style>
       </div>
+    </div>
   );
 }

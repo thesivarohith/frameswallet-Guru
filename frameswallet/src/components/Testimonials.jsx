@@ -69,6 +69,16 @@ export default function Testimonials() {
 
   return (
     <div ref={sectionRef} style={{ position: 'relative', overflow: 'hidden', background: 'transparent', zIndex: 1, scrollSnapAlign: 'start', scrollSnapStop: 'always' }}>
+      <style dangerouslySetInnerHTML={{__html: `
+        @keyframes orbitSpin {
+          0% { transform: rotateX(70deg) rotateZ(0deg); }
+          100% { transform: rotateX(70deg) rotateZ(360deg); }
+        }
+        @keyframes orbitSpinSlow {
+          0% { transform: rotateX(70deg) rotateZ(0deg); }
+          100% { transform: rotateX(70deg) rotateZ(360deg); }
+        }
+      `}} />
       
         <section 
           style={{
@@ -77,7 +87,7 @@ export default function Testimonials() {
             flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'center', 
-            padding: '80px',
+            padding: '20px 80px 80px 80px',
             background: 'transparent',
             overflow: 'hidden',
             position: 'relative',
@@ -89,17 +99,44 @@ export default function Testimonials() {
           <div style={{ maxWidth: '1200px', width: '100%' }}>
             
             {/* HEADING above the grid */}
-            <div style={{ marginBottom: '60px' }}>
+            <div style={{ marginBottom: '60px', textAlign: 'center' }}>
               <div style={{
-                width: '40px', height: '3px', background: '#39FF14', marginBottom: '16px'
-              }} />
-              <h2 style={{
-                fontFamily: "'Playfair Display', serif",
-                fontSize: '36px',
-                color: '#F5F0E8',
-                fontWeight: 700,
-                margin: 0
-              }}>Client Reviews</h2>
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '24px',
+              }}>
+                <div style={{
+                  flex: 1,
+                  maxWidth: '120px',
+                  height: '1px',
+                  background: 'linear-gradient(to right, transparent, rgba(57,255,20,0.5))',
+                }} />
+                <h2 style={{
+                  fontFamily: "'Playfair Display', serif",
+                  fontSize: '48px',
+                  color: '#F5F0E8',
+                  fontWeight: 700,
+                  margin: 0,
+                  whiteSpace: 'nowrap',
+                }}>Client Reviews</h2>
+                <div style={{
+                  flex: 1,
+                  maxWidth: '120px',
+                  height: '1px',
+                  background: 'linear-gradient(to left, transparent, rgba(57,255,20,0.5))',
+                }} />
+              </div>
+              <p style={{
+                fontFamily: "'Inter', sans-serif",
+                fontSize: '12px',
+                letterSpacing: '4px',
+                color: '#39FF14',
+                marginTop: '12px',
+                textTransform: 'uppercase',
+              }}>
+                What our clients say
+              </p>
             </div>
 
             {/* Two column grid layout */}
@@ -113,7 +150,7 @@ export default function Testimonials() {
               <div style={{ position: 'relative' }}>
                 
                 {/* SVG Connector Line */}
-                <svg width="2" height="100%" style={{ position: 'absolute', left: '28px', top: '60px', zIndex: 0 }}>
+                <svg width="2" height="100%" style={{ position: 'absolute', left: '38px', top: '60px', zIndex: 0 }}>
                   <path d="M1 0 Q1 50 1 100 Q1 150 1 200 Q1 250 1 300"
                     stroke="rgba(57,255,20,0.3)" strokeWidth="1.5" 
                     fill="none" strokeDasharray="4 4" />
@@ -141,20 +178,76 @@ export default function Testimonials() {
                           transition: 'all 0.5s ease'
                         }}
                       >
-                        {/* Avatar */}
-                        <img 
-                          src={client.img} 
-                          alt={client.name}
-                          style={{
-                            width: isActive ? '68px' : '46px',
-                            height: isActive ? '68px' : '46px',
+                        {/* 3D Avatar with orbiting ring */}
+                        <div style={{
+                          position: 'relative',
+                          width: isActive ? '80px' : '54px',
+                          height: isActive ? '80px' : '54px',
+                          flexShrink: 0,
+                          perspective: '200px',
+                          transition: 'all 0.5s ease',
+                        }}>
+                          {/* Orbiting ring */}
+                          <div style={{
+                            position: 'absolute',
+                            inset: isActive ? '-6px' : '-4px',
                             borderRadius: '50%',
-                            objectFit: 'cover',
-                            border: isActive ? '2px solid #39FF14' : '1px solid rgba(255,255,255,0.1)',
-                            filter: isActive ? 'none' : 'grayscale(100%)',
-                            transition: 'all 0.5s ease'
-                          }}
-                        />
+                            border: isActive
+                              ? '2px solid rgba(57,255,20,0.7)'
+                              : '1px solid rgba(57,255,20,0.2)',
+                            animation: isActive
+                              ? 'orbitSpin 3s linear infinite'
+                              : 'orbitSpinSlow 8s linear infinite',
+                            boxShadow: isActive
+                              ? '0 0 16px rgba(57,255,20,0.4), inset 0 0 16px rgba(57,255,20,0.15)'
+                              : 'none',
+                            transition: 'border 0.5s ease, box-shadow 0.5s ease',
+                          }} />
+                          {/* Second ring offset */}
+                          <div style={{
+                            position: 'absolute',
+                            inset: isActive ? '-10px' : '-6px',
+                            borderRadius: '50%',
+                            border: isActive
+                              ? '1px solid rgba(57,255,20,0.3)'
+                              : '1px solid rgba(57,255,20,0.08)',
+                            animation: isActive
+                              ? 'orbitSpin 5s linear infinite reverse'
+                              : 'orbitSpinSlow 12s linear infinite reverse',
+                            transition: 'border 0.5s ease',
+                          }} />
+                          {/* Avatar image */}
+                          <img
+                            src={client.img}
+                            alt={client.name}
+                            style={{
+                              width: '100%',
+                              height: '100%',
+                              borderRadius: '50%',
+                              objectFit: 'cover',
+                              border: isActive ? '2px solid #39FF14' : '1px solid rgba(255,255,255,0.1)',
+                              filter: isActive ? 'none' : 'grayscale(100%)',
+                              transition: 'all 0.5s ease',
+                              position: 'relative',
+                              zIndex: 2,
+                            }}
+                          />
+                          {/* Glow underneath */}
+                          {isActive && (
+                            <div style={{
+                              position: 'absolute',
+                              top: '50%',
+                              left: '50%',
+                              transform: 'translate(-50%, -50%)',
+                              width: '60%',
+                              height: '60%',
+                              borderRadius: '50%',
+                              background: 'rgba(57,255,20,0.25)',
+                              filter: 'blur(20px)',
+                              zIndex: 0,
+                            }} />
+                          )}
+                        </div>
                         {/* Metadata */}
                         <div>
                           <div style={{

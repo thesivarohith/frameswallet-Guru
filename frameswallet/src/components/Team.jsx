@@ -213,7 +213,7 @@ export default function Team() {
       ref={sectionRef}
       style={{
         background: '#000',
-        padding: '100px 0',
+        padding: '100px 0 20px 0',
         overflow: 'hidden',
         position: 'relative',
         scrollSnapAlign: 'start',
@@ -250,16 +250,48 @@ export default function Team() {
           {/* OVERHEAD HEADING BLOCK */}
           <div style={{
             textAlign: 'center',
-            fontFamily: "'Inter', sans-serif",
-            fontSize: '11px',
-            letterSpacing: '8px',
-            color: 'rgba(57,255,20,0.5)',
-            textTransform: 'uppercase',
             marginBottom: '80px',
             position: 'relative',
             zIndex: 1
           }}>
-            THE STUDIO
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '24px',
+            }}>
+              <div style={{
+                flex: 1,
+                maxWidth: '120px',
+                height: '1px',
+                background: 'linear-gradient(to right, transparent, rgba(57,255,20,0.5))',
+              }} />
+              <h2 style={{
+                fontFamily: "'Playfair Display', serif",
+                fontSize: '48px',
+                color: '#F5F0E8',
+                margin: 0,
+                whiteSpace: 'nowrap',
+              }}>
+                The Studio
+              </h2>
+              <div style={{
+                flex: 1,
+                maxWidth: '120px',
+                height: '1px',
+                background: 'linear-gradient(to left, transparent, rgba(57,255,20,0.5))',
+              }} />
+            </div>
+            <p style={{
+              fontFamily: "'Inter', sans-serif",
+              fontSize: '12px',
+              letterSpacing: '4px',
+              color: '#39FF14',
+              marginTop: '12px',
+              textTransform: 'uppercase',
+            }}>
+              Numbers that define us
+            </p>
           </div>
 
           {/* EXCLUSIVELY STACKED 4 STAT FULL-WIDTH ROWS */}

@@ -104,15 +104,20 @@ export default function Navbar() {
         zIndex: -1
       }} />
 
-      {/* Brand */}
-      <div style={{
-        fontFamily: "'Playfair Display', serif",
-        fontSize: '22px',
-        fontStyle: 'italic',
-        color: '#39FF14'
-      }}>
-        frames.wallet
-      </div>
+      {/* Brand Logo */}
+      <img
+        src="/logo.webp"
+        alt="Frames Wallet"
+        style={{
+          width: '42px',
+          height: '42px',
+          borderRadius: '50%',
+          objectFit: 'cover',
+          border: '2px solid rgba(57, 255, 20, 0.5)',
+          boxShadow: '0 0 12px rgba(57, 255, 20, 0.3)',
+          cursor: 'pointer'
+        }}
+      />
 
       {/* Nav Link Array */}
       <div style={{

@@ -3,7 +3,14 @@ node_modules/
 **/node_modules/
 public/frames/
 frameswallet/public/frames/
+framesdone/
 .env
 .DS_Store
 dist/
 build/
+*.avif
+*.webp
+*.png
+*.jpg
+*.jpeg
+*.gif

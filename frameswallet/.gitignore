@@ -25,3 +25,4 @@ public/frames/
 *.njsproj
 *.sln
 *.sw?
+.vercel

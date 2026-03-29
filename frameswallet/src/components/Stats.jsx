@@ -78,11 +78,11 @@ export default function Stats() {
           alignItems: 'center',
           justifyContent: 'center',
           position: 'relative',
-          borderTop: '1px solid rgba(201,146,42,0.12)',
-          borderBottom: '1px solid rgba(201,146,42,0.12)'
+          borderTop: '1px solid rgba(57,255,20,0.12)',
+          borderBottom: '1px solid rgba(57,255,20,0.12)'
         }}>
           <div style={{ textAlign: 'center', ...getStyles() }}>
-          <div style={{ width: '60px', height: '1px', background: '#C9922A', margin: '0 auto 32px' }}></div>
+          <div style={{ width: '60px', height: '1px', background: '#39FF14', margin: '0 auto 32px' }}></div>
           
           <div style={{
             fontFamily: "'Playfair Display', serif",
@@ -100,13 +100,13 @@ export default function Stats() {
             fontWeight: '500',
             letterSpacing: '6px',
             textTransform: 'uppercase',
-            color: '#C9922A',
+            color: '#39FF14',
             marginTop: '16px'
           }}>
             {stats[current].label}
           </div>
           
-          <div style={{ width: '60px', height: '1px', background: '#C9922A', margin: '32px auto 0' }}></div>
+          <div style={{ width: '60px', height: '1px', background: '#39FF14', margin: '32px auto 0' }}></div>
         </div>
         </section>
       </div>

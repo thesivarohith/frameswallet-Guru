@@ -75,10 +75,10 @@ const StatRow = ({ stat, rowIndex, triggered }) => {
         display: 'flex',
         alignItems: 'center',
         padding: '48px 80px',
-        borderBottom: '1px solid rgba(201,146,42,0.15)',
+        borderBottom: '1px solid rgba(57,255,20,0.15)',
         position: 'relative',
         overflow: 'hidden',
-        background: hovered ? 'rgba(201,146,42,0.02)' : 'transparent',
+        background: hovered ? 'rgba(57,255,20,0.02)' : 'transparent',
         transition: 'background 0.4s ease, opacity 0.7s ease, transform 0.7s ease',
         opacity: triggered ? 1 : 0,
         transform: triggered ? 'translateX(0)' : 'translateX(-30px)',
@@ -92,7 +92,7 @@ const StatRow = ({ stat, rowIndex, triggered }) => {
         right: '80px',
         fontFamily: "'Inter', sans-serif",
         fontSize: '11px',
-        color: 'rgba(201,146,42,0.45)',
+        color: 'rgba(57,255,20,0.45)',
         letterSpacing: '3px'
       }}>
         {stat.index}
@@ -110,7 +110,7 @@ const StatRow = ({ stat, rowIndex, triggered }) => {
           fontSize: '11px',
           letterSpacing: '5px',
           textTransform: 'uppercase',
-          color: '#C9922A',
+          color: '#39FF14',
           marginBottom: '12px'
         }}>
           {stat.label}
@@ -126,14 +126,14 @@ const StatRow = ({ stat, rowIndex, triggered }) => {
           color: '#F5F0E8',
           lineHeight: 1,
           textShadow: `
-            0 0 80px rgba(201,146,42,0.15),
-            0 0 160px rgba(201,146,42,0.08)
+            0 0 80px rgba(57,255,20,0.15),
+            0 0 160px rgba(57,255,20,0.08)
           `
         }}>
           {value.toLocaleString()}
           <span style={{
             fontSize: '0.4em',
-            color: '#C9922A',
+            color: '#39FF14',
             fontStyle: 'italic',
             fontFamily: "'Playfair Display', serif"
           }}>
@@ -146,7 +146,7 @@ const StatRow = ({ stat, rowIndex, triggered }) => {
       <div style={{
         width: '50%',
         paddingLeft: '40px',
-        borderLeft: '1px solid rgba(201,146,42,0.3)',
+        borderLeft: '1px solid rgba(57,255,20,0.3)',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center'
@@ -238,7 +238,7 @@ export default function Team() {
                 pointerEvents: 'none',
                 width: '2px',
                 height: '2px',
-                background: 'rgba(201,146,42,0.4)',
+                background: 'rgba(57,255,20,0.4)',
                 borderRadius: '50%',
                 left: `${p.left}%`,
                 top: `${p.top}%`,
@@ -253,7 +253,7 @@ export default function Team() {
             fontFamily: "'Inter', sans-serif",
             fontSize: '11px',
             letterSpacing: '8px',
-            color: 'rgba(201,146,42,0.5)',
+            color: 'rgba(57,255,20,0.5)',
             textTransform: 'uppercase',
             marginBottom: '80px',
             position: 'relative',
@@ -270,7 +270,7 @@ export default function Team() {
             position: 'relative',
             zIndex: 1
           }}>
-            <div style={{ borderTop: '1px solid rgba(201,146,42,0.08)' }}>
+            <div style={{ borderTop: '1px solid rgba(57,255,20,0.08)' }}>
               {statsData.map((stat, i) => (
                 <StatRow 
                   key={i} 
@@ -293,7 +293,7 @@ export default function Team() {
             position: 'relative',
             zIndex: 1
           }}>
-            We don't just edit. We craft <span style={{ color: '#C9922A' }}>stories</span>.
+            We don't just edit. We craft <span style={{ color: '#39FF14' }}>stories</span>.
           </div>
           
         </section>

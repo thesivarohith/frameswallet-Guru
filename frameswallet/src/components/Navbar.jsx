@@ -25,14 +25,14 @@ const ConnectButton = () => {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
-        background: hovered ? 'rgba(224, 168, 48, 0.95)' : 'rgba(201, 146, 42, 0.85)',
+        background: hovered ? 'rgba(46, 204, 68, 0.95)' : 'rgba(57, 255, 20, 0.85)',
         backdropFilter: 'blur(20px)',
         WebkitBackdropFilter: 'blur(20px)',
-        border: '1px solid rgba(201,146,42,0.6)',
+        border: '1px solid rgba(57,255,20,0.6)',
         borderTop: '1px solid rgba(255,255,255,0.3)',
         boxShadow: hovered 
-          ? '0 6px 24px rgba(201,146,42,0.5), inset 0 1px 0 rgba(255,255,255,0.3)'
-          : '0 4px 16px rgba(201,146,42,0.3), inset 0 1px 0 rgba(255,255,255,0.25)',
+          ? '0 6px 24px rgba(57,255,20,0.5), inset 0 1px 0 rgba(255,255,255,0.3)'
+          : '0 4px 16px rgba(57,255,20,0.3), inset 0 1px 0 rgba(255,255,255,0.25)',
         color: '#000',
         fontWeight: '700',
         borderRadius: '50px',
@@ -109,7 +109,7 @@ export default function Navbar() {
         fontFamily: "'Playfair Display', serif",
         fontSize: '22px',
         fontStyle: 'italic',
-        color: '#C9922A'
+        color: '#39FF14'
       }}>
         frames.wallet
       </div>

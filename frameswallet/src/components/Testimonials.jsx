@@ -91,7 +91,7 @@ export default function Testimonials() {
             {/* HEADING above the grid */}
             <div style={{ marginBottom: '60px' }}>
               <div style={{
-                width: '40px', height: '3px', background: '#C9922A', marginBottom: '16px'
+                width: '40px', height: '3px', background: '#39FF14', marginBottom: '16px'
               }} />
               <h2 style={{
                 fontFamily: "'Playfair Display', serif",
@@ -115,7 +115,7 @@ export default function Testimonials() {
                 {/* SVG Connector Line */}
                 <svg width="2" height="100%" style={{ position: 'absolute', left: '28px', top: '60px', zIndex: 0 }}>
                   <path d="M1 0 Q1 50 1 100 Q1 150 1 200 Q1 250 1 300"
-                    stroke="rgba(201,146,42,0.3)" strokeWidth="1.5" 
+                    stroke="rgba(57,255,20,0.3)" strokeWidth="1.5" 
                     fill="none" strokeDasharray="4 4" />
                 </svg>
 
@@ -150,7 +150,7 @@ export default function Testimonials() {
                             height: isActive ? '68px' : '46px',
                             borderRadius: '50%',
                             objectFit: 'cover',
-                            border: isActive ? '2px solid #C9922A' : '1px solid rgba(255,255,255,0.1)',
+                            border: isActive ? '2px solid #39FF14' : '1px solid rgba(255,255,255,0.1)',
                             filter: isActive ? 'none' : 'grayscale(100%)',
                             transition: 'all 0.5s ease'
                           }}
@@ -169,11 +169,11 @@ export default function Testimonials() {
                           </div>
                           
                           {isActive ? (
-                            <div style={{ fontFamily: "'Inter', sans-serif", fontSize: '13px', color: '#C9922A', transition: 'all 0.5s ease' }}>
+                            <div style={{ fontFamily: "'Inter', sans-serif", fontSize: '13px', color: '#39FF14', transition: 'all 0.5s ease' }}>
                               ★ {client.rating.toFixed(1)} <span style={{ color: 'rgba(245,240,232,0.5)', fontSize: '12px' }}>&bull; {client.date}</span>
                             </div>
                           ) : (
-                            <div style={{ fontFamily: "'Inter', sans-serif", fontSize: '12px', color: 'rgba(201,146,42,0.35)', transition: 'all 0.5s ease' }}>
+                            <div style={{ fontFamily: "'Inter', sans-serif", fontSize: '12px', color: 'rgba(57,255,20,0.35)', transition: 'all 0.5s ease' }}>
                               ★ {client.rating.toFixed(1)}
                             </div>
                           )}
@@ -190,7 +190,7 @@ export default function Testimonials() {
                 {/* Large gold quote mark element */}
                 <div style={{
                   fontSize: '120px',
-                  color: '#C9922A',
+                  color: '#39FF14',
                   opacity: 0.25,
                   fontFamily: "Georgia, serif",
                   lineHeight: 0.8,
@@ -221,7 +221,7 @@ export default function Testimonials() {
                   fontSize: '13px',
                   letterSpacing: '3px',
                   textTransform: 'uppercase',
-                  color: '#C9922A',
+                  color: '#39FF14',
                   opacity: quoteVisible ? 1 : 0,
                   transition: `opacity ${quoteVisible ? '0.4s' : '0.25s'} ease`
                 }}>
@@ -229,7 +229,7 @@ export default function Testimonials() {
                     display: 'inline-block',
                     width: '30px',
                     height: '1px',
-                    background: '#C9922A',
+                    background: '#39FF14',
                     marginRight: '12px',
                     verticalAlign: 'middle'
                   }}></span>

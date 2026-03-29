@@ -5,7 +5,7 @@ export default function Footer() {
     <footer style={{
       background: 'transparent', zIndex: 1,
       padding: '40px 80px',
-      borderTop: '1px solid rgba(201,146,42,0.15)',
+      borderTop: '1px solid rgba(57,255,20,0.15)',
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
@@ -16,7 +16,7 @@ export default function Footer() {
         fontFamily: "'Playfair Display', serif",
         fontSize: '24px',
         fontStyle: 'italic',
-        color: '#C9922A'
+        color: '#39FF14'
       }}>
         frames.wallet
       </div>
@@ -37,9 +37,9 @@ export default function Footer() {
         letterSpacing: '1px',
         textTransform: 'uppercase'
       }}>
-        <a href="#" style={{ color: '#C9922A', textDecoration: 'none' }}>Instagram</a>
-        <a href="#" style={{ color: '#C9922A', textDecoration: 'none' }}>YouTube</a>
-        <a href="#" style={{ color: '#C9922A', textDecoration: 'none' }}>LinkedIn</a>
+        <a href="#" style={{ color: '#39FF14', textDecoration: 'none' }}>Instagram</a>
+        <a href="#" style={{ color: '#39FF14', textDecoration: 'none' }}>YouTube</a>
+        <a href="#" style={{ color: '#39FF14', textDecoration: 'none' }}>LinkedIn</a>
       </div>
     </footer>
   );

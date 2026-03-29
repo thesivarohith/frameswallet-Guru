@@ -27,10 +27,10 @@ function VideoCard({ label, src, index, cardWidth }) {
         overflow: 'hidden',
         cursor: 'pointer',
         border: hovered
-          ? '2px solid rgba(201,146,42,1)'
-          : '2px solid rgba(201,146,42,0.3)',
+          ? '2px solid rgba(57,255,20,1)'
+          : '2px solid rgba(57,255,20,0.3)',
         boxShadow: hovered
-          ? '0 0 60px rgba(201,146,42,0.2), 0 20px 60px rgba(0,0,0,0.8)'
+          ? '0 0 60px rgba(57,255,20,0.2), 0 20px 60px rgba(0,0,0,0.8)'
           : '0 8px 40px rgba(0,0,0,0.6)',
         transform: hovered
           ? 'scale(1.03) translateY(-8px)'
@@ -67,8 +67,8 @@ function VideoCard({ label, src, index, cardWidth }) {
       <div style={{
         position: 'absolute', top: 0, left: 0,
         width: '28px', height: '28px',
-        borderTop: '2px solid #C9922A',
-        borderLeft: '2px solid #C9922A',
+        borderTop: '2px solid #39FF14',
+        borderLeft: '2px solid #39FF14',
         borderRadius: '10px 0 0 0',
         opacity: hovered ? 1 : 0,
         transition: 'opacity 0.3s ease',
@@ -79,8 +79,8 @@ function VideoCard({ label, src, index, cardWidth }) {
       <div style={{
         position: 'absolute', bottom: 0, right: 0,
         width: '28px', height: '28px',
-        borderBottom: '2px solid #C9922A',
-        borderRight: '2px solid #C9922A',
+        borderBottom: '2px solid #39FF14',
+        borderRight: '2px solid #39FF14',
         borderRadius: '0 0 10px 0',
         opacity: hovered ? 1 : 0,
         transition: 'opacity 0.3s ease',
@@ -92,7 +92,7 @@ function VideoCard({ label, src, index, cardWidth }) {
         position: 'absolute', top: '16px', right: '20px',
         fontFamily: "'Inter', sans-serif",
         fontSize: '11px', letterSpacing: '2px',
-        color: 'rgba(201,146,42,0.5)',
+        color: 'rgba(57,255,20,0.5)',
         pointerEvents: 'none'
       }}>
         {String(index + 1).padStart(2, '0')}
@@ -103,7 +103,7 @@ function VideoCard({ label, src, index, cardWidth }) {
         position: 'absolute', bottom: '16px', left: '20px',
         fontFamily: "'Inter', sans-serif",
         fontSize: '10px', letterSpacing: '3px',
-        color: 'rgba(201,146,42,0.8)',
+        color: 'rgba(57,255,20,0.8)',
         textTransform: 'uppercase',
         pointerEvents: 'none'
       }}>
@@ -213,7 +213,7 @@ export default function Tunnel() {
               fontFamily: "'Inter', sans-serif",
               fontSize: '12px',
               letterSpacing: '4px',
-              color: '#C9922A',
+              color: '#39FF14',
               marginTop: '12px',
               textTransform: 'uppercase'
             }}>Drag to explore</p>
@@ -252,13 +252,13 @@ export default function Tunnel() {
             left: '80px',
             right: '80px',
             height: '1px',
-            background: 'rgba(201,146,42,0.15)'
+            background: 'rgba(57,255,20,0.15)'
           }}>
             <div
               id="reel-progress"
               style={{
                 height: '100%',
-                background: '#C9922A',
+                background: '#39FF14',
                 width: '0%',
                 transition: 'none'
               }}

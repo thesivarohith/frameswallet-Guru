@@ -1,57 +1,96 @@
 import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
-const NavLink = ({ children }) => {
+const NavLink = ({ children, to, isActive }) => {
   const [hovered, setHovered] = useState(false);
+
+  const isRouterLink = to.startsWith('/') && !to.startsWith('/#');
+
+  const baseStyle = {
+    cursor: 'pointer',
+    color: isActive
+      ? '#39FF14'
+      : hovered
+        ? 'rgba(255, 255, 255, 1)'
+        : 'rgba(255, 255, 255, 0.8)',
+    transition: 'color 0.2s ease',
+    textDecoration: 'none',
+    display: 'inline-block',
+  };
+
+  if (isRouterLink) {
+    const handleClick = (e) => {
+      if (isActive) {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    };
+
+    return (
+      <Link
+        to={to}
+        onClick={handleClick}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+        style={baseStyle}
+      >
+        {children}
+      </Link>
+    );
+  }
+
   return (
-    <span
+    <a
+      href={to}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      style={{
-        cursor: 'pointer',
-        color: hovered ? 'rgba(255, 255, 255, 1)' : 'rgba(255, 255, 255, 0.8)',
-        transition: 'color 0.2s ease',
-        textDecoration: 'none'
-      }}
+      style={baseStyle}
     >
       {children}
-    </span>
+    </a>
   );
 };
 
 const ConnectButton = () => {
   const [hovered, setHovered] = useState(false);
   return (
-    <button
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      style={{
-        background: hovered ? 'rgba(46, 204, 68, 0.95)' : 'rgba(57, 255, 20, 0.85)',
-        backdropFilter: 'blur(20px)',
-        WebkitBackdropFilter: 'blur(20px)',
-        border: '1px solid rgba(57,255,20,0.6)',
-        borderTop: '1px solid rgba(255,255,255,0.3)',
-        boxShadow: hovered 
-          ? '0 6px 24px rgba(57,255,20,0.5), inset 0 1px 0 rgba(255,255,255,0.3)'
-          : '0 4px 16px rgba(57,255,20,0.3), inset 0 1px 0 rgba(255,255,255,0.25)',
-        color: '#000',
-        fontWeight: '700',
-        borderRadius: '50px',
-        padding: '10px 24px',
-        fontFamily: "'Inter', sans-serif",
-        fontSize: '12px',
-        letterSpacing: '2px',
-        textTransform: 'uppercase',
-        transition: 'all 0.3s ease',
-        cursor: 'pointer'
-      }}
-    >
-      Connect
-    </button>
+    <Link to="/connect" style={{ textDecoration: 'none' }}>
+      <button
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+        style={{
+          background: hovered ? 'rgba(46, 204, 68, 0.95)' : 'rgba(57, 255, 20, 0.85)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          border: '1px solid rgba(57,255,20,0.6)',
+          borderTop: '1px solid rgba(255,255,255,0.3)',
+          boxShadow: hovered 
+            ? '0 6px 24px rgba(57,255,20,0.5), inset 0 1px 0 rgba(255,255,255,0.3)'
+            : '0 4px 16px rgba(57,255,20,0.3), inset 0 1px 0 rgba(255,255,255,0.25)',
+          color: '#000',
+          fontWeight: '700',
+          borderRadius: '50px',
+          padding: '10px 24px',
+          fontFamily: "'Inter', sans-serif",
+          fontSize: '12px',
+          letterSpacing: '2px',
+          textTransform: 'uppercase',
+          transition: 'all 0.3s ease',
+          cursor: 'pointer'
+        }}
+      >
+        Connect
+      </button>
+    </Link>
   );
 };
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
+  const isTeamPage = location.pathname === '/team';
+  const isConnectPage = location.pathname === '/connect';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -104,20 +143,30 @@ export default function Navbar() {
         zIndex: -1
       }} />
 
-      {/* Brand Logo */}
-      <img
-        src="/logo.webp"
-        alt="Frames Wallet"
-        style={{
-          width: '42px',
-          height: '42px',
-          borderRadius: '50%',
-          objectFit: 'cover',
-          border: '2px solid rgba(57, 255, 20, 0.5)',
-          boxShadow: '0 0 12px rgba(57, 255, 20, 0.3)',
-          cursor: 'pointer'
+      {/* Brand Logo — click goes home */}
+      <Link 
+        to="/"
+        onClick={(e) => {
+          if (isHomePage) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }
         }}
-      />
+      >
+        <img
+          src="/logo.webp"
+          alt="Frames Wallet"
+          style={{
+            width: '42px',
+            height: '42px',
+            borderRadius: '50%',
+            objectFit: 'cover',
+            border: '2px solid rgba(57, 255, 20, 0.5)',
+            boxShadow: '0 0 12px rgba(57, 255, 20, 0.3)',
+            cursor: 'pointer'
+          }}
+        />
+      </Link>
 
       {/* Nav Link Array */}
       <div style={{
@@ -128,10 +177,9 @@ export default function Navbar() {
         letterSpacing: '2px',
         textTransform: 'uppercase'
       }}>
-        <NavLink>Projects</NavLink>
-        <NavLink>Team</NavLink>
-        <NavLink>Revenue</NavLink>
-        <NavLink>Testimonials</NavLink>
+        <NavLink to="/" isActive={isHomePage}>Home</NavLink>
+        <NavLink to={isHomePage ? '#projects' : '/#projects'}>Projects</NavLink>
+        <NavLink to="/team" isActive={isTeamPage}>Team</NavLink>
       </div>
 
       {/* Connect Button */}

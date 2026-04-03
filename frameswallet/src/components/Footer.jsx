@@ -89,7 +89,33 @@ export default function Footer() {
             padding: '40px 16px 0 16px',
             fontFamily: "'Inter', sans-serif"
         }}>
+            <style dangerouslySetInnerHTML={{__html: `
+              @media (max-width: 768px) {
+                .footer-responsive {
+                  padding: 48px 24px !important;
+                  min-height: auto !important;
+                }
+                .footer-bottom-row {
+                  margin-top: 40px !important;
+                  padding-top: 32px !important;
+                }
+                .frames-blink {
+                  animation: framesBlink 3s infinite ease-in-out !important;
+                }
+              }
+              @keyframes framesBlink {
+                0%, 100% {
+                  color: rgba(255, 255, 255, 0.03);
+                  text-shadow: none;
+                }
+                50% {
+                  color: #39FF14;
+                  text-shadow: 0 0 40px rgba(57, 255, 20, 0.4);
+                }
+              }
+            `}} />
             <footer 
+                className="footer-responsive"
                 onMouseEnter={() => setFramesHover(true)}
                 onMouseLeave={() => setFramesHover(false)}
                 style={{
@@ -188,7 +214,7 @@ export default function Footer() {
                     </div>
                 </div>
 
-                <div style={{
+                <div className="footer-bottom-row" style={{
                     display: 'flex',
                     justifyContent: 'space-between',
                     alignItems: 'flex-end',
@@ -197,6 +223,7 @@ export default function Footer() {
                     marginTop: '80px'
                 }}>
                     <h1 
+                        className="frames-blink"
                         style={{
                             fontSize: 'clamp(40px, 12vw, 160px)',
                             fontWeight: '800',

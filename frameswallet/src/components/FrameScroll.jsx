@@ -13,6 +13,11 @@ export default function FrameScroll() {
   const PRIORITY_FRAMES = 15;
 
   useEffect(() => {
+    if (window.innerWidth <= 768) {
+      setReady(true);
+      return;
+    }
+    
     let priorityLoaded = 0;
 
     for (let i = 1; i <= PRIORITY_FRAMES; i++) {
@@ -140,9 +145,51 @@ export default function FrameScroll() {
     };
   }, [ready]);
 
+  const isMobile = window.innerWidth <= 768;
+
+  if (isMobile) {
+    return (
+      <div style={{
+        height: '100dvh', // Modern dynamic viewport height
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'relative',
+        zIndex: 1,
+        background: 'transparent',
+        paddingTop: '60px' // Prevent navbar overlap
+      }}>
+        <div style={{ display: 'flex', alignItems: 'baseline', flexWrap: 'wrap', justifyContent: 'center', padding: '0 16px' }}>
+          <span style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(38px, 12vw, 48px)', fontWeight: '700', color: '#F5F0E8', lineHeight: 1 }}>frames</span>
+          <span style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(38px, 12vw, 48px)', fontStyle: 'italic', color: '#39FF14', lineHeight: 1 }}>.wallet</span>
+        </div>
+        <div style={{ fontFamily: "'Inter', sans-serif", fontSize: 'clamp(10px, 3vw, 12px)', letterSpacing: 'clamp(3px, 1.5vw, 6px)', color: 'rgba(245,240,232,0.4)', textTransform: 'uppercase', marginTop: '16px', textAlign: 'center', padding: '0 16px' }}>
+          VIDEO EDITING STUDIO
+        </div>
+        <div style={{ width: '40px', height: '1px', background: '#39FF14', margin: '40px auto 16px auto' }}></div>
+        <div style={{ fontFamily: "'Inter', sans-serif", fontSize: '10px', letterSpacing: '4px', color: 'rgba(57,255,20,0.6)', textTransform: 'uppercase', textAlign: 'center' }}>
+          SCROLL TO EXPLORE
+        </div>
+        <div style={{ marginTop: '16px', animation: 'bounce 1s infinite' }}>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(57,255,20,0.6)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </div>
+        <style dangerouslySetInnerHTML={{__html: `
+          @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(10px); }
+          }
+        `}} />
+      </div>
+    );
+  }
+
   return (
     <>
-      <div ref={sectionRef} style={{ height: `calc(100vh + ${totalFrames * 12}px)`, position: 'relative', background: '#000', scrollSnapAlign: 'start', scrollSnapStop: 'always' }}>
+      <div ref={sectionRef} style={{ height: `calc(100vh + ${totalFrames * 12}px)`, position: 'relative', background: 'transparent', scrollSnapAlign: 'start', scrollSnapStop: 'always' }}>
       
         <div style={{ position: 'sticky', top: 0, height: '100vh', overflow: 'hidden' }}>
           <canvas
@@ -173,13 +220,13 @@ export default function FrameScroll() {
             <div style={{ fontFamily: "'Inter', sans-serif", fontSize: '10px', letterSpacing: '4px', color: 'rgba(57,255,20,0.6)', textTransform: 'uppercase' }}>
               SCROLL TO EXPLORE
             </div>
-            <div style={{ marginTop: '16px', animation: 'bounce 1s infinite' }}>
+            <div style={{ marginTop: '16px', animation: 'bounce-desktop 1s infinite' }}>
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(57,255,20,0.6)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="6 9 12 15 18 9"></polyline>
               </svg>
             </div>
             <style dangerouslySetInnerHTML={{__html: `
-              @keyframes bounce {
+              @keyframes bounce-desktop {
                 0%, 100% { transform: translateY(0); }
                 50% { transform: translateY(10px); }
               }

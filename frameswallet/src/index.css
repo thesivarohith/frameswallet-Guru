@@ -15,10 +15,61 @@ body {
   color: #F5F0E8;
   font-family: 'Inter', sans-serif;
   overflow-x: hidden;
-  scroll-snap-type: y mandatory;
-  overflow-y: scroll;
+}
+
+@media (max-width: 768px) {
+  html {
+    scroll-snap-type: y mandatory;
+  }
+  .snap-section {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
 }
 
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: #000; }
 ::-webkit-scrollbar-thumb { background: #39FF14; border-radius: 3px; }
+
+/* --- MOBILE RESPONSIVE SYSTEM --- */
+:root {
+  --mobile-padding: 24px;
+  --section-gap: 80px;
+}
+
+@media (max-width: 768px) {
+  .brand-logo {
+    display: none !important;
+  }
+
+  .desktop-nav-links {
+    display: none !important;
+  }
+
+  .connect-btn-desktop {
+    display: none;
+  }
+
+  .mobile-nav-icons {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+  }
+}
+
+@media (min-width: 769px) {
+  .mobile-nav-icons {
+    display: none !important;
+  }
+}
+
+.mobile-only {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-only {
+    display: block;
+  }
+}

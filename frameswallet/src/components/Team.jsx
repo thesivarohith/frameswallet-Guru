@@ -69,12 +69,12 @@ const StatRow = ({ stat, rowIndex, triggered }) => {
 
   return (
     <div 
+      className="stat-row"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
         display: 'flex',
         alignItems: 'center',
-        padding: '48px 80px',
         borderBottom: '1px solid rgba(57,255,20,0.15)',
         position: 'relative',
         overflow: 'hidden',
@@ -86,89 +86,31 @@ const StatRow = ({ stat, rowIndex, triggered }) => {
       }}
     >
       {/* ROW NUMBER */}
-      <div style={{
-        position: 'absolute',
-        top: '24px',
-        right: '80px',
-        fontFamily: "'Inter', sans-serif",
-        fontSize: '11px',
-        color: 'rgba(57,255,20,0.45)',
-        letterSpacing: '3px'
-      }}>
+      <div className="stat-index">
         {stat.index}
       </div>
 
-      {/* LEFT SIDE: 50% */}
-      <div style={{
-        width: '50%',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center'
-      }}>
-        <div style={{
-          fontFamily: "'Inter', sans-serif",
-          fontSize: '11px',
-          letterSpacing: '5px',
-          textTransform: 'uppercase',
-          color: '#39FF14',
-          marginBottom: '12px'
-        }}>
+      {/* LEFT SIDE */}
+      <div className="stat-left">
+        <div className="stat-label">
           {stat.label}
         </div>
         
-        <div style={{
-          display: 'flex',
-          alignItems: 'baseline',
-          gap: '8px',
-          fontFamily: "'Playfair Display', serif",
-          fontSize: 'clamp(48px, 7vw, 96px)',
-          fontWeight: 700,
-          color: '#F5F0E8',
-          lineHeight: 1,
-          textShadow: `
-            0 0 80px rgba(57,255,20,0.15),
-            0 0 160px rgba(57,255,20,0.08)
-          `
-        }}>
+        <div className="stat-number-wrapper">
           {value.toLocaleString()}
-          <span style={{
-            fontSize: '0.4em',
-            color: '#39FF14',
-            fontStyle: 'italic',
-            fontFamily: "'Playfair Display', serif"
-          }}>
+          <span className="stat-suffix">
             {stat.suffix}
           </span>
         </div>
       </div>
 
-      {/* RIGHT SIDE: 50% */}
-      <div style={{
-        width: '50%',
-        paddingLeft: '40px',
-        borderLeft: '1px solid rgba(57,255,20,0.3)',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center'
-      }}>
-        <div style={{
-          fontFamily: "'Playfair Display', serif",
-          fontStyle: 'italic',
-          fontSize: '26px',
-          color: 'rgba(245,240,232,1)',
-          lineHeight: 1.4,
-          textShadow: '0 0 40px rgba(245,240,232,0.1)'
-        }}>
+      {/* RIGHT SIDE */}
+      <div className="stat-right">
+        <div className="stat-desc">
           {stat.description}
         </div>
 
-        <div style={{
-          fontFamily: "'Inter', sans-serif",
-          fontSize: '14px',
-          color: 'rgba(245,240,232,0.6)',
-          marginTop: '8px',
-          letterSpacing: '1px'
-        }}>
+        <div className="stat-sub">
           {stat.sub}
         </div>
       </div>
@@ -226,6 +168,110 @@ export default function Team() {
             @keyframes drift {
               from { transform: translateY(0); }
               to { transform: translateY(-30px); }
+            }
+            .stat-row { 
+              padding: 48px 80px; 
+              flex-wrap: nowrap; 
+            }
+            .stat-index {
+              position: absolute;
+              top: 24px;
+              right: 80px;
+              font-family: 'Inter', sans-serif;
+              font-size: 11px;
+              color: rgba(57,255,20,0.45);
+              letter-spacing: 3px;
+            }
+            .stat-left { 
+              width: 50%;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              border-bottom: none; 
+              padding-bottom: 0; 
+            }
+            .stat-label {
+              font-family: 'Inter', sans-serif;
+              font-size: 12px;
+              letter-spacing: 6px;
+              text-transform: uppercase;
+              color: #39FF14;
+              margin-bottom: 16px;
+            }
+            .stat-number-wrapper {
+              display: flex;
+              align-items: baseline;
+              gap: 8px;
+              font-family: 'Playfair Display', serif;
+              font-size: clamp(64px, 7vw, 110px);
+              font-weight: 700;
+              color: #F5F0E8;
+              line-height: 1;
+              text-shadow: 0 0 80px rgba(57,255,20,0.15), 0 0 160px rgba(57,255,20,0.08);
+            }
+            .stat-suffix {
+              font-size: 0.4em;
+              color: #39FF14;
+              font-style: italic;
+              font-family: 'Playfair Display', serif;
+            }
+            .stat-right { 
+              width: 50%; 
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              padding-left: 60px; 
+              border-left: 1px solid rgba(57,255,20,0.3); 
+              margin-top: 0; 
+            }
+            .stat-desc {
+              font-family: 'Playfair Display', serif;
+              font-style: italic;
+              font-size: 32px;
+              color: rgba(245,240,232,1);
+              line-height: 1.3;
+              text-shadow: 0 0 40px rgba(245,240,232,0.1);
+            }
+            .stat-sub {
+              font-family: 'Inter', sans-serif;
+              font-size: 15px;
+              color: rgba(245,240,232,0.6);
+              margin-top: 16px;
+              letter-spacing: 1px;
+            }
+
+            @media (max-width: 768px) {
+              .stat-row { 
+                padding: 40px 32px; 
+                flex-wrap: wrap; 
+              }
+              .stat-index {
+                top: 40px;
+                right: 32px;
+              }
+              .stat-left { 
+                width: 100%; 
+                border-bottom: 2px solid rgba(57,255,20,0.05); 
+                padding-bottom: 32px; 
+              }
+              .stat-number-wrapper {
+                font-size: clamp(72px, 18vw, 140px);
+                gap: 12px;
+              }
+              .stat-right { 
+                width: 100%; 
+                padding-left: 0; 
+                border-left: none; 
+                margin-top: 32px; 
+              }
+              .stat-desc {
+                font-size: 28px;
+                line-height: 1.4;
+              }
+              .stat-sub {
+                font-size: 14px;
+                margin-top: 12px;
+              }
             }
           `}} />
 

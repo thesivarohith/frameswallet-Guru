@@ -78,6 +78,10 @@ export default function Testimonials() {
           0% { transform: rotateX(70deg) rotateZ(0deg); }
           100% { transform: rotateX(70deg) rotateZ(360deg); }
         }
+        @keyframes shimmer {
+          0% { background-position: 200% 0; }
+          100% { background-position: -200% 0; }
+        }
       `}} />
       
         <section 
@@ -216,10 +220,20 @@ export default function Testimonials() {
                               : 'orbitSpinSlow 12s linear infinite reverse',
                             transition: 'border 0.5s ease',
                           }} />
-                          {/* Avatar image */}
+                          {/* Avatar image with Skeleton Loader */}
+                          <div style={{
+                            position: 'absolute',
+                            inset: 0,
+                            borderRadius: '50%',
+                            background: 'linear-gradient(90deg, rgba(255,255,255,0.05) 25%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 75%)',
+                            backgroundSize: '200% 100%',
+                            animation: 'shimmer 1.5s infinite',
+                            zIndex: 1
+                          }} />
                           <img
                             src={client.img}
                             alt={client.name}
+                            onLoad={(e) => { e.currentTarget.style.opacity = 1; }}
                             style={{
                               width: '100%',
                               height: '100%',
@@ -227,9 +241,10 @@ export default function Testimonials() {
                               objectFit: 'cover',
                               border: isActive ? '2px solid #39FF14' : '1px solid rgba(255,255,255,0.1)',
                               filter: isActive ? 'none' : 'grayscale(100%)',
-                              transition: 'all 0.5s ease',
+                              transition: 'all 0.5s ease, opacity 0.3s ease',
                               position: 'relative',
                               zIndex: 2,
+                              opacity: 0
                             }}
                           />
                           {/* Glow underneath */}

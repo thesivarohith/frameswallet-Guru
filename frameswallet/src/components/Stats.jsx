@@ -52,16 +52,19 @@ export default function Stats() {
     const t = setTimeout(() => {
       setDisplayIndex(active);
       setAnimating(false);
-    }, 300);
+    }, 200);
 
     return () => clearTimeout(t);
   }, [active]);
 
   const contentStyle = {
     opacity: animating ? 0 : 1,
-    transform: animating ? 'translateY(-40px)' : 'translateY(0)',
-    transition: 'opacity 0.3s ease, transform 0.3s ease',
+    transform: animating ? 'translateY(-20px)' : 'translateY(0)',
+    transition: 'opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1), transform 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
     textAlign: 'center',
+    padding: '0 20px',
+    width: '100%',
+    boxSizing: 'border-box',
   };
 
   return (
@@ -96,22 +99,24 @@ export default function Stats() {
 
           <div style={{
             fontFamily: "'Playfair Display', serif",
-            fontSize: 'clamp(120px, 18vw, 220px)',
+            fontSize: 'clamp(50px, 15vw, 220px)',
             fontWeight: 700,
             color: '#F5F0E8',
             lineHeight: 1,
+            wordBreak: 'break-word',
           }}>
             {stats[displayIndex].number}
           </div>
 
           <div style={{
             fontFamily: "'Inter', sans-serif",
-            fontSize: '14px',
+            fontSize: 'clamp(11px, 3vw, 14px)',
             fontWeight: 500,
-            letterSpacing: '6px',
+            letterSpacing: 'clamp(3px, 1vw, 6px)',
             textTransform: 'uppercase',
             color: '#39FF14',
             marginTop: '16px',
+            padding: '0 10px',
           }}>
             {stats[displayIndex].label}
           </div>
@@ -142,16 +147,24 @@ export default function Stats() {
                 height: '4px',
                 borderRadius: i === displayIndex ? '2px' : '50%',
                 background: i === displayIndex ? '#39FF14' : 'rgba(57,255,20,0.2)',
-                transition: 'all 0.3s ease',
+                transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
               }}
             />
           ))}
+        </div>
+        
+        {/* Mobile Snap Anchors — ensure each stat can be a 'stopping' */}
+        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none' }} className="mobile-only">
+          <div style={{ height: '100vh', scrollSnapAlign: 'start' }} />
+          <div style={{ height: '100vh', scrollSnapAlign: 'start' }} />
+          <div style={{ height: '100vh', scrollSnapAlign: 'start' }} />
+          <div style={{ height: '100vh', scrollSnapAlign: 'start' }} />
         </div>
 
         {/* Scroll indicator — first stat only */}
         <div style={{
           position: 'absolute',
-          bottom: '80px',
+          bottom: 'clamp(50px, 10vh, 80px)',
           left: '50%',
           transform: 'translateX(-50%)',
           display: 'flex',

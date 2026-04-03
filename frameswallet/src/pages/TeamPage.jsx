@@ -85,6 +85,7 @@ function useScrollReveal() {
           if (e.isIntersecting) {
             e.target.style.opacity = '1';
             e.target.style.transform = 'translateY(0)';
+            e.target.classList.add('revealed');
             obs.unobserve(e.target);
           }
         });
@@ -255,6 +256,81 @@ const animCss = `
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(8px); }
 }
+
+.highlight-pen {
+  display: inline-block;
+  position: relative;
+  z-index: 1;
+  padding: 0 4px;
+}
+
+.highlight-text {
+  position: relative;
+  z-index: 2;
+  color: #000 !important;
+}
+
+.highlight-text * {
+  color: #000 !important;
+}
+
+.highlight-pen::before {
+  content: '';
+  position: absolute;
+  top: 10%;
+  bottom: 0%;
+  left: -2%;
+  right: -2%;
+  background: #39FF14;
+  z-index: 0;
+  border-radius: 4px 8px 3px 6px;
+  transform-origin: left center;
+  transform: rotate(-1.5deg) scaleX(0);
+  box-shadow: 0 0 15px rgba(57,255,20,0.5);
+}
+
+.revealed .highlight-pen::before,
+.revealed.highlight-pen::before {
+  animation: drawHighlight 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.5s forwards;
+}
+
+@keyframes drawHighlight {
+  0% { transform: rotate(-1.5deg) scaleX(0); }
+  100% { transform: rotate(-1.5deg) scaleX(1); }
+}
+
+.spotlight-wrapper {
+  position: relative;
+}
+
+.spotlight-wrapper .base-layer {
+  transition: opacity 0.4s ease;
+  opacity: 1;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hero-section:hover .spotlight-wrapper .base-layer {
+    opacity: 0.2;
+  }
+}
+
+.spotlight-wrapper .spotlight-layer {
+  position: absolute;
+  top: -150px; left: -150px; right: -150px; bottom: -150px;
+  padding: 150px;
+  box-sizing: border-box;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  -webkit-mask-image: radial-gradient(800px circle at calc(var(--x, -1000px) + 150px) calc(var(--y, -1000px) + 150px), black 0%, transparent 100%);
+  mask-image: radial-gradient(800px circle at calc(var(--x, -1000px) + 150px) calc(var(--y, -1000px) + 150px), black 0%, transparent 100%);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hero-section:hover .spotlight-wrapper .spotlight-layer {
+    opacity: 1;
+  }
+}
 `;
 
 /* ════════════════════════════════════════════════
@@ -354,13 +430,24 @@ export default function TeamPage() {
       {/* ═══════════════════════════════════════
           SECTION 1 — HERO
           ═══════════════════════════════════════ */}
-      <section style={{
+      <section 
+        className="hero-section"
+        onMouseMove={(e) => {
+          const els = document.querySelectorAll('.spotlight-wrapper');
+          els.forEach(el => {
+            const rect = el.getBoundingClientRect();
+            el.style.setProperty('--x', `${e.clientX - rect.left}px`);
+            el.style.setProperty('--y', `${e.clientY - rect.top}px`);
+          });
+        }}
+        style={{
         padding: '160px 40px 120px',
         minHeight: '100vh',
         display: 'flex', flexDirection: 'column',
         alignItems: 'center', justifyContent: 'center',
         textAlign: 'center',
         position: 'relative',
+        overflow: 'hidden',
       }}>
         {/* Pill badge */}
         <div className="reveal" style={{
@@ -377,39 +464,70 @@ export default function TeamPage() {
         </div>
 
         {/* Heading */}
-        <h1 className="reveal" style={{ margin: 0 }}>
-          <span style={{
-            display: 'block',
-            fontFamily: "'Playfair Display', serif",
-            fontWeight: 700,
-            fontSize: 'clamp(40px, 6vw, 72px)',
-            color: '#F5F0E8', lineHeight: 1.1,
-          }}>
-            The Minds Behind
+        <h1 className="reveal spotlight-wrapper" style={{ margin: 0, position: 'relative' }}>
+          <span className="base-layer" style={{ display: 'block' }}>
+            <span style={{
+              display: 'block',
+              fontFamily: "'Playfair Display', serif",
+              fontWeight: 700,
+              fontSize: 'clamp(40px, 6vw, 72px)',
+              color: '#F5F0E8', lineHeight: 1.1,
+            }}>
+              The Minds Behind
+            </span>
+            <span style={{
+              display: 'block',
+              fontFamily: "'Playfair Display', serif",
+              fontStyle: 'italic',
+              fontSize: 'clamp(40px, 6vw, 72px)',
+              color: '#39FF14', lineHeight: 1.1,
+              textShadow: '0 0 60px rgba(57,255,20,0.3)',
+            }}>
+              Every Frame.
+            </span>
           </span>
-          <span style={{
-            display: 'block',
-            fontFamily: "'Playfair Display', serif",
-            fontStyle: 'italic',
-            fontSize: 'clamp(40px, 6vw, 72px)',
-            color: '#39FF14', lineHeight: 1.1,
-            textShadow: '0 0 60px rgba(57,255,20,0.3)',
-          }}>
-            Every Frame.
+          <span className="spotlight-layer" aria-hidden="true" style={{ display: 'block' }}>
+            <span style={{
+              display: 'block',
+              fontFamily: "'Playfair Display', serif",
+              fontWeight: 700,
+              fontSize: 'clamp(40px, 6vw, 72px)',
+              color: '#ffffff', lineHeight: 1.1,
+              textShadow: '0 0 40px rgba(255,255,255,0.4)',
+            }}>
+              The Minds Behind
+            </span>
+            <span style={{
+              display: 'block',
+              fontFamily: "'Playfair Display', serif",
+              fontStyle: 'italic',
+              fontSize: 'clamp(40px, 6vw, 72px)',
+              color: '#39FF14', lineHeight: 1.1,
+              textShadow: '0 0 80px rgba(57,255,20,0.8), 0 0 120px rgba(57,255,20,0.4)',
+            }}>
+              Every Frame.
+            </span>
           </span>
         </h1>
 
         {/* Subtext */}
-        <p className="reveal" style={{
+        <p className="reveal spotlight-wrapper" style={{
           fontFamily: "'Inter', sans-serif",
           fontSize: 16,
-          color: 'rgba(245,240,232,0.5)',
           maxWidth: 560, textAlign: 'center',
           margin: '32px auto 0', lineHeight: 1.8,
+          position: 'relative'
         }}>
-          A team of 15+ editors, colorists and motion designers obsessed with the
-          craft of visual storytelling. Based across Chennai, Coimbatore and Remote
-          — we deliver content that stops the scroll.
+          <span className="base-layer" style={{ display: 'block', color: 'rgba(245,240,232,0.5)' }}>
+            A team of 15+ editors, colorists and motion designers obsessed with the
+            craft of visual storytelling. Based across Chennai, Coimbatore and Remote
+            — we deliver content that stops the scroll.
+          </span>
+          <span className="spotlight-layer" aria-hidden="true" style={{ display: 'block', color: '#ffffff', textShadow: '0 0 20px rgba(255,255,255,0.5)' }}>
+            A team of 15+ editors, colorists and motion designers obsessed with the
+            craft of visual storytelling. Based across Chennai, Coimbatore and Remote
+            — we deliver content that stops the scroll.
+          </span>
         </p>
 
         {/* Scroll indicator */}
@@ -591,7 +709,7 @@ export default function TeamPage() {
           color: '#F5F0E8', textAlign: 'center',
           margin: 0,
         }}>
-          Why Choose frames<span style={{ color: '#39FF14', fontFamily: "'Playfair Display', serif", fontStyle: 'italic' }}>.wallet</span>?
+          Why Choose <span className="highlight-pen"><span className="highlight-text">frames<span style={{ fontFamily: "'Playfair Display', serif", fontStyle: 'italic' }}>.wallet</span></span></span>?
         </h2>
         <p className="reveal" style={{
           fontFamily: "'Inter', sans-serif",

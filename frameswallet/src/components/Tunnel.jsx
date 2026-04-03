@@ -39,8 +39,8 @@ export default function Tunnel() {
     setTimeout(() => {
       setActiveIndex(index);
       setSliderPos(50);
-      setTimeout(() => setFading(false), 50);
-    }, 200);
+      setTimeout(() => setFading(false), 30);
+    }, 150);
   }, []);
 
   function goPrev() {
@@ -64,9 +64,6 @@ export default function Tunnel() {
   }
 
   const arrowBaseStyle = {
-    position: 'absolute',
-    top: '50%',
-    transform: 'translateY(-50%)',
     width: '44px',
     height: '44px',
     background: 'rgba(57,255,20,0.08)',
@@ -76,8 +73,9 @@ export default function Tunnel() {
     alignItems: 'center',
     justifyContent: 'center',
     cursor: 'pointer',
-    transition: 'all 0.3s ease',
+    transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
     padding: 0,
+    flexShrink: 0,
   };
 
   const arrowHoverStyle = {
@@ -115,7 +113,7 @@ export default function Tunnel() {
           <h2
             style={{
               fontFamily: "'Playfair Display', serif",
-              fontSize: '48px',
+              fontSize: 'clamp(32px, 8vw, 48px)',
               color: '#F5F0E8',
               margin: 0,
               whiteSpace: 'nowrap',
@@ -166,58 +164,10 @@ export default function Tunnel() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          padding: '0 80px',
+          width: '100%',
+          padding: '0 20px',
         }}
       >
-        {/* Left arrow */}
-        <button
-          onClick={goPrev}
-          onMouseEnter={() => setLeftHover(true)}
-          onMouseLeave={() => setLeftHover(false)}
-          style={{
-            ...arrowBaseStyle,
-            left: '-60px',
-            ...(leftHover ? arrowHoverStyle : {}),
-          }}
-        >
-          <svg
-            width="18"
-            height="18"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="#39FF14"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <polyline points="15 18 9 12 15 6" />
-          </svg>
-        </button>
-
-        {/* Right arrow */}
-        <button
-          onClick={goNext}
-          onMouseEnter={() => setRightHover(true)}
-          onMouseLeave={() => setRightHover(false)}
-          style={{
-            ...arrowBaseStyle,
-            right: '-60px',
-            ...(rightHover ? arrowHoverStyle : {}),
-          }}
-        >
-          <svg
-            width="18"
-            height="18"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="#39FF14"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <polyline points="9 6 15 12 9 18" />
-          </svg>
-        </button>
 
         {/* Slider container */}
         <div
@@ -241,8 +191,9 @@ export default function Tunnel() {
           onTouchEnd={() => setDragging(false)}
           style={{
             position: 'relative',
-            width: '360px',
-            height: '640px',
+            width: '100%',
+            maxWidth: 'clamp(300px, 90vw, 420px)',
+            aspectRatio: '9/16',
             borderRadius: '16px',
             overflow: 'hidden',
             cursor: 'ew-resize',
@@ -250,7 +201,7 @@ export default function Tunnel() {
             boxShadow: '0 0 60px rgba(0,0,0,0.8)',
             userSelect: 'none',
             opacity: fading ? 0 : 1,
-            transition: fading ? 'opacity 0.2s ease' : 'opacity 0.3s ease',
+            transition: fading ? 'opacity 0.15s ease' : 'opacity 0.2s ease',
           }}
         >
           {/* BEFORE side (full width, filtered) */}
@@ -333,7 +284,7 @@ export default function Tunnel() {
               justifyContent: 'center',
               cursor: 'pointer',
               backdropFilter: 'blur(8px)',
-              transition: 'all 0.3s ease',
+              transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
               padding: 0,
             }}
           >
@@ -477,32 +428,62 @@ export default function Tunnel() {
         </div>
       </div>
 
-      {/* Dots navigation */}
+      {/* Dots and Arrows navigation */}
       <div
         style={{
           marginTop: '24px',
           display: 'flex',
-          gap: '8px',
+          gap: '16px',
+          alignItems: 'center',
           justifyContent: 'center',
         }}
       >
-        {projects.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => handleProjectChange(i)}
-            style={{
-              width: i === activeIndex ? '20px' : '4px',
-              height: '4px',
-              borderRadius: i === activeIndex ? '2px' : '50%',
-              background:
-                i === activeIndex ? '#39FF14' : 'rgba(57,255,20,0.2)',
-              border: 'none',
-              padding: 0,
-              cursor: 'pointer',
-              transition: 'all 0.3s ease',
-            }}
-          />
-        ))}
+        <button
+          onClick={goPrev}
+          onMouseEnter={() => setLeftHover(true)}
+          onMouseLeave={() => setLeftHover(false)}
+          style={{
+            ...arrowBaseStyle,
+            ...(leftHover ? arrowHoverStyle : {}),
+          }}
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#39FF14" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="15 18 9 12 15 6" />
+          </svg>
+        </button>
+
+        <div style={{ display: 'flex', gap: '8px' }}>
+          {projects.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => handleProjectChange(i)}
+              style={{
+                width: i === activeIndex ? '20px' : '4px',
+                height: '4px',
+                borderRadius: i === activeIndex ? '2px' : '50%',
+                background: i === activeIndex ? '#39FF14' : 'rgba(57,255,20,0.2)',
+                border: 'none',
+                padding: 0,
+                cursor: 'pointer',
+                transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+              }}
+            />
+          ))}
+        </div>
+
+        <button
+          onClick={goNext}
+          onMouseEnter={() => setRightHover(true)}
+          onMouseLeave={() => setRightHover(false)}
+          style={{
+            ...arrowBaseStyle,
+            ...(rightHover ? arrowHoverStyle : {}),
+          }}
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#39FF14" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="9 6 15 12 9 18" />
+          </svg>
+        </button>
       </div>
     </section>
   );

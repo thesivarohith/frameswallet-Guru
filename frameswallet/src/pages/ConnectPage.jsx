@@ -6,8 +6,9 @@ export default function ConnectPage() {
   const cursorRef = useRef(null);
   const [hoveredItem, setHoveredItem] = useState(null);
   const [revealed, setRevealed] = useState([]);
+  const [isDesktop] = useState(() => window.matchMedia('(pointer: fine)').matches);
 
-  // Mouse cursor dot
+  // Mouse cursor dot — desktop only
   useEffect(() => {
     const dot = cursorRef.current;
     if (!dot) return;
@@ -55,25 +56,27 @@ export default function ConnectPage() {
     <div style={{ background: '#000000', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       <Navbar />
 
-      {/* Cursor Dot */}
-      <div
-        ref={cursorRef}
-        style={{
-          width: hoveredItem ? 24 : 8,
-          height: hoveredItem ? 24 : 8,
-          background: hoveredItem ? 'transparent' : '#39FF14',
-          border: hoveredItem ? '2px solid #39FF14' : 'none',
-          borderRadius: '50%',
-          position: 'fixed',
-          pointerEvents: 'none',
-          zIndex: 9999,
-          boxShadow: hoveredItem ? '0 0 20px rgba(57,255,20,0.5)' : '0 0 16px rgba(57,255,20,0.8)',
-          transition: 'width 0.2s ease, height 0.2s ease, background 0.2s ease, border 0.2s ease, box-shadow 0.2s ease',
-          marginLeft: hoveredItem ? -12 : -4,
-          marginTop: hoveredItem ? -12 : -4,
-          opacity: hoveredItem ? 0.4 : 1,
-        }}
-      />
+      {/* Cursor Dot — desktop only */}
+      {isDesktop && (
+        <div
+          ref={cursorRef}
+          style={{
+            width: hoveredItem ? 24 : 8,
+            height: hoveredItem ? 24 : 8,
+            background: hoveredItem ? 'transparent' : '#39FF14',
+            border: hoveredItem ? '2px solid #39FF14' : 'none',
+            borderRadius: '50%',
+            position: 'fixed',
+            pointerEvents: 'none',
+            zIndex: 9999,
+            boxShadow: hoveredItem ? '0 0 20px rgba(57,255,20,0.5)' : '0 0 16px rgba(57,255,20,0.8)',
+            transition: 'width 0.2s ease, height 0.2s ease, background 0.2s ease, border 0.2s ease, box-shadow 0.2s ease',
+            marginLeft: hoveredItem ? -12 : -4,
+            marginTop: hoveredItem ? -12 : -4,
+            opacity: hoveredItem ? 0.4 : 1,
+          }}
+        />
+      )}
 
       {/* Main Content */}
       <main
@@ -83,7 +86,7 @@ export default function ConnectPage() {
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
-          padding: '80px 40px',
+          padding: 'clamp(120px, 14vw, 160px) clamp(20px, 5vw, 40px) 80px',
           textAlign: 'center',
           position: 'relative',
           overflow: 'hidden',

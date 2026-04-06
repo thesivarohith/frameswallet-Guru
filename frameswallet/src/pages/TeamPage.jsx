@@ -131,8 +131,10 @@ function SprocketBar() {
 /* ── Milestone Frame ───────────────────────────── */
 function MilestoneFrame({ m, index, total }) {
   const [hovered, setHovered] = useState(false);
+  const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
+  const cardWidth = isMobile ? Math.min(window.innerWidth - 48, 240) : 280;
   return (
-    <div style={{ flexShrink: 0, width: 280 }}>
+    <div style={{ flexShrink: 0, width: cardWidth }}>
       <div
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
@@ -441,7 +443,7 @@ export default function TeamPage() {
           });
         }}
         style={{
-        padding: '160px 40px 120px',
+        padding: 'clamp(100px, 15vw, 160px) clamp(16px, 5vw, 40px) clamp(80px, 12vw, 120px)',
         minHeight: '100vh',
         display: 'flex', flexDirection: 'column',
         alignItems: 'center', justifyContent: 'center',
@@ -513,10 +515,11 @@ export default function TeamPage() {
         {/* Subtext */}
         <p className="reveal spotlight-wrapper" style={{
           fontFamily: "'Inter', sans-serif",
-          fontSize: 16,
+          fontSize: 'clamp(14px, 3.5vw, 16px)',
           maxWidth: 560, textAlign: 'center',
           margin: '32px auto 0', lineHeight: 1.8,
-          position: 'relative'
+          position: 'relative',
+          padding: '0 20px',
         }}>
           <span className="base-layer" style={{ display: 'block', color: 'rgba(245,240,232,0.5)' }}>
             A team of 15+ editors, colorists and motion designers obsessed with the
@@ -556,18 +559,23 @@ export default function TeamPage() {
       {/* ═══════════════════════════════════════
           SECTION 2 — FILM STRIP TIMELINE
           ═══════════════════════════════════════ */}
-      <section style={{ padding: '120px 0 100px' }}>
+      <section style={{ padding: 'clamp(60px, 10vw, 120px) 0 clamp(50px, 8vw, 100px)' }}>
         {/* Section heading */}
-        <div className="reveal" style={{ textAlign: 'center', marginBottom: 64 }}>
+        <div className="reveal" style={{ textAlign: 'center', marginBottom: 48, padding: '0 clamp(16px, 5vw, 48px)' }}>
           <h2 style={{
             fontFamily: "'Playfair Display', serif",
-            fontSize: 40, color: '#F5F0E8', margin: 0,
+            fontSize: 'clamp(28px, 6vw, 40px)', color: '#F5F0E8', margin: 0,
           }}>Our Journey</h2>
           <p style={{
             fontFamily: "'Inter', sans-serif",
-            fontSize: 12, letterSpacing: 4,
+            fontSize: 'clamp(9px, 2.5vw, 12px)',
+            letterSpacing: 'clamp(2px, 1vw, 4px)',
             color: '#39FF14', textTransform: 'uppercase',
             marginTop: 12,
+            whiteSpace: 'normal',
+            wordBreak: 'break-word',
+            lineHeight: 1.8,
+            maxWidth: '100%',
           }}>
             Drag the strip to explore our story
           </p>
@@ -592,8 +600,8 @@ export default function TeamPage() {
 
             {/* Frames row */}
             <div style={{
-              padding: '48px 60px',
-              display: 'flex', gap: 24,
+              padding: 'clamp(24px, 5vw, 48px) clamp(20px, 5vw, 60px)',
+              display: 'flex', gap: 'clamp(12px, 2vw, 24px)',
               alignItems: 'flex-start',
               background: '#000',
             }}>
@@ -700,7 +708,7 @@ export default function TeamPage() {
           SECTION 3 — WHY CHOOSE US
           ═══════════════════════════════════════ */}
       <section style={{
-        padding: '160px 80px',
+        padding: 'clamp(80px, 12vw, 160px) clamp(16px, 5vw, 80px)',
         maxWidth: 1100, margin: '0 auto',
       }}>
         <h2 className="reveal" style={{
@@ -724,8 +732,8 @@ export default function TeamPage() {
 
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(3, 1fr)',
-          gap: 28,
+          gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+          gap: 'clamp(16px, 3vw, 28px)',
         }}>
           {values.map((v) => (
             <ValueCard key={v.title} icon={v.icon} title={v.title} text={v.text} />
@@ -740,7 +748,7 @@ export default function TeamPage() {
         background: 'rgba(57,255,20,0.03)',
         borderTop: '1px solid rgba(57,255,20,0.1)',
         borderBottom: '1px solid rgba(57,255,20,0.1)',
-        padding: '160px 40px',
+        padding: 'clamp(80px, 12vw, 160px) clamp(20px, 5vw, 40px)',
         textAlign: 'center',
       }}>
         <h2 style={{

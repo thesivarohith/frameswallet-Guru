@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { Zap, Sparkles } from "lucide-react";
 import "./TestimonialsBento.css";
 
@@ -77,6 +77,30 @@ export default function TestimonialsBento({
     card6IconColor = "#39FF14",
     card6TextColor = "#F5F0E8",
 }) {
+    const gridRef = useRef(null);
+
+    // Mobile-only scroll-triggered card entrance
+    useEffect(() => {
+        if (window.innerWidth >= 768) return; // desktop: skip
+        const cards = gridRef.current?.querySelectorAll('.bento-card, .bento-c7');
+        if (!cards) return;
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('bento-visible');
+                        observer.unobserve(entry.target); // fire once
+                    }
+                });
+            },
+            { threshold: 0.12 }
+        );
+
+        cards.forEach((card) => observer.observe(card));
+        return () => observer.disconnect();
+    }, []);
+
     if (testimonials.length === 0) return null;
 
     return (
@@ -122,7 +146,7 @@ export default function TestimonialsBento({
               </p>
             </div>
 
-            <div className="bento-grid">
+            <div className="bento-grid" ref={gridRef}>
                 
                 {/* Header Card */}
                 <div className="bento-card bento-header group" style={{ backgroundColor: headerCardBgColor }}>

@@ -246,64 +246,87 @@ export default function Navbar() {
         alignItems: 'center',
         justifyContent: 'space-between',
         width: '100%',
-        padding: '0 8px'
+        gap: '4px',
       }}>
+
+        {/* Home */}
         <Link to="/" style={{ 
           textDecoration: 'none',
-          padding: '8px',
-          borderRadius: '12px',
-          background: isHomePage ? 'rgba(57,255,20,0.1)' : 'transparent',
-          transition: 'all 0.3s ease'
+          display: 'flex', alignItems: 'center', gap: '6px',
+          padding: isHomePage ? '8px 14px' : '8px',
+          borderRadius: '20px',
+          background: isHomePage ? 'rgba(57,255,20,0.12)' : 'transparent',
+          border: isHomePage ? '1px solid rgba(57,255,20,0.3)' : '1px solid transparent',
+          transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
+          flexShrink: isHomePage ? 1 : 0,
         }}>
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={isHomePage ? '#39FF14' : 'rgba(255,255,255,0.6)'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={isHomePage ? '#39FF14' : 'rgba(255,255,255,0.5)'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
             <polyline points="9 22 9 12 15 12 15 22"></polyline>
           </svg>
+          {isHomePage && <span style={{ fontFamily: "'Inter', sans-serif", fontSize: '11px', fontWeight: 600, letterSpacing: '1.5px', textTransform: 'uppercase', color: '#39FF14', whiteSpace: 'nowrap' }}>Home</span>}
         </Link>
+
+        {/* Projects */}
         <Link to="/projects" style={{ 
           textDecoration: 'none',
-          padding: '8px',
-          borderRadius: '12px',
-          background: isProjectsPage ? 'rgba(57,255,20,0.1)' : 'transparent',
-          transition: 'all 0.3s ease'
+          display: 'flex', alignItems: 'center', gap: '6px',
+          padding: isProjectsPage ? '8px 14px' : '8px',
+          borderRadius: '20px',
+          background: isProjectsPage ? 'rgba(57,255,20,0.12)' : 'transparent',
+          border: isProjectsPage ? '1px solid rgba(57,255,20,0.3)' : '1px solid transparent',
+          transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
+          flexShrink: isProjectsPage ? 1 : 0,
         }}>
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={isProjectsPage ? '#39FF14' : 'rgba(255,255,255,0.6)'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={isProjectsPage ? '#39FF14' : 'rgba(255,255,255,0.5)'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <rect x="3" y="3" width="7" height="7"></rect>
             <rect x="14" y="3" width="7" height="7"></rect>
             <rect x="14" y="14" width="7" height="7"></rect>
             <rect x="3" y="14" width="7" height="7"></rect>
           </svg>
+          {isProjectsPage && <span style={{ fontFamily: "'Inter', sans-serif", fontSize: '11px', fontWeight: 600, letterSpacing: '1.5px', textTransform: 'uppercase', color: '#39FF14', whiteSpace: 'nowrap' }}>Projects</span>}
         </Link>
+
+        {/* Team */}
         <Link to="/team" style={{ 
           textDecoration: 'none',
-          padding: '8px',
-          borderRadius: '12px',
-          background: isTeamPage ? 'rgba(57,255,20,0.1)' : 'transparent',
-          transition: 'all 0.3s ease'
+          display: 'flex', alignItems: 'center', gap: '6px',
+          padding: isTeamPage ? '8px 14px' : '8px',
+          borderRadius: '20px',
+          background: isTeamPage ? 'rgba(57,255,20,0.12)' : 'transparent',
+          border: isTeamPage ? '1px solid rgba(57,255,20,0.3)' : '1px solid transparent',
+          transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
+          flexShrink: isTeamPage ? 1 : 0,
         }}>
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={isTeamPage ? '#39FF14' : 'rgba(255,255,255,0.6)'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={isTeamPage ? '#39FF14' : 'rgba(255,255,255,0.5)'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
             <circle cx="9" cy="7" r="4"></circle>
             <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
             <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
           </svg>
+          {isTeamPage && <span style={{ fontFamily: "'Inter', sans-serif", fontSize: '11px', fontWeight: 600, letterSpacing: '1.5px', textTransform: 'uppercase', color: '#39FF14', whiteSpace: 'nowrap' }}>Team</span>}
         </Link>
+
+        {/* Connect */}
         <Link to="/connect" style={{ 
-          textDecoration: 'none', 
-          background: isConnectPage ? '#39FF14' : 'rgba(57,255,20,0.05)', 
-          border: isConnectPage ? '1px solid #39FF14' : '1px solid rgba(57,255,20,0.3)',
-          borderRadius: '50%',
-          width: '38px', height: '38px',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          boxShadow: isConnectPage ? '0 0 20px rgba(57,255,20,0.4)' : 'none',
-          transition: 'all 0.3s ease'
+          textDecoration: 'none',
+          display: 'flex', alignItems: 'center', gap: '6px',
+          padding: isConnectPage ? '8px 14px' : '8px',
+          borderRadius: '20px',
+          background: isConnectPage ? 'rgba(57,255,20,0.12)' : 'transparent',
+          border: isConnectPage ? '1px solid rgba(57,255,20,0.3)' : '1px solid transparent',
+          transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
+          flexShrink: isConnectPage ? 1 : 0,
         }}>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={isConnectPage ? '#000' : '#39FF14'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={isConnectPage ? '#39FF14' : 'rgba(255,255,255,0.5)'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <line x1="22" y1="2" x2="11" y2="13"></line>
             <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
           </svg>
+          {isConnectPage && <span style={{ fontFamily: "'Inter', sans-serif", fontSize: '11px', fontWeight: 600, letterSpacing: '1.5px', textTransform: 'uppercase', color: '#39FF14', whiteSpace: 'nowrap' }}>Connect</span>}
         </Link>
+
       </div>
+
     </nav>
   );
 }

@@ -130,8 +130,11 @@ export default function Navbar() {
   return (
     <nav style={{
       position: 'fixed',
-      // On mobile: bottom if not at footer, top if at footer
-      top: (isMobile && !isAtBottom) ? 'calc(100svh - 84px)' : '16px',
+      // Mobile: pinned to bottom (above safe area), Desktop: pinned to top
+      ...(isMobile && !isAtBottom
+        ? { bottom: 'calc(env(safe-area-inset-bottom, 0px) + 12px)', top: 'auto' }
+        : { top: '16px', bottom: 'auto' }
+      ),
       left: '50%',
       transform: 'translateX(-50%)',
       width: 'calc(100% - 48px)',

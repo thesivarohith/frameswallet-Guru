@@ -27,10 +27,10 @@ export default function HorizontalParallax() {
         target: targetRef,
     });
 
-    // Smooth out the scroll for velocity effect
+    // Tight spring = fast response, no lag
     const smoothProgress = useSpring(scrollYProgress, {
-        stiffness: 120,
-        damping: 25,
+        stiffness: 200,
+        damping: 20,
         restDelta: 0.001
     });
 

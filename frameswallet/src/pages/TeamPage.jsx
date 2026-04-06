@@ -79,6 +79,17 @@ function useScrollReveal() {
     const el = ref.current;
     if (!el) return;
     const items = el.querySelectorAll('.reveal');
+    const isMobile = window.innerWidth <= 768;
+
+    if (isMobile) {
+      // On mobile: show all immediately, no animation delay
+      items.forEach((item) => {
+        item.style.opacity = '1';
+        item.style.transform = 'none';
+      });
+      return;
+    }
+
     const obs = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
@@ -600,8 +611,8 @@ export default function TeamPage() {
 
             {/* Frames row */}
             <div style={{
-              padding: 'clamp(24px, 5vw, 48px) clamp(20px, 5vw, 60px)',
-              display: 'flex', gap: 'clamp(12px, 2vw, 24px)',
+              padding: 'clamp(24px, 5vw, 48px) clamp(32px, 6vw, 60px)',
+              display: 'flex', gap: 'clamp(20px, 3vw, 32px)',
               alignItems: 'flex-start',
               background: '#000',
             }}>

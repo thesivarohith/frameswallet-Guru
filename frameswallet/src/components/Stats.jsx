@@ -85,8 +85,8 @@ export default function Stats() {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        borderTop: '1px solid rgba(57,255,20,0.12)',
-        borderBottom: '1px solid rgba(57,255,20,0.12)',
+        borderTop: '1px solid rgba(134,239,172,0.12)',
+        borderBottom: '1px solid rgba(134,239,172,0.12)',
       }}>
         {/* Stat content */}
         <div style={contentStyle}>
@@ -98,7 +98,7 @@ export default function Stats() {
           }} />
 
           <div style={{
-            fontFamily: "'Playfair Display', serif",
+            fontFamily: "'Cormorant Garamond', serif",
             fontSize: 'clamp(50px, 15vw, 220px)',
             fontWeight: 700,
             color: '#F5F0E8',
@@ -146,7 +146,7 @@ export default function Stats() {
                 width: i === displayIndex ? '20px' : '4px',
                 height: '4px',
                 borderRadius: i === displayIndex ? '2px' : '50%',
-                background: i === displayIndex ? '#39FF14' : 'rgba(57,255,20,0.2)',
+                background: i === displayIndex ? '#39FF14' : 'rgba(134,239,172,0.25)',
                 transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
               }}
             />
@@ -178,7 +178,7 @@ export default function Stats() {
           <span style={{
             fontSize: '10px',
             letterSpacing: '4px',
-            color: 'rgba(57,255,20,0.4)',
+            color: '#86efac',
             textTransform: 'uppercase',
             fontFamily: "'Inter', sans-serif",
           }}>
@@ -186,7 +186,7 @@ export default function Stats() {
           </span>
           <span style={{
             display: 'inline-block',
-            color: 'rgba(57,255,20,0.4)',
+            color: '#86efac',
             fontSize: '12px',
             animation: 'statChevronBounce 1.5s ease-in-out infinite',
           }}>

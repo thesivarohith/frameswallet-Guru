@@ -120,7 +120,7 @@ export default function TestimonialsBento({
                   background: 'linear-gradient(to right, transparent, rgba(57,255,20,0.5))',
                 }} />
                 <h2 style={{
-                  fontFamily: "'Playfair Display', serif",
+                  fontFamily: "'Cormorant Garamond', serif",
                   fontSize: 'clamp(32px, 5vw, 48px)',
                   color: '#F5F0E8',
                   fontWeight: 700,
@@ -151,7 +151,7 @@ export default function TestimonialsBento({
                 {/* Header Card */}
                 <div className="bento-card bento-header group" style={{ backgroundColor: headerCardBgColor }}>
                     <div className="bento-header-blur" style={{ backgroundColor: headerCardBlurColor }} />
-                    <h2 className="t-h2" style={{ color: headerTextColor, fontFamily: "'Playfair Display', serif" }}>{headerText}</h2>
+                    <h2 className="t-h2" style={{ color: headerTextColor, fontFamily: "'Cormorant Garamond', serif" }}>{headerText}</h2>
                 </div>
 
                 {/* Card 1 */}

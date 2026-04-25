@@ -112,7 +112,7 @@ export default function Tunnel() {
           }} />
           <h2
             style={{
-              fontFamily: "'Playfair Display', serif",
+              fontFamily: "'Cormorant Garamond', serif",
               fontSize: 'clamp(32px, 8vw, 48px)',
               color: '#F5F0E8',
               margin: 0,
@@ -149,7 +149,7 @@ export default function Tunnel() {
           fontSize: '11px',
           letterSpacing: '4px',
           textTransform: 'uppercase',
-          color: 'rgba(245,240,232,0.5)',
+          color: '#86efac',
           textAlign: 'center',
           marginBottom: '16px',
         }}
@@ -197,7 +197,7 @@ export default function Tunnel() {
             borderRadius: '16px',
             overflow: 'hidden',
             cursor: 'ew-resize',
-            border: '1px solid rgba(57,255,20,0.2)',
+            border: '1px solid rgba(134,239,172,0.15)',
             boxShadow: '0 0 60px rgba(0,0,0,0.8)',
             userSelect: 'none',
             opacity: fading ? 0 : 1,
@@ -461,7 +461,7 @@ export default function Tunnel() {
                 width: i === activeIndex ? '20px' : '4px',
                 height: '4px',
                 borderRadius: i === activeIndex ? '2px' : '50%',
-                background: i === activeIndex ? '#39FF14' : 'rgba(57,255,20,0.2)',
+                background: i === activeIndex ? '#39FF14' : 'rgba(134,239,172,0.25)',
                 border: 'none',
                 padding: 0,
                 cursor: 'pointer',

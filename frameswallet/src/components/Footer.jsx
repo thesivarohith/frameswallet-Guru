@@ -149,7 +149,7 @@ export default function Footer() {
                             letterSpacing: '-1px'
                         }}>Let's craft.</h2>
                         <p style={{
-                            color: 'rgba(245,240,232,0.6)',
+                            color: '#86efac',
                             maxWidth: '448px',
                             margin: 0,
                             lineHeight: 1.6

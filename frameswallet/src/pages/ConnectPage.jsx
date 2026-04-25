@@ -38,7 +38,7 @@ export default function ConnectPage() {
     fontFamily: "'Inter', sans-serif",
     fontSize: 10,
     letterSpacing: 5,
-    color: 'rgba(57,255,20,0.5)',
+    color: '#86efac',
     textTransform: 'uppercase',
     marginBottom: 8,
   };
@@ -98,7 +98,7 @@ export default function ConnectPage() {
             position: 'absolute',
             inset: 0,
             fontSize: 400,
-            fontFamily: "'Playfair Display', serif",
+            fontFamily: "'Cormorant Garamond', serif",
             color: 'rgba(57,255,20,0.015)',
             display: 'flex',
             alignItems: 'center',
@@ -139,7 +139,7 @@ export default function ConnectPage() {
           <h1
             style={{
               ...revealStyle('h1'),
-              fontFamily: "'Playfair Display', serif",
+              fontFamily: "'Cormorant Garamond', serif",
               fontWeight: 700,
               fontSize: 'clamp(48px, 8vw, 120px)',
               color: '#F5F0E8',
@@ -154,7 +154,6 @@ export default function ConnectPage() {
               ...revealStyle('h2'),
               fontFamily: "'Playfair Display', serif",
               fontStyle: 'italic',
-              fontWeight: 700,
               fontSize: 'clamp(48px, 8vw, 120px)',
               color: '#39FF14',
               textShadow: '0 0 80px rgba(57,255,20,0.3)',
@@ -171,7 +170,7 @@ export default function ConnectPage() {
               ...revealStyle('sub'),
               fontFamily: "'Inter', sans-serif",
               fontSize: 18,
-              color: 'rgba(245,240,232,0.4)',
+              color: '#86efac',
               letterSpacing: 1,
               marginBottom: 80,
               marginTop: 0,
@@ -203,7 +202,7 @@ export default function ConnectPage() {
               <div style={labelStyle}>WHATSAPP</div>
               <div
                 style={{
-                  fontFamily: "'Playfair Display', serif",
+                  fontFamily: "'Cormorant Garamond', serif",
                   fontWeight: 700,
                   fontSize: 'clamp(32px, 5vw, 72px)',
                   color: hoveredItem === 'wa' ? '#39FF14' : '#F5F0E8',
@@ -245,7 +244,7 @@ export default function ConnectPage() {
               <div style={labelStyle}>EMAIL</div>
               <div
                 style={{
-                  fontFamily: "'Playfair Display', serif",
+                  fontFamily: "'Cormorant Garamond', serif",
                   fontWeight: 700,
                   fontSize: 'clamp(24px, 3.5vw, 52px)',
                   color: hoveredItem === 'email' ? '#39FF14' : '#F5F0E8',
@@ -291,9 +290,8 @@ export default function ConnectPage() {
                 style={{
                   fontFamily: "'Playfair Display', serif",
                   fontStyle: 'italic',
-                  fontWeight: 700,
                   fontSize: 'clamp(24px, 3.5vw, 52px)',
-                  color: hoveredItem === 'ig' ? '#39FF14' : 'rgba(245,240,232,0.6)',
+                  color: hoveredItem === 'ig' ? '#39FF14' : '#86efac',
                   transition: 'color 0.3s ease',
                 }}
               >

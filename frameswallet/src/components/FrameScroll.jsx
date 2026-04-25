@@ -162,18 +162,18 @@ export default function FrameScroll() {
         paddingTop: '60px' // Prevent navbar overlap
       }}>
         <div style={{ display: 'flex', alignItems: 'baseline', flexWrap: 'wrap', justifyContent: 'center', padding: '0 16px' }}>
-          <span style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(38px, 12vw, 48px)', fontWeight: '700', color: '#F5F0E8', lineHeight: 1 }}>frames</span>
+          <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(38px, 12vw, 48px)', fontWeight: '700', color: '#F5F0E8', lineHeight: 1 }}>frames</span>
           <span style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(38px, 12vw, 48px)', fontStyle: 'italic', color: '#39FF14', lineHeight: 1 }}>.wallet</span>
         </div>
-        <div style={{ fontFamily: "'Inter', sans-serif", fontSize: 'clamp(10px, 3vw, 12px)', letterSpacing: 'clamp(3px, 1.5vw, 6px)', color: 'rgba(245,240,232,0.4)', textTransform: 'uppercase', marginTop: '16px', textAlign: 'center', padding: '0 16px' }}>
+        <div style={{ fontFamily: "'Inter', sans-serif", fontSize: 'clamp(10px, 3vw, 12px)', letterSpacing: 'clamp(3px, 1.5vw, 6px)', color: '#86efac', textTransform: 'uppercase', marginTop: '16px', textAlign: 'center', padding: '0 16px' }}>
           VIDEO EDITING STUDIO
         </div>
         <div style={{ width: '40px', height: '1px', background: '#39FF14', margin: '40px auto 16px auto' }}></div>
-        <div style={{ fontFamily: "'Inter', sans-serif", fontSize: '10px', letterSpacing: '4px', color: 'rgba(57,255,20,0.6)', textTransform: 'uppercase', textAlign: 'center' }}>
+        <div style={{ fontFamily: "'Inter', sans-serif", fontSize: '10px', letterSpacing: '4px', color: '#86efac', textTransform: 'uppercase', textAlign: 'center' }}>
           SCROLL TO EXPLORE
         </div>
         <div style={{ marginTop: '16px', animation: 'bounce 1s infinite' }}>
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(57,255,20,0.6)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#86efac" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <polyline points="6 9 12 15 18 9"></polyline>
           </svg>
         </div>
@@ -210,18 +210,18 @@ export default function FrameScroll() {
             pointerEvents: 'none'
           }}>
             <div style={{ display: 'flex', alignItems: 'baseline' }}>
-              <span style={{ fontFamily: "'Playfair Display', serif", fontSize: '96px', fontWeight: '700', color: '#F5F0E8' }}>frames</span>
+              <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '96px', fontWeight: '700', color: '#F5F0E8' }}>frames</span>
               <span style={{ fontFamily: "'Playfair Display', serif", fontSize: '96px', fontStyle: 'italic', color: '#39FF14' }}>.wallet</span>
             </div>
-            <div style={{ fontFamily: "'Inter', sans-serif", fontSize: '13px', letterSpacing: '6px', color: 'rgba(245,240,232,0.6)', textTransform: 'uppercase', marginTop: '16px' }}>
+            <div style={{ fontFamily: "'Inter', sans-serif", fontSize: '13px', letterSpacing: '6px', color: '#86efac', textTransform: 'uppercase', marginTop: '16px' }}>
               VIDEO EDITING STUDIO
             </div>
             <div style={{ width: '40px', height: '1px', background: '#39FF14', margin: '16px auto' }}></div>
-            <div style={{ fontFamily: "'Inter', sans-serif", fontSize: '10px', letterSpacing: '4px', color: 'rgba(57,255,20,0.6)', textTransform: 'uppercase' }}>
+            <div style={{ fontFamily: "'Inter', sans-serif", fontSize: '10px', letterSpacing: '4px', color: '#86efac', textTransform: 'uppercase' }}>
               SCROLL TO EXPLORE
             </div>
             <div style={{ marginTop: '16px', animation: 'bounce-desktop 1s infinite' }}>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(57,255,20,0.6)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#86efac" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="6 9 12 15 18 9"></polyline>
               </svg>
             </div>
@@ -285,7 +285,7 @@ export default function FrameScroll() {
           fontFamily: "'Inter', sans-serif",
           fontSize: '11px',
           letterSpacing: '3px',
-          color: 'rgba(57,255,20,0.5)',
+          color: '#86efac',
           textTransform: 'uppercase'
         }}>
           Preparing your experience...

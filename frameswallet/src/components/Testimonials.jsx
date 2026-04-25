@@ -117,7 +117,7 @@ export default function Testimonials() {
                   background: 'linear-gradient(to right, transparent, rgba(57,255,20,0.5))',
                 }} />
                 <h2 style={{
-                  fontFamily: "'Playfair Display', serif",
+                  fontFamily: "'Cormorant Garamond', serif",
                   fontSize: '48px',
                   color: '#F5F0E8',
                   fontWeight: 700,
@@ -266,7 +266,7 @@ export default function Testimonials() {
                         {/* Metadata */}
                         <div>
                           <div style={{
-                            fontFamily: isActive ? "'Playfair Display', serif" : "'Inter', sans-serif",
+                            fontFamily: isActive ? "'Cormorant Garamond', serif" : "'Inter', sans-serif",
                             fontSize: isActive ? '22px' : '14px',
                             fontWeight: isActive ? 700 : 400,
                             color: isActive ? '#F5F0E8' : 'rgba(245,240,232,0.35)',
@@ -278,7 +278,7 @@ export default function Testimonials() {
                           
                           {isActive ? (
                             <div style={{ fontFamily: "'Inter', sans-serif", fontSize: '13px', color: '#39FF14', transition: 'all 0.5s ease' }}>
-                              ★ {client.rating.toFixed(1)} <span style={{ color: 'rgba(245,240,232,0.5)', fontSize: '12px' }}>&bull; {client.date}</span>
+                              ★ {client.rating.toFixed(1)} <span style={{ color: '#86efac', fontSize: '12px' }}>&bull; {client.date}</span>
                             </div>
                           ) : (
                             <div style={{ fontFamily: "'Inter', sans-serif", fontSize: '12px', color: 'rgba(57,255,20,0.35)', transition: 'all 0.5s ease' }}>

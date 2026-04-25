@@ -189,7 +189,7 @@ function MilestoneFrame({ m, index, total }) {
         {/* Info area */}
         <div style={{ padding: '16px 18px', borderTop: '1px solid #1a1a1a' }}>
           <div style={{
-            fontFamily: "'Playfair Display', serif", fontSize: 16,
+            fontFamily: "'Cormorant Garamond', serif", fontSize: 16,
             color: '#F5F0E8', marginBottom: 6,
           }}>{m.title}</div>
           <div style={{
@@ -481,7 +481,7 @@ export default function TeamPage() {
           <span className="base-layer" style={{ display: 'block' }}>
             <span style={{
               display: 'block',
-              fontFamily: "'Playfair Display', serif",
+              fontFamily: "'Cormorant Garamond', serif",
               fontWeight: 700,
               fontSize: 'clamp(40px, 6vw, 72px)',
               color: '#F5F0E8', lineHeight: 1.1,
@@ -502,7 +502,7 @@ export default function TeamPage() {
           <span className="spotlight-layer" aria-hidden="true" style={{ display: 'block' }}>
             <span style={{
               display: 'block',
-              fontFamily: "'Playfair Display', serif",
+              fontFamily: "'Cormorant Garamond', serif",
               fontWeight: 700,
               fontSize: 'clamp(40px, 6vw, 72px)',
               color: '#ffffff', lineHeight: 1.1,
@@ -532,7 +532,7 @@ export default function TeamPage() {
           position: 'relative',
           padding: '0 20px',
         }}>
-          <span className="base-layer" style={{ display: 'block', color: 'rgba(245,240,232,0.5)' }}>
+          <span className="base-layer" style={{ display: 'block', color: '#86efac' }}>
             A team of 15+ editors, colorists and motion designers obsessed with the
             craft of visual storytelling. Based across Chennai, Coimbatore and Remote
             — we deliver content that stops the scroll.
@@ -552,7 +552,7 @@ export default function TeamPage() {
           <span style={{
             fontFamily: "'Inter', sans-serif",
             fontSize: 10, letterSpacing: 4,
-            color: 'rgba(57,255,20,0.4)', textTransform: 'uppercase',
+            color: '#86efac', textTransform: 'uppercase',
           }}>
             Scroll to Explore
           </span>
@@ -574,14 +574,14 @@ export default function TeamPage() {
         {/* Section heading */}
         <div className="reveal" style={{ textAlign: 'center', marginBottom: 48, padding: '0 clamp(16px, 5vw, 48px)' }}>
           <h2 style={{
-            fontFamily: "'Playfair Display', serif",
+            fontFamily: "'Cormorant Garamond', serif",
             fontSize: 'clamp(28px, 6vw, 40px)', color: '#F5F0E8', margin: 0,
           }}>Our Journey</h2>
           <p style={{
             fontFamily: "'Inter', sans-serif",
             fontSize: 'clamp(9px, 2.5vw, 12px)',
             letterSpacing: 'clamp(2px, 1vw, 4px)',
-            color: '#39FF14', textTransform: 'uppercase',
+            color: '#86efac', textTransform: 'uppercase',
             marginTop: 12,
             whiteSpace: 'normal',
             wordBreak: 'break-word',
@@ -657,7 +657,7 @@ export default function TeamPage() {
                   fontFamily: "'Playfair Display', serif",
                   fontStyle: 'italic',
                   fontSize: 16,
-                  color: 'rgba(57,255,20,0.5)',
+                  color: '#86efac',
                   textAlign: 'center',
                   whiteSpace: 'nowrap',
                 }}>The story continues...</div>
@@ -723,16 +723,21 @@ export default function TeamPage() {
         maxWidth: 1100, margin: '0 auto',
       }}>
         <h2 className="reveal" style={{
-          fontFamily: "'Playfair Display', serif",
-          fontWeight: 700, fontSize: 40,
+          fontFamily: "'Cormorant Garamond', serif",
+          fontWeight: 700, fontSize: 'clamp(28px, 6vw, 40px)',
           color: '#F5F0E8', textAlign: 'center',
           margin: 0,
+          wordBreak: 'break-word',
+          overflowWrap: 'break-word',
+          maxWidth: '100%',
+          padding: '0 16px',
         }}>
-          Why Choose <span className="highlight-pen"><span className="highlight-text">frames<span style={{ fontFamily: "'Playfair Display', serif", fontStyle: 'italic' }}>.wallet</span></span></span>?
+          Why Choose{' '}
+          <span style={{ display: 'block', fontFamily: "'Playfair Display', serif", fontStyle: 'italic', fontSize: 'clamp(28px, 8vw, 52px)', color: '#39FF14' }}>frames.wallet?</span>
         </h2>
         <p className="reveal" style={{
           fontFamily: "'Inter', sans-serif",
-          fontSize: 15, color: 'rgba(245,240,232,0.5)',
+          fontSize: 15, color: '#86efac',
           maxWidth: 580, margin: '16px auto 64px',
           textAlign: 'center', lineHeight: 1.7,
         }}>
@@ -763,7 +768,7 @@ export default function TeamPage() {
         textAlign: 'center',
       }}>
         <h2 style={{
-          fontFamily: "'Playfair Display', serif",
+          fontFamily: "'Cormorant Garamond', serif",
           fontStyle: 'italic',
           fontSize: 'clamp(28px, 4vw, 48px)',
           color: '#F5F0E8', margin: 0,

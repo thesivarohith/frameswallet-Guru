@@ -75,7 +75,7 @@ const StatRow = ({ stat, rowIndex, triggered }) => {
       style={{
         display: 'flex',
         alignItems: 'center',
-        borderBottom: '1px solid rgba(57,255,20,0.15)',
+        borderBottom: '1px solid rgba(134,239,172,0.15)',
         position: 'relative',
         overflow: 'hidden',
         background: hovered ? 'rgba(57,255,20,0.02)' : 'transparent',
@@ -179,7 +179,7 @@ export default function Team() {
               right: 80px;
               font-family: 'Inter', sans-serif;
               font-size: 11px;
-              color: rgba(57,255,20,0.45);
+              color: #86efac;
               letter-spacing: 3px;
             }
             .stat-left { 
@@ -202,7 +202,7 @@ export default function Team() {
               display: flex;
               align-items: baseline;
               gap: 8px;
-              font-family: 'Playfair Display', serif;
+              font-family: 'Cormorant Garamond', serif;
               font-size: clamp(64px, 7vw, 110px);
               font-weight: 700;
               color: #F5F0E8;
@@ -213,7 +213,7 @@ export default function Team() {
               font-size: 0.4em;
               color: #39FF14;
               font-style: italic;
-              font-family: 'Playfair Display', serif;
+              font-family: 'Cormorant Garamond', serif;
             }
             .stat-right { 
               width: 50%; 
@@ -313,7 +313,7 @@ export default function Team() {
                 background: 'linear-gradient(to right, transparent, rgba(57,255,20,0.5))',
               }} />
               <h2 style={{
-                fontFamily: "'Playfair Display', serif",
+                fontFamily: "'Cormorant Garamond', serif",
                 fontSize: '48px',
                 color: '#F5F0E8',
                 margin: 0,
@@ -348,7 +348,7 @@ export default function Team() {
             position: 'relative',
             zIndex: 1
           }}>
-            <div style={{ borderTop: '1px solid rgba(57,255,20,0.08)' }}>
+            <div style={{ borderTop: '1px solid rgba(134,239,172,0.12)' }}>
               {statsData.map((stat, i) => (
                 <StatRow 
                   key={i} 
@@ -367,7 +367,7 @@ export default function Team() {
             fontFamily: "'Playfair Display', serif",
             fontStyle: 'italic',
             fontSize: 'clamp(20px, 3vw, 36px)',
-            color: 'rgba(245,240,232,0.6)',
+            color: '#86efac',
             position: 'relative',
             zIndex: 1
           }}>

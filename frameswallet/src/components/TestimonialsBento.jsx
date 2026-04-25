@@ -62,7 +62,6 @@ export default function TestimonialsBento({
     card3AvatarBorderColor = "#39FF14",
     card3QuoteColor = "#F5F0E8",
     card3QuoteItalic = true,
-    card3AuthorColor = "#F5F0E8",
     card3RoleColor = "#888888",
     statCardBgColor = "#1a1a1a",
     statValueColor = "#39FF14",

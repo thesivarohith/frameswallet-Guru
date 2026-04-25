@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+// eslint-disable-next-line no-unused-vars
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 
 // Mock data with varying widths to create that "irregular" look

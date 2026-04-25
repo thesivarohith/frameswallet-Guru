@@ -47,15 +47,7 @@ export default function Testimonials() {
     return () => observer.disconnect();
   }, []);
 
-  // Auto cycle
-  useEffect(() => {
-    const timer = setInterval(() => {
-      handleClientChange((active + 1) % clients.length);
-    }, 3000);
-    return () => clearInterval(timer);
-  }, [active]);
-
-  const handleClientChange = (index) => {
+  const handleClientChange = React.useCallback((index) => {
     if (index === active) return;
     setQuoteVisible(false); // Fade out
     
@@ -65,7 +57,15 @@ export default function Testimonials() {
       setActive(index); // Ensure styling on left list updates exactly as quote swaps
       setQuoteVisible(true); // Fade back in over 400ms
     }, 250); 
-  };
+  }, [active, clients]);
+
+  // Auto cycle
+  useEffect(() => {
+    const timer = setInterval(() => {
+      handleClientChange((active + 1) % clients.length);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, [active, handleClientChange, clients.length]);
 
   return (
     <div ref={sectionRef} style={{ position: 'relative', overflow: 'hidden', background: 'transparent', zIndex: 1, scrollSnapAlign: 'start', scrollSnapStop: 'always' }}>

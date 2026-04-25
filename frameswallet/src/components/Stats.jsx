@@ -47,15 +47,21 @@ export default function Stats() {
   // Animate stat transitions
   useEffect(() => {
     if (active === displayIndex) return;
-    setAnimating(true);
+    
+    const animTimer = setTimeout(() => {
+      setAnimating(true);
+    }, 0);
 
     const t = setTimeout(() => {
       setDisplayIndex(active);
       setAnimating(false);
     }, 200);
 
-    return () => clearTimeout(t);
-  }, [active]);
+    return () => {
+      clearTimeout(animTimer);
+      clearTimeout(t);
+    };
+  }, [active, displayIndex]);
 
   const contentStyle = {
     opacity: animating ? 0 : 1,

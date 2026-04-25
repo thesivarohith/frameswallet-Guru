@@ -19,14 +19,13 @@ export default function ParticleSystem() {
     // Sections detected by scroll position
     // 0=hero, 1=stats, 2=ourwork, 3=team, 4=testimonials
     let currentSection = 0
-    let scrollY = 0
 
     // ── PARTICLE INIT ──
     for (let i = 0; i < PARTICLE_COUNT; i++) {
       particles.push(createParticle(i))
     }
 
-    function createParticle(i) {
+    function createParticle() {
       return {
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
@@ -70,7 +69,6 @@ export default function ParticleSystem() {
     }
 
     window.addEventListener('scroll', () => {
-      scrollY = window.scrollY
       detectSection()
     }, { passive: true })
 

@@ -122,18 +122,13 @@ const StatRow = ({ stat, rowIndex, triggered }) => {
 export default function Team() {
   const sectionRef = useRef(null);
   const [triggered, setTriggered] = useState(false);
-  const [particles, setParticles] = useState([]);
-
-  useEffect(() => {
-    const generated = Array.from({ length: 20 }).map((_, i) => ({
-      id: i,
-      left: Math.random() * 100,
-      top: Math.random() * 100,
-      duration: 4 + Math.random() * 4,
-      delay: Math.random() * -8
-    }));
-    setParticles(generated);
-  }, []);
+  const [particles] = useState(() => Array.from({ length: 20 }).map((_, i) => ({
+    id: i,
+    left: Math.random() * 100,
+    top: Math.random() * 100,
+    duration: 4 + Math.random() * 4,
+    delay: Math.random() * -8
+  })));
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {

@@ -732,8 +732,7 @@ export default function TeamPage() {
           maxWidth: '100%',
           padding: '0 16px',
         }}>
-          Why Choose{' '}
-          <span style={{ display: 'block', fontFamily: "'Playfair Display', serif", fontStyle: 'italic', fontSize: 'clamp(28px, 8vw, 52px)', color: '#39FF14' }}>frames.wallet?</span>
+          Why Choose <span className="highlight-pen"><span className="highlight-text">frames<span style={{ fontFamily: "'Playfair Display', serif", fontStyle: 'italic' }}>.wallet</span></span></span>?
         </h2>
         <p className="reveal" style={{
           fontFamily: "'Inter', sans-serif",

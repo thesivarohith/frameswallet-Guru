@@ -12,14 +12,7 @@ dist/
 dist-ssr/
 *.local
 
-# Media
-public/frames/
-*.avif
-*.webp
-*.png
-*.jpg
-*.jpeg
-*.gif
+# Media (allowed for Vercel deployment)
 
 # Editor directories and files
 .vscode/*
